@@ -1,6 +1,6 @@
 # MLB.rb
 
-**MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.
+**MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.**
 
 ## Get it
 

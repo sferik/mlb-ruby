@@ -1,0 +1,16 @@
+*.db
+*.gem
+*.sqlite
+*.sqlite3
+*~
+.#*
+.DS_Store
+.hg/*
+.hgignore
+.svn/*
+TAGS
+TODO
+coverage/*
+pkg/*
+src/*
+tmp/*

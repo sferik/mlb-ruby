@@ -35,7 +35,7 @@ At the command prompt, type:
     => "Shea Stadium"
     >> team.logo_url
     => "http://img.freebase.com/api/trans/image_thumb/wikipedia/images/commons_id/3269938"
-    >> player = team.roster[14]; nil
+    >> player = team.players[14]; nil
     => nil
     >> player.name
     => "David Wright"

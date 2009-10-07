@@ -18,7 +18,13 @@ class MLB
           :league   => result['league']['name'],
           :division => result['division']['name'],
           :manager  => result['current_manager']['name'],
-          :players  => result['current_roster'].map{|player| OpenStruct.new({:name => player['player'], :number => player['number'], :position => player['position'],})},
+          :players  => result['current_roster'].map {|player|
+            OpenStruct.new({
+              :name => player['player'],
+              :number => player['number'],
+              :position => player['position'],
+            })
+          },
           :wins     => result['team_stats'].first['wins'].to_i,
           :losses   => result['team_stats'].first['losses'].to_i,
           :founded  => result['/sports/sports_team/founded'].first['value'].to_i,

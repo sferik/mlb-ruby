@@ -8,7 +8,42 @@ class MLB
 
   def self.teams
     format :json
-    @query ||= {
+    @query ||= team_query
+    @response ||= exec_mql(@query)
+    @results ||= []
+    if @results.empty?
+      @response['result'].each do |result|
+        @results << OpenStruct.new({
+          :name     => result['name'],
+          :league   => result['league']['name'],
+          :division => result['division']['name'],
+          :manager  => result['current_manager']['name'],
+          :players  => result['current_roster'].map{|player| OpenStruct.new({:name => player['player'], :number => player['number'], :position => player['position'],})},
+          :wins     => result['team_stats'].first['wins'].to_i,
+          :losses   => result['team_stats'].first['losses'].to_i,
+          :founded  => result['/sports/sports_team/founded'].first['value'].to_i,
+          :mascot   => (result['/sports/sports_team/team_mascot'].first ? result['/sports/sports_team/team_mascot'].first['name'] : nil),
+          :ballpark => result['/sports/sports_team/arena_stadium'].first['name'],
+          :logo_url => 'http://img.freebase.com/api/trans/image_thumb' + result['/common/topic/image'].first['id'],
+        })
+      end
+    end
+    @results
+  end
+
+  private
+
+  def self.exec_mql(query)
+    response ||= get('/service/mqlread?', :query => {:query => query.to_json})
+    unless response['code'] == '/api/status/ok'
+      errors = Array(response['messages']).map{|m| m.inspect}.join(', ')
+      raise "#{response['status']}: #{errors} (#{response['transaction_id']})"
+    end
+    response
+  end
+
+  def self.team_query
+    {
       :query => [
         {
           'name' => nil,
@@ -53,31 +88,6 @@ class MLB
         }
       ]
     }
-
-    @response ||= get('/service/mqlread?', :query => {:query => @query.to_json})
-    unless @response['code'] == '/api/status/ok'
-      errors = Array(@response['messages']).map{|m| m.inspect}.join(', ')
-      raise "#{@response['status']}: #{errors} (#{@response['transaction_id']})"
-    end
-    @results ||= []
-    if @results.empty?
-      @response['result'].each do |result|
-        @results << OpenStruct.new({
-          :name     => result['name'],
-          :league   => result['league']['name'],
-          :division => result['division']['name'],
-          :manager  => result['current_manager']['name'],
-          :players  => result['current_roster'].map{|player| OpenStruct.new({:name => player['player'], :number => player['number'], :position => player['position'],})},
-          :wins     => result['team_stats'].first['wins'].to_i,
-          :losses   => result['team_stats'].first['losses'].to_i,
-          :founded  => result['/sports/sports_team/founded'].first['value'].to_i,
-          :mascot   => (result['/sports/sports_team/team_mascot'].first ? result['/sports/sports_team/team_mascot'].first['name'] : nil),
-          :ballpark => result['/sports/sports_team/arena_stadium'].first['name'],
-          :logo_url => 'http://img.freebase.com/api/trans/image_thumb' + result['/common/topic/image'].first['id'],
-        })
-      end
-    end
-    @results
   end
 
 end

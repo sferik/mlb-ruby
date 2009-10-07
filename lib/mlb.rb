@@ -54,7 +54,7 @@ class MLB
       ]
     }
 
-    @response ||= get('/service/mqlread?', :query => {:query => JSON.unparse(@query)})
+    @response ||= get('/service/mqlread?', :query => {:query => @query.to_json})
     unless @response['code'] == '/api/status/ok'
       errors = Array(@response['messages']).map{|m| m.inspect}.join(', ')
       raise "#{@response['status']}: #{errors} (#{@response['transaction_id']})"

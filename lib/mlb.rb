@@ -6,6 +6,21 @@ class MLB
   include HTTParty
   base_uri 'http://www.freebase.com/api'
 
+  # Returns an array of objects, one for each Major League Baseball team
+  #
+  #   MLB.teams.first.name                    # => "Arizona Diamondbacks"
+  #   MLB.teams.first.league                  # => "National League"
+  #   MLB.teams.first.division                # => "National League West"
+  #   MLB.teams.first.manager                 # => "Bob Melvin"
+  #   MLB.teams.first.wins                    # => 82
+  #   MLB.teams.first.losses                  # => 80
+  #   MLB.teams.first.founded                 # => 1998
+  #   MLB.teams.first.mascot                  # => nil
+  #   MLB.teams.first.ballpark                # => "Chase Field"
+  #   MLB.teams.first.logo_url                # => "http://img.freebase.com/api/trans/image_thumb/wikipedia/images/en_id/13104064"
+  #   MLB.teams.first.players.first.name      # => "Alex Romero"
+  #   MLB.teams.first.players.first.number    # => 28
+  #   MLB.teams.first.players.first.position  # => "Right fielder"
   def self.teams
     format :json
     @query ||= team_query
@@ -18,6 +33,12 @@ class MLB
           :league   => result['league']['name'],
           :division => result['division']['name'],
           :manager  => result['current_manager']['name'],
+          :wins     => result['team_stats'].first['wins'].to_i,
+          :losses   => result['team_stats'].first['losses'].to_i,
+          :founded  => result['/sports/sports_team/founded'].first['value'].to_i,
+          :mascot   => (result['/sports/sports_team/team_mascot'].first ? result['/sports/sports_team/team_mascot'].first['name'] : nil),
+          :ballpark => result['/sports/sports_team/arena_stadium'].first['name'],
+          :logo_url => 'http://img.freebase.com/api/trans/image_thumb' + result['/common/topic/image'].first['id'],
           :players  => result['current_roster'].map {|player|
             OpenStruct.new({
               :name => player['player'],
@@ -25,12 +46,6 @@ class MLB
               :position => player['position'],
             })
           },
-          :wins     => result['team_stats'].first['wins'].to_i,
-          :losses   => result['team_stats'].first['losses'].to_i,
-          :founded  => result['/sports/sports_team/founded'].first['value'].to_i,
-          :mascot   => (result['/sports/sports_team/team_mascot'].first ? result['/sports/sports_team/team_mascot'].first['name'] : nil),
-          :ballpark => result['/sports/sports_team/arena_stadium'].first['name'],
-          :logo_url => 'http://img.freebase.com/api/trans/image_thumb' + result['/common/topic/image'].first['id'],
         })
       end
     end
@@ -39,15 +54,21 @@ class MLB
 
   private
 
+  # Converts MQL query to JSON and sends to Freebase API
   def self.exec_mql(query)
-    response ||= get('/service/mqlread?', :query => {:query => query.to_json})
-    unless response['code'] == '/api/status/ok'
-      errors = Array(response['messages']).map{|m| m.inspect}.join(', ')
-      raise "#{response['status']}: #{errors} (#{response['transaction_id']})"
+    begin
+      response ||= get('/service/mqlread?', :query => {:query => query.to_json})
+      unless response['code'] == '/api/status/ok'
+        errors = Array(response['messages']).map{|m| m.inspect}.join(', ')
+        raise "#{response['status']}: #{errors} (#{response['transaction_id']})"
+      end
+    rescue SocketError, Errno::ECONNREFUSED => e
+      raise Exception.new("Could not connect. Unclog tubes and try again.")
     end
     response
   end
 
+  # Returns the MQL query for teams, as a Ruby hash
   def self.team_query
     {
       :query => [

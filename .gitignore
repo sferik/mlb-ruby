@@ -11,6 +11,7 @@
 TAGS
 TODO
 coverage/*
+doc/*
 pkg/*
 src/*
 tmp/*

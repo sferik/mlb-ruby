@@ -1,4 +1,4 @@
-= MLB.rb
+== MLB.rb
 
 ==== MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.
 
@@ -23,7 +23,7 @@ At the command prompt, type:
   >> MLB.teams.first.players.first.number    # => 28
   >> MLB.teams.first.players.first.position  # => "Right fielder"
 
-=== Acknowledgements
+== Acknowledgements
 Many thanks to:
 * Freebase[http://www.freebase.com]
 * httparty[http://github.com/jnunemaker/httparty]

@@ -116,6 +116,7 @@ class MLB
     }
   end
 
+  # Error wrapper for puts (red, with prefix)
   def self.error(message)
     puts "\033[1;31mError: #{message}\033[0m"
   end

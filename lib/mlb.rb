@@ -116,8 +116,8 @@ class MLB
     }
   end
 
-  def self.error(*messages)
-    puts messages.map{|msg| "\033[1;31mError: #{msg}\033[0m"}
+  def self.error(message)
+    puts "\033[1;31mError: #{message}\033[0m"
   end
 
 end

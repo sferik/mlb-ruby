@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mlb}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Erik Michaels-Ober"]
@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = %q{MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.}
   s.email = %q{sferik@gmail.com}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE"]
-  s.files = ["LICENSE", "README.rdoc", "Rakefile", "doc/classes", "doc/classes/MLB.html", "doc/created.rid", "doc/files", "doc/files/lib", "doc/files/lib/mlb_rb.html", "doc/files/LICENSE.html", "doc/files/README_rdoc.html", "doc/fr_class_index.html", "doc/fr_file_index.html", "doc/fr_method_index.html", "doc/index.html", "doc/rdoc-style.css", "lib/mlb.rb"]
+  s.files = ["LICENSE", "README.rdoc", "Rakefile", "lib/mlb.rb"]
   s.homepage = %q{http://github.com/sferik/mlb}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}

@@ -22,11 +22,10 @@ class MLB
   #   MLB.teams.first.players.first.number    # => 28
   #   MLB.teams.first.players.first.position  # => "Right fielder"
   def self.teams
-    format :json
     @query ||= team_query
-    @response ||= exec_mql(@query)
+    @response ||= exec_query(@query)
     @results ||= []
-    if @results.empty?
+    if @response && @results.empty?
       @response['result'].each do |result|
         @results << OpenStruct.new({
           :name     => result['name'],
@@ -54,16 +53,16 @@ class MLB
 
   private
 
-  # Converts MQL query to JSON and sends to Freebase API
-  def self.exec_mql(query)
+  # Converts MQL query to JSON and fetches response from Freebase API
+  def self.exec_query(query)
+    format :json
     begin
-      response ||= get('/service/mqlread?', :query => {:query => query.to_json})
-      unless response['code'] == '/api/status/ok'
-        errors = Array(response['messages']).map{|m| m.inspect}.join(', ')
-        raise "#{response['status']}: #{errors} (#{response['transaction_id']})"
+      response = get('/service/mqlread?', :query => {:query => query.to_json})
+      if response['code'] != '/api/status/ok'
+        error("#{response['status']} (Transaction: #{response['transaction_id']})")
       end
     rescue SocketError, Errno::ECONNREFUSED => e
-      raise Exception.new("Could not connect. Unclog tubes and try again.")
+      error("Could not connect. Unclog tubes and try again.")
     end
     response
   end
@@ -115,6 +114,10 @@ class MLB
         }
       ]
     }
+  end
+
+  def self.error(*messages)
+    puts messages.map{|msg| "\033[1;31mError: #{msg}\033[0m"}
   end
 
 end

@@ -8,7 +8,7 @@ AUTHOR = "Erik Michaels-Ober"
 EMAIL = "sferik@gmail.com"
 HOMEPAGE = "http://github.com/sferik/mlb"
 SUMMARY = "MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues."
-GEM_VERSION = "0.0.5"
+GEM_VERSION = "0.1.0"
 
 spec = Gem::Specification.new do |s|
   s.name = GEM_NAME
@@ -24,7 +24,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency("httparty", ">= 0.4.5")
   s.add_dependency("json", ">= 1.1.9")
   s.require_path = "lib"
-  s.files = %w(LICENSE README.rdoc Rakefile) + Dir.glob("{doc,lib}/**/*")
+  s.files = %w(LICENSE README.rdoc Rakefile) + Dir.glob("{lib}/**/*")
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|

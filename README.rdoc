@@ -5,20 +5,20 @@
 == Usage
   $ irb
   >> require 'mlb'
-  >> MLB.teams.first.name                    # => "Arizona Diamondbacks"
-  >> MLB.teams.first.league                  # => "National League"
-  >> MLB.teams.first.division                # => "National League West"
-  >> MLB.teams.first.manager                 # => "Bob Melvin"
-  >> MLB.teams.first.wins                    # => 82
-  >> MLB.teams.first.losses                  # => 80
-  >> MLB.teams.first.founded                 # => 1998
-  >> MLB.teams.first.mascot                  # => nil
-  >> MLB.teams.first.ballpark                # => "Chase Field"
-  >> MLB.teams.first.logo_url                # => "http://img.freebase.com/api/trans/image_thumb/wikipedia/images/en_id/13104064"
-  >> MLB.teams.first.players.first.name      # => "Alex Romero"
-  >> MLB.teams.first.players.first.number    # => 28
-  >> MLB.teams.first.players.first.position  # => "Right fielder"
-== Acknowledgements
+  >> MLB::Team.all.first.name                    # => "Arizona Diamondbacks"
+  >> MLB::Team.all.first.league                  # => "National League"
+  >> MLB::Team.all.first.division                # => "National League West"
+  >> MLB::Team.all.first.manager                 # => "Bob Melvin"
+  >> MLB::Team.all.first.wins                    # => 82
+  >> MLB::Team.all.first.losses                  # => 80
+  >> MLB::Team.all.first.founded                 # => 1998
+  >> MLB::Team.all.first.mascot                  # => nil
+  >> MLB::Team.all.first.ballpark                # => "Chase Field"
+  >> MLB::Team.all.first.logo_url                # => "http://img.freebase.com/api/trans/image_thumb/wikipedia/images/en_id/13104064"
+  >> MLB::Team.all.first.players.first.name      # => "Alex Romero"
+  >> MLB::Team.all.first.players.first.number    # => 28
+  >> MLB::Team.all.first.players.first.position  # => "Right fielder"
+== Credits
 Many thanks to:
 * Freebase[http://www.freebase.com]
 * httparty[http://github.com/jnunemaker/httparty]

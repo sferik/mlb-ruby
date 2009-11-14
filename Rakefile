@@ -8,7 +8,7 @@ AUTHOR = "Erik Michaels-Ober"
 EMAIL = "sferik@gmail.com"
 HOMEPAGE = "http://github.com/sferik/mlb"
 SUMMARY = "MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues."
-GEM_VERSION = "0.1.0"
+GEM_VERSION = "0.1.1"
 
 begin
   require 'jeweler'

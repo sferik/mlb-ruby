@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'rake'
-require 'rake/gempackagetask'
 require 'rake/rdoctask'
 
 GEM_NAME = "mlb"
@@ -28,6 +27,7 @@ begin
     gemspec.require_path = "lib"
     gemspec.files = %w(LICENSE README.rdoc Rakefile) + Dir.glob("{lib}/**/*")
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler"
 end

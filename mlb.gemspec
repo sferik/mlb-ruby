@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Erik Michaels-Ober"]
-  s.date = %q{2009-11-13}
+  s.date = %q{2009-11-20}
   s.description = %q{MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.}
   s.email = %q{sferik@gmail.com}
   s.extra_rdoc_files = [
@@ -17,12 +17,14 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "LICENSE",
+    ".gitignore",
+     "LICENSE",
      "README.rdoc",
      "Rakefile",
      "lib/mlb.rb",
      "lib/mlb/player.rb",
-     "lib/mlb/team.rb"
+     "lib/mlb/team.rb",
+     "mlb.gemspec"
   ]
   s.homepage = %q{http://github.com/sferik/mlb}
   s.rdoc_options = ["--charset=UTF-8"]

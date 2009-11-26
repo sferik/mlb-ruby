@@ -19,10 +19,9 @@ module MLB
     private
 
     def initialize(attributes={})
-      super unless attributes.is_a?(Hash)
-      @name     = attributes[:name]
-      @number   = attributes[:number]
-      @position = attributes[:position]
+      attributes.each_pair do |key, value|
+        self.send("#{key}=", value) if self.respond_to?("#{key}=")
+      end
     end
 
   end

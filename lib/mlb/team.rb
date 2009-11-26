@@ -63,18 +63,9 @@ module MLB
     private
 
     def initialize(attributes={})
-      super unless attributes.is_a?(Hash)
-      @name     = attributes[:name]
-      @league   = attributes[:league]
-      @division = attributes[:division]
-      @manager  = attributes[:manager]
-      @wins     = attributes[:wins]
-      @losses   = attributes[:losses]
-      @founded  = attributes[:founded]
-      @mascot   = attributes[:mascot]
-      @ballpark = attributes[:ballpark]
-      @logo_url = attributes[:logo_url]
-      @players  = attributes[:players]
+      attributes.each_pair do |key, value|
+        self.send("#{key}=", value) if self.respond_to?("#{key}=")
+      end
     end
 
     # Converts MQL query to JSON and fetches response from Freebase API
@@ -85,7 +76,7 @@ module MLB
           raise Exception, "#{response['status']} (Transaction: #{response['transaction_id']})"
         end
       rescue SocketError, Errno::ECONNREFUSED
-        raise Exception, "Could not connect. Unclog tubes and try again."
+        # Could not connect. Reverting to offline mode.
       end
       response
     end

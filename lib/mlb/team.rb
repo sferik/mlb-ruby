@@ -6,8 +6,7 @@ module MLB
     include HTTParty
     format :json
     base_uri 'http://www.freebase.com/api'
-    attr_reader :name, :league, :division, :manager, :wins, :losses, :founded, :mascot, :ballpark, :logo_url, :players
-    private_class_method :new
+    attr_accessor :name, :league, :division, :manager, :wins, :losses, :founded, :mascot, :ballpark, :logo_url, :players
 
     # Returns an array of Team objects
     #
@@ -25,42 +24,8 @@ module MLB
     #   MLB::Team.all.first.players.first.number    # => 28
     #   MLB::Team.all.first.players.first.position  # => "Right fielder"
     def self.all
-      @query ||= query
-      @response ||= execute(@query)
-      @results ||= []
-      if @response && @results.empty?
-        @response['result'].each do |result|
-          league      = result['league']
-          division    = result['division']
-          manager     = result['current_manager']
-          stats       = result['team_stats'].first
-          founded     = result['/sports/sports_team/founded'].first
-          mascot      = result['/sports/sports_team/team_mascot'].first
-          ballpark    = result['/sports/sports_team/arena_stadium'].first
-          logo_prefix = 'http://img.freebase.com/api/trans/image_thumb'
-          logo_suffix = result['/common/topic/image'].first
-          players     = result['current_roster']
-
-          @results << new(
-            :name     => result['name'],
-            :league   => (league      ? league['name']                  : nil),
-            :division => (division    ? division['name']                : nil),
-            :manager  => (manager     ? manager['name']                 : nil),
-            :wins     => (stats       ? stats['wins'].to_i              : nil),
-            :losses   => (stats       ? stats['losses'].to_i            : nil),
-            :founded  => (founded     ? founded['value'].to_i           : nil),
-            :mascot   => (mascot      ? mascot['name']                  : nil),
-            :ballpark => (ballpark    ? ballpark['name']                : nil),
-            :logo_url => (logo_suffix ? logo_prefix + logo_suffix['id'] : nil),
-            :players  => (players     ? Player.all_from_roster(players) : [])
-          )
-
-        end
-      end
-      @results
+      @results ||= run
     end
-
-    private
 
     def initialize(attributes={})
       attributes.each_pair do |key, value|
@@ -68,21 +33,101 @@ module MLB
       end
     end
 
-    # Converts MQL query to JSON and fetches response from Freebase API
-    def self.execute(query)
+    private
+
+    # Attempt to fetch the result from the Freebase API
+    # unless there is a connection error, in which case
+    # query a static SQLite3 database.
+    def self.run
       begin
-        response = get('/service/mqlread?', :query => {:query => query.to_json})
-        if response['code'] != '/api/status/ok'
-          raise Exception, "#{response['status']} (Transaction: #{response['transaction_id']})"
-        end
+        run_team_mql
       rescue SocketError, Errno::ECONNREFUSED
-        # Could not connect. Reverting to offline mode.
+        run_team_sql
       end
-      response
+    end
+
+    def self.run_team_mql
+      query = team_mql_query
+      results = get('/service/mqlread?', :query => {:query => query.to_json})
+      raise(Exception, "#{results['status']} (Transaction: #{results['transaction_id']})") unless results['code'] == '/api/status/ok'
+
+      teams = []
+      results['result'].each do |result|
+        league      = result['league']
+        division    = result['division']
+        manager     = result['current_manager']
+        stats       = result['team_stats'].first
+        founded     = result['/sports/sports_team/founded'].first
+        mascot      = result['/sports/sports_team/team_mascot'].first
+        ballpark    = result['/sports/sports_team/arena_stadium'].first
+        logo_prefix = 'http://img.freebase.com/api/trans/image_thumb'
+        logo_suffix = result['/common/topic/image'].first
+        players     = result['current_roster']
+
+        teams << new(
+          :name     => result['name'],
+          :league   => (league      ? league['name']                  : nil),
+          :division => (division    ? division['name']                : nil),
+          :manager  => (manager     ? manager['name']                 : nil),
+          :wins     => (stats       ? stats['wins'].to_i              : nil),
+          :losses   => (stats       ? stats['losses'].to_i            : nil),
+          :founded  => (founded     ? founded['value'].to_i           : nil),
+          :mascot   => (mascot      ? mascot['name']                  : nil),
+          :ballpark => (ballpark    ? ballpark['name']                : nil),
+          :logo_url => (logo_suffix ? logo_prefix + logo_suffix['id'] : nil),
+          :players  => (players     ? Player.all_from_roster(players) : [])
+        )
+      end
+      teams
+    end
+
+    def self.setup_db
+      require 'sqlite3'
+      @db ||= SQLite3::Database.new(File.join(File.dirname(__FILE__), "..", "..", "db", "mlb.sqlite3"), :type_translation => true, :results_as_hash => true)
+    end
+
+    def self.run_team_sql
+      db = setup_db
+      query = team_sql_query
+      results = db.execute(query)
+
+      teams = []
+      results.each do |result|
+        teams << new(
+          :name     => result['name'],
+          :league   => result['league'],
+          :division => result['division'],
+          :manager  => result['manager'],
+          :wins     => result['wins'],
+          :losses   => result['losses'],
+          :founded  => result['founded'],
+          :mascot   => result['mascot'],
+          :ballpark => result['ballpark'],
+          :logo_url => result['logo_url'],
+          :players  => run_player_sql(result['name'])
+        )
+      end
+      teams
+    end
+
+    def self.run_player_sql(team_name)
+      db = setup_db
+      query = player_sql_query(team_name)
+      results = db.execute(query)
+
+      players = []
+      results.each do |result|
+        players << Player.new(
+          :name     => result['name'],
+          :position => result['position'],
+          :number   => result['number']
+        )
+      end
+      players
     end
 
     # Returns the MQL query for teams, as a Ruby hash
-    def self.query
+    def self.team_mql_query
       {
         :query => [
           {
@@ -128,6 +173,38 @@ module MLB
           }
         ]
       }
+    end
+
+    def self.team_sql_query
+      <<-eos
+        SELECT teams.name     AS name
+             , leagues.name   AS league
+             , divisions.name AS division
+             , teams.manager  AS manager
+             , teams.wins     AS wins
+             , teams.losses   AS losses
+             , teams.founded  AS founded
+             , teams.mascot   AS mascot
+             , teams.ballpark AS ballpark
+             , teams.logo_url AS logo_url
+          FROM teams
+             , divisions
+             , leagues
+         WHERE teams.division_id = divisions.id
+           AND divisions.league_id = leagues.id
+      eos
+    end
+
+    def self.player_sql_query(team_name)
+      <<-eos
+        SELECT players.name     AS name
+             , players.position AS position
+             , players.number   AS number
+          FROM players
+             , teams
+         WHERE players.team_id = teams.id
+           AND teams.name = "#{team_name}"
+      eos
     end
 
   end

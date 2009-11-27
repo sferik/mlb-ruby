@@ -1,7 +1,12 @@
 module MLB
   class Player
-    attr_reader :name, :number, :position
-    private_class_method :new
+    attr_accessor :name, :number, :position
+
+    def initialize(attributes={})
+      attributes.each_pair do |key, value|
+        self.send("#{key}=", value) if self.respond_to?("#{key}=")
+      end
+    end
 
     protected
 
@@ -13,14 +18,6 @@ module MLB
           :number   => player['number'],
           :position => player['position']
         )
-      end
-    end
-
-    private
-
-    def initialize(attributes={})
-      attributes.each_pair do |key, value|
-        self.send("#{key}=", value) if self.respond_to?("#{key}=")
       end
     end
 

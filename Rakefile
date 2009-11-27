@@ -19,6 +19,7 @@ begin
     gemspec.homepage = HOMEPAGE
     gemspec.add_dependency("httparty", ">= 0.4.5")
     gemspec.add_dependency("json", ">= 1.1.9")
+    gemspec.add_dependency("sqlite3-ruby", ">= 1.2.5")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

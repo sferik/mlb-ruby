@@ -192,6 +192,7 @@ module MLB
              , leagues
          WHERE teams.division_id = divisions.id
            AND divisions.league_id = leagues.id
+      ORDER BY teams.name
       eos
     end
 
@@ -204,6 +205,7 @@ module MLB
              , teams
          WHERE players.team_id = teams.id
            AND teams.name = "#{team_name}"
+      ORDER BY players.name
       eos
     end
 

@@ -53,3 +53,5 @@ CREATE INDEX "index_teams_division_id" ON "teams" ("division_id");
 CREATE INDEX "index_teams_league_id" ON "teams" ("league_id");
 CREATE INDEX "index_teams_name" ON "teams" ("name");
 COMMIT;
+
+VACUUM;

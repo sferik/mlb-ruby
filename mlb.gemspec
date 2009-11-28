@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mlb}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Erik Michaels-Ober"]
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "db/cleanup.sql",
      "db/mlb.sqlite3",
      "lib/mlb.rb",
      "lib/mlb/player.rb",

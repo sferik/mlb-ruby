@@ -1,7 +1,7 @@
 = MLB.rb
 ==== MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.
 == Installation
-  $ gem install mlb -s http://gemcutter.org
+  $ gem install mlb
 == Usage
   $ irb
   >> require 'mlb'

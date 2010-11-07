@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
   s.authors = ["Erik Michaels-Ober"]
   s.description = %q{MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.}
   s.email = ["sferik@gmail.com"]
-  s.extra_rdoc_files = ["LICENSE", "README.rdoc"]
   s.files = `git ls-files`.split("\n")
   s.homepage = "http://rubygems.org/gems/mlb"
   s.name = "mlb"

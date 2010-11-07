@@ -1,5 +1,5 @@
 module MLB
-  autoload :Request,    'mlb/request'
-  autoload :Team,       'mlb/team'
-  autoload :Player,     'mlb/player'
+  require File.expand_path('../mlb/request', __FILE__)
+  require File.expand_path('../mlb/team', __FILE__)
+  require File.expand_path('../mlb/player', __FILE__)
 end

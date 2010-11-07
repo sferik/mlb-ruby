@@ -28,3 +28,14 @@ namespace :doc do
     ]
   end
 end
+
+namespace :cache do
+  require File.expand_path('../lib/mlb', __FILE__)
+  desc "Update the teams file cache"
+  task :update do
+    doc = MLB::Team.results_from_freebase(true)
+    File.open('cache/teams.json', 'w') do |file|
+      file.write(doc.body)
+    end
+  end
+end

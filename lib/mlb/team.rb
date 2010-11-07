@@ -41,8 +41,9 @@ module MLB
       end
     end
 
-    def self.results_from_freebase
-      Request.get('/api/service/mqlread', :query => mql_query)
+    def self.results_from_freebase(raw=false)
+      options = {:query => mql_query}
+      Request.get('/api/service/mqlread', options, raw)
     end
 
     def self.results_from_cache

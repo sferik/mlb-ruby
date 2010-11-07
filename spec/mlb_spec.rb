@@ -4,7 +4,7 @@ describe MLB::Team, ".all" do
   context "with connection" do
     before do
       stub_request(:get, 'http://api.freebase.com/api/service/mqlread').
-        with(:query => {:query => MLB::Team.team_mql_query}).
+        with(:query => {:query => MLB::Team.mql_query}).
         to_return(:body => fixture("teams.json"))
     end
 
@@ -15,7 +15,7 @@ describe MLB::Team, ".all" do
     it "should request the correct resource" do
       MLB::Team.all
       a_request(:get, 'http://api.freebase.com/api/service/mqlread').
-        with(:query => {:query => MLB::Team.team_mql_query}).
+        with(:query => {:query => MLB::Team.mql_query}).
         should have_been_made
     end
 
@@ -28,7 +28,7 @@ describe MLB::Team, ".all" do
   context "with timeout" do
     before do
       stub_request(:get, 'http://api.freebase.com/api/service/mqlread').
-        with(:query => {:query => MLB::Team.team_mql_query}).
+        with(:query => {:query => MLB::Team.mql_query}).
         to_timeout
     end
 
@@ -45,7 +45,7 @@ describe MLB::Team, ".all" do
   context "without connection" do
     before do
       stub_request(:get, 'http://api.freebase.com/api/service/mqlread').
-        with(:query => {:query => MLB::Team.team_mql_query}).
+        with(:query => {:query => MLB::Team.mql_query}).
         to_raise(SocketError)
     end
 

@@ -19,11 +19,17 @@ module MLB
     #   MLB::Team.all.first.players.first.number    # => 28
     #   MLB::Team.all.first.players.first.position  # => "Right fielder"
     def self.all
-      @results ||= run
+      # Attempt to fetch the result from the Freebase API unless there is a
+      # connection error, in which case read from a fixture file
+      @all ||= begin
+        results_to_team(results_from_freebase)
+      rescue SocketError, Errno::ECONNREFUSED, Timeout::Error
+        results_to_team(results_from_cache)
+      end
     end
 
     def self.reset
-      @results = nil
+      @all = nil
     end
 
     def initialize(attributes={})
@@ -34,18 +40,19 @@ module MLB
 
     private
 
-    # Attempt to fetch the result from the Freebase API unless there is a connection error, in which case query a static SQLite3 database
-    def self.run
-      begin
-        run_team_mql
-      rescue SocketError, Errno::ECONNREFUSED, Timeout::Error
-        run_team_sql
-      end
+    def self.results_from_freebase
+      Request.get('/api/service/mqlread', :query => mql_query)
     end
 
-    def self.run_team_mql
-      results = Request.get('/api/service/mqlread', :query => team_mql_query)
+    def self.results_from_cache
+      Yajl::Parser.parse(file_from_cache("teams.json"))
+    end
 
+    def self.file_from_cache(file_name)
+      File.new(File.expand_path("../../../cache", __FILE__) + "/" + file_name)
+    end
+
+    def self.results_to_team(results)
       teams = []
       results['result'].each do |result|
         league      = result['league']
@@ -76,53 +83,8 @@ module MLB
       teams
     end
 
-    def self.setup_db
-      require 'sqlite3'
-      @db ||= SQLite3::Database.new(File.join(File.dirname(__FILE__), "..", "..", "db", "mlb.sqlite3"), :type_translation => true, :results_as_hash => true)
-    end
-
-    def self.run_team_sql
-      db = setup_db
-      query = team_sql_query
-      results = db.execute(query)
-
-      teams = []
-      results.each do |result|
-        teams << new(
-          :name     => result['name'],
-          :league   => result['league'],
-          :division => result['division'],
-          :manager  => result['manager'],
-          :wins     => result['wins'],
-          :losses   => result['losses'],
-          :founded  => result['founded'],
-          :mascot   => result['mascot'],
-          :ballpark => result['ballpark'],
-          :logo_url => result['logo_url'],
-          :players  => run_player_sql(result['name'])
-        )
-      end
-      teams
-    end
-
-    def self.run_player_sql(team_name)
-      db = setup_db
-      query = player_sql_query(team_name)
-      results = db.execute(query)
-
-      players = []
-      results.each do |result|
-        players << Player.new(
-          :name     => result['name'],
-          :position => result['position'],
-          :number   => result['number']
-        )
-      end
-      players
-    end
-
     # Returns the MQL query for teams, as a Ruby hash
-    def self.team_mql_query
+    def self.mql_query
       query = <<-eos
         [{
           "name":          null,
@@ -166,40 +128,6 @@ module MLB
         }]
         eos
       '{"query":' + query.gsub!("\n", '').gsub!(' ', '') + '}'
-    end
-
-    def self.team_sql_query
-      <<-eos
-        SELECT teams.name     AS name
-             , leagues.name   AS league
-             , divisions.name AS division
-             , teams.manager  AS manager
-             , teams.wins     AS wins
-             , teams.losses   AS losses
-             , teams.founded  AS founded
-             , teams.mascot   AS mascot
-             , teams.ballpark AS ballpark
-             , teams.logo_url AS logo_url
-          FROM teams
-             , divisions
-             , leagues
-         WHERE teams.division_id = divisions.id
-           AND divisions.league_id = leagues.id
-      ORDER BY teams.name
-      eos
-    end
-
-    def self.player_sql_query(team_name)
-      <<-eos
-        SELECT players.name     AS name
-             , players.position AS position
-             , players.number   AS number
-          FROM players
-             , teams
-         WHERE players.team_id = teams.id
-           AND teams.name = "#{team_name}"
-      ORDER BY players.name
-      eos
     end
 
   end

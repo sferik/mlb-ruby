@@ -3,7 +3,6 @@ PATH
   specs:
     mlb (0.3.0)
       faraday (~> 0.5.2)
-      sqlite3-ruby (~> 1.3.2)
       yajl-ruby (~> 0.7.8)
 
 GEM
@@ -31,7 +30,6 @@ GEM
     rspec-mocks (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
-    sqlite3-ruby (1.3.2)
     webmock (1.5.0)
       addressable (>= 2.2.2)
       crack (>= 0.1.7)
@@ -49,7 +47,6 @@ DEPENDENCIES
   rake (~> 0.8)
   rcov (~> 0.9)
   rspec (~> 2.0)
-  sqlite3-ruby (~> 1.3.2)
   webmock (~> 1.5)
   yajl-ruby (~> 0.7.8)
   yard (~> 0.6)

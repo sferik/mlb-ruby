@@ -1,14 +1,8 @@
 *.gem
-*~
-.#*
 .DS_Store
-.hg/*
-.hgignore
-.svn/*
-TAGS
-TODO
+.bundle
+.yardoc
 coverage/*
 doc/*
+log/*
 pkg/*
-src/*
-tmp/*

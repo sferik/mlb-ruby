@@ -2,6 +2,11 @@
 require File.expand_path("../lib/mlb/version", __FILE__)
 
 Gem::Specification.new do |s|
+  s.add_development_dependency("bundler", "~> 1.0")
+  s.add_development_dependency("rake", "~> 0.8")
+  s.add_development_dependency("rspec", "~> 2.0")
+  s.add_development_dependency("webmock", "~> 1.5")
+  s.add_development_dependency("ZenTest", "~> 4.4")
   s.add_runtime_dependency("httparty", ["~> 0.6"])
   s.add_runtime_dependency("json", ["~> 1.4"])
   s.add_runtime_dependency("sqlite3-ruby", ["~> 1.3"])

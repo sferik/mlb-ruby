@@ -1,14 +1,15 @@
 module MLB
   class Player
-    attr_accessor :name, :number, :position
+    private_class_method :new
+    attr_reader :name, :number, :position
+
+    private
 
     def initialize(attributes={})
       attributes.each_pair do |key, value|
-        self.send("#{key}=", value) if self.respond_to?("#{key}=")
+        instance_eval("@#{key}=value") if self.respond_to?(key)
       end
     end
-
-    protected
 
     # Returns an array of Player objects given a team roster
     def self.all_from_roster(players)

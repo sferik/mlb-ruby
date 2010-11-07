@@ -1,6 +1,7 @@
 module MLB
   class Team
-    attr_accessor :name, :league, :division, :manager, :wins, :losses, :founded, :mascot, :ballpark, :logo_url, :players
+    private_class_method :new
+    attr_reader :name, :league, :division, :manager, :wins, :losses, :founded, :mascot, :ballpark, :logo_url, :players
 
     # Returns an array of Team objects
     #
@@ -32,13 +33,13 @@ module MLB
       @all = nil
     end
 
+    private
+
     def initialize(attributes={})
       attributes.each_pair do |key, value|
-        self.send("#{key}=", value) if self.respond_to?("#{key}=")
+        instance_eval("@#{key}=value") if self.respond_to?(key)
       end
     end
-
-    private
 
     def self.results_from_freebase
       Request.get('/api/service/mqlread', :query => mql_query)

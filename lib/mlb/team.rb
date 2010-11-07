@@ -1,15 +1,10 @@
-require 'httparty'
-require 'json'
-
 module MLB
   class Team
-    include HTTParty
-    format :json
-    base_uri 'http://www.freebase.com/api'
     attr_accessor :name, :league, :division, :manager, :wins, :losses, :founded, :mascot, :ballpark, :logo_url, :players
 
     # Returns an array of Team objects
     #
+    # @example
     #   MLB::Team.all.first.name                    # => "Arizona Diamondbacks"
     #   MLB::Team.all.first.league                  # => "National League"
     #   MLB::Team.all.first.division                # => "National League West"
@@ -35,9 +30,7 @@ module MLB
 
     private
 
-    # Attempt to fetch the result from the Freebase API
-    # unless there is a connection error, in which case
-    # query a static SQLite3 database.
+    # Attempt to fetch the result from the Freebase API unless there is a connection error, in which case query a static SQLite3 database
     def self.run
       begin
         run_team_mql
@@ -47,9 +40,7 @@ module MLB
     end
 
     def self.run_team_mql
-      query = team_mql_query
-      results = get('/service/mqlread?', :query => {:query => query.to_json})
-      raise(Exception, "#{results['status']} (Transaction: #{results['transaction_id']})") unless results['code'] == '/api/status/ok'
+      results = Request.get('/api/service/mqlread', :query => team_mql_query)
 
       teams = []
       results['result'].each do |result|
@@ -128,51 +119,49 @@ module MLB
 
     # Returns the MQL query for teams, as a Ruby hash
     def self.team_mql_query
-      {
-        :query => [
-          {
-            'name' => nil,
-            'league' => {
-              'name' => nil,
-            },
-            'division' => {
-              'name' => nil,
-            },
-            'current_manager' => {
-              'name' => nil,
-            },
-            'team_stats' => [{
-              'wins' => nil,
-              'losses' => nil,
-              'season' => nil,
-              'limit' => 1,
-              'sort' => '-season',
-            }],
-            'current_roster' => [{
-              'player' => nil,
-              'position' => nil,
-              'number' => nil,
-              'sort' => 'player',
-            }],
-            '/sports/sports_team/founded' => [{
-              'value' => nil,
-            }],
-            '/sports/sports_team/team_mascot' => [{
-            }],
-            '/sports/sports_team/arena_stadium' => [{
-              'name' => nil,
-            }],
-            '/common/topic/image' => [{
-              'id' => nil,
-              'timestamp' => nil,
-              'sort' => '-timestamp',
-              'limit' => 1,
-            }],
-            'sort' => 'name',
-            'type' => '/baseball/baseball_team',
-          }
-        ]
-      }
+      query = <<-eos
+        [{
+          "name":          null,
+          "league": {
+            "name": null
+          },
+          "division": {
+            "name": null
+          },
+          "current_manager": {
+            "name": null
+          },
+          "team_stats": [{
+            "wins":   null,
+            "losses": null,
+            "season": null,
+            "limit":  1,
+            "sort":   "-season"
+          }],
+          "current_roster": [{
+            "player":   null,
+            "position": null,
+            "number":   null,
+            "sort":     "player"
+          }],
+          "/sports/sports_team/founded": [{
+            "value": null
+          }],
+          "/sports/sports_team/team_mascot": [{}],
+          "/sports/sports_team/arena_stadium": [{
+            "name": null
+          }],
+          "/common/topic/image": [{
+            "id":        null,
+            "timestamp": null,
+            "sort":      "-timestamp",
+            "limit":     1
+          }],
+          "sort":          "name",
+          "type":          "/baseball/baseball_team"
+        }]
+        eos
+      '{"query":' + query.gsub!("\n", '').gsub!(' ', '') + '}'
     end
 
     def self.team_sql_query

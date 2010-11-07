@@ -22,6 +22,10 @@ module MLB
       @results ||= run
     end
 
+    def self.reset
+      @results = nil
+    end
+
     def initialize(attributes={})
       attributes.each_pair do |key, value|
         self.send("#{key}=", value) if self.respond_to?("#{key}=")
@@ -34,7 +38,7 @@ module MLB
     def self.run
       begin
         run_team_mql
-      rescue SocketError, Errno::ECONNREFUSED
+      rescue SocketError, Errno::ECONNREFUSED, Timeout::Error
         run_team_sql
       end
     end

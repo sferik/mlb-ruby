@@ -8,6 +8,10 @@ describe MLB::Team, ".all" do
         to_return(:body => fixture("teams.json"))
     end
 
+    after do
+      MLB::Team.reset
+    end
+
     it "should request the correct resource" do
       MLB::Team.all
       a_request(:get, 'http://api.freebase.com/api/service/mqlread').
@@ -28,6 +32,10 @@ describe MLB::Team, ".all" do
         to_timeout
     end
 
+    after do
+      MLB::Team.reset
+    end
+
     it "should return the correct results" do
       teams = MLB::Team.all
       teams.first.name.should == "Arizona Diamondbacks"
@@ -39,6 +47,10 @@ describe MLB::Team, ".all" do
       stub_request(:get, 'http://api.freebase.com/api/service/mqlread').
         with(:query => {:query => MLB::Team.team_mql_query}).
         to_raise(SocketError)
+    end
+
+    after do
+      MLB::Team.reset
     end
 
     it "should return the correct results" do

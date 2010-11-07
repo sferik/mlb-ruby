@@ -18,12 +18,13 @@ end
 
 task :default => ["spec:rcov"]
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rd|
-  rd.main = 'README.rdoc'
-  rd.rdoc_dir = 'doc'
-  rd.rdoc_files.include('README.rdoc', 'LICENSE', 'lib/**/*.rb')
-  rd.title = 'MLB.rb'
-  rd.options << '--inline-source'
-  rd.options << '--all'
+namespace :doc do
+  require 'yard'
+  YARD::Rake::YardocTask.new do |task|
+    task.files   = ['LICENSE.mkd', 'lib/**/*.rb']
+    task.options = [
+      '--output-dir', 'doc/yard',
+      '--markup', 'markdown',
+    ]
+  end
 end

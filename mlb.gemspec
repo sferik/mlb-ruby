@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rcov", "~> 0.9")
   s.add_development_dependency("rspec", "~> 2.0")
   s.add_development_dependency("webmock", "~> 1.5")
+  s.add_development_dependency("yard", "~> 0.6")
   s.add_development_dependency("ZenTest", "~> 4.4")
   s.add_runtime_dependency("httparty", ["~> 0.6"])
   s.add_runtime_dependency("json", ["~> 1.4"])

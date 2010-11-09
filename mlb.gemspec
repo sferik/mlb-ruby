@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("webmock", "~> 1.5")
   s.add_development_dependency("yard", "~> 0.6")
   s.add_development_dependency("ZenTest", "~> 4.4")
-  s.add_runtime_dependency("faraday", "~> 0.5.2")
+  s.add_runtime_dependency("faraday", "~> 0.5.3")
   s.add_runtime_dependency("yajl-ruby", "~> 0.7.8")
   s.authors = ["Erik Michaels-Ober"]
   s.description = %q{MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.}

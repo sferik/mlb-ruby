@@ -1,5 +1,6 @@
 require File.expand_path('../../lib/mlb', __FILE__)
 
+require 'rspec'
 require 'webmock/rspec'
 RSpec.configure do |config|
   config.include WebMock::API

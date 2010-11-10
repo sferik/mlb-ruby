@@ -1,3 +1,5 @@
+require 'multi_json'
+
 module MLB
   class Team
     private_class_method :new
@@ -47,7 +49,7 @@ module MLB
     end
 
     def self.results_from_cache
-      Yajl::Parser.parse(file_from_cache("teams.json"))
+      MultiJson.decode(file_from_cache("teams.json").read)
     end
 
     def self.file_from_cache(file_name)

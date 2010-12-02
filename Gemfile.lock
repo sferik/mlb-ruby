@@ -3,7 +3,7 @@ PATH
   specs:
     mlb (0.5.0)
       faraday (~> 0.5.3)
-      faraday_middleware (~> 0.3.0)
+      faraday_middleware (~> 0.3.1)
       multi_json (~> 0.0.5)
 
 GEM
@@ -17,7 +17,7 @@ GEM
       addressable (~> 2.2.2)
       multipart-post (~> 1.0.1)
       rack (>= 1.1.0, < 2)
-    faraday_middleware (0.3.0)
+    faraday_middleware (0.3.1)
       faraday (~> 0.5.3)
     json (1.4.6)
     json (1.4.6-java)
@@ -52,7 +52,7 @@ DEPENDENCIES
   ZenTest (~> 4.4)
   bundler (~> 1.0)
   faraday (~> 0.5.3)
-  faraday_middleware (~> 0.3.0)
+  faraday_middleware (~> 0.3.1)
   json (~> 1.4.6)
   maruku (~> 0.6)
   mlb!

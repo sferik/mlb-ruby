@@ -3,7 +3,7 @@ require File.expand_path('../lib/mlb/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.add_development_dependency('bundler', '~> 1.0')
-  s.add_development_dependency('json', '~> 1.4.6')
+  s.add_development_dependency('json', '~> 1.5')
   s.add_development_dependency('maruku', '~> 0.6')
   s.add_development_dependency('rake', '~> 0.8')
   s.add_development_dependency('rspec', '~> 2.3')

@@ -19,7 +19,7 @@ namespace :doc do
 end
 
 namespace :cache do
-  require File.expand_path('../lib/mlb', __FILE__)
+  require 'mlb'
   desc "Update the teams file cache"
   task :update do
     doc = MLB::Team.results_from_freebase(true)

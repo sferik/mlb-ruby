@@ -1,4 +1,4 @@
-require File.expand_path('../spec_helper', __FILE__)
+require 'helper'
 
 describe MLB::Team, ".all" do
   context "with connection" do

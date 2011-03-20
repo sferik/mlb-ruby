@@ -521,11 +521,6 @@
           "position": "Relief pitcher"
         },
         {
-          "number": 17,
-          "player": "Aubrey Huff",
-          "position": "Designated hitter"
-        },
-        {
           "number": 41,
           "player": "Bob McCrory",
           "position": "Relief pitcher"
@@ -1552,6 +1547,11 @@
           "number": 25,
           "player": "David Weathers",
           "position": "Relief pitcher"
+        },
+        {
+          "number": null,
+          "player": "Edgar Renter\u00eda",
+          "position": "Shortstop"
         },
         {
           "number": 36,
@@ -5706,6 +5706,11 @@
           "position": "Relief pitcher"
         },
         {
+          "number": null,
+          "player": "Aubrey Huff",
+          "position": "First baseman"
+        },
+        {
           "number": 75,
           "player": "Barry Zito",
           "position": "Starting pitcher"
@@ -5729,11 +5734,6 @@
           "number": 50,
           "player": "Conor Gillaspie",
           "position": "Third baseman"
-        },
-        {
-          "number": 16,
-          "player": "Edgar Renter\u00eda",
-          "position": "Shortstop"
         },
         {
           "number": 7,
@@ -7158,5 +7158,5 @@
     }
   ],
   "status": "200 OK",
-  "transaction_id": "cache;cache02.p01.sjc1:8101;2010-11-07T17:25:04Z;0023"
+  "transaction_id": "cache;cache02.p01.sjc1:8101;2011-03-20T20:47:28Z;0033"
 }

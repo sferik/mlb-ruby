@@ -10,6 +10,10 @@ Documentation
 -------------
 <http://rdoc.info/gems/mlb>
 
+Continuous Integration
+----------------------
+[![Build Status](http://travis-ci.org/sferik/mlb.png)](http://travis-ci.org/sferik/mlb)
+
 Usage Examples
 -----
     $ irb

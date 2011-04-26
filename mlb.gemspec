@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('ZenTest', '~> 4.5')
   s.add_runtime_dependency('faraday', '~> 0.6.0')
   s.add_runtime_dependency('faraday_middleware', '~> 0.6.0')
-  s.add_runtime_dependency('multi_json', '~> 0.0.5')
+  s.add_runtime_dependency('multi_json', '~> 1.0.0')
   s.authors = ["Erik Michaels-Ober"]
   s.description = %q{MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.}
   s.email = ['sferik@gmail.com']

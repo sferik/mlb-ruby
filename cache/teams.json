@@ -2453,7 +2453,7 @@
       ],
       "/sports/sports_team/arena_stadium": [
         {
-          "name": "Dolphin Stadium"
+          "name": "Sun Life Stadium"
         }
       ],
       "/sports/sports_team/founded": [
@@ -7158,5 +7158,5 @@
     }
   ],
   "status": "200 OK",
-  "transaction_id": "cache;cache02.p01.sjc1:8101;2011-04-06T02:07:16Z;0007"
+  "transaction_id": "cache;cache02.p01.sjc1:8101;2011-05-03T00:10:07Z;0043"
 }

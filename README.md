@@ -4,7 +4,7 @@ MLB.rb is a Ruby library for retrieving current Major League Baseball players, m
 
 Installation
 ------------
-    $ [sudo] gem install mlb
+    gem install mlb
 
 Documentation
 -------------

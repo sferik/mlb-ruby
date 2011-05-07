@@ -45,7 +45,7 @@ Here are some ways *you* can contribute:
 * by writing specifications
 * by writing code (**no patch is too small**: fix typos, add comments, cleanup inconsistent whitespace)
 * by refactoring code
-* by closing [issues](http://github.com/sferik/mlb/issues)
+* by closing [issues](https://github.com/sferik/mlb/issues)
 * by reviewing patches
 * financially
 
@@ -53,7 +53,7 @@ All contributors will be added to the credits and will receive the respect and g
 
 Submitting an Issue
 -------------------
-We use the [GitHub issue tracker](http://github.com/sferik/mlb/issues) to track bugs and
+We use the [GitHub issue tracker](https://github.com/sferik/mlb/issues) to track bugs and
 features. Before submitting a bug report or feature request, check to make sure it hasn't already
 been submitted. You can indicate support for an existing issuse by voting it up. When submitting a
 bug report, please include a [Gist](http://gist.github.com/) that includes a stack trace and any

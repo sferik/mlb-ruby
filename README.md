@@ -8,7 +8,7 @@ Installation
 
 Documentation
 -------------
-<http://rdoc.info/gems/mlb>
+[http://rdoc.info/gems/mlb](http://rdoc.info/gems/mlb)
 
 Continuous Integration
 ----------------------

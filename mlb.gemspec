@@ -4,7 +4,7 @@ require File.expand_path('../lib/mlb/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.add_development_dependency 'json_pure', '~> 1.5'
   gem.add_development_dependency 'maruku', '~> 0.6'
-  gem.add_development_dependency 'rake', '~> 0.8'
+  gem.add_development_dependency 'rake', '~> 0.9'
   gem.add_development_dependency 'rspec', '~> 2.6'
   gem.add_development_dependency 'simplecov', '~> 0.4'
   gem.add_development_dependency 'webmock', '~> 1.6'

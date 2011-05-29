@@ -1,13 +1,10 @@
+$:.unshift File.expand_path('..', __FILE__)
+$:.unshift File.expand_path('../../lib', __FILE__)
 require 'simplecov'
-SimpleCov.start do
-  add_group 'Libraries', 'lib'
-end
+SimpleCov.start
 require 'mlb'
 require 'rspec'
 require 'webmock/rspec'
-RSpec.configure do |config|
-  config.include WebMock::API
-end
 
 def fixture_path
   File.expand_path("../../cache", __FILE__)

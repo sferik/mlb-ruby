@@ -111,3 +111,8 @@ Many thanks to:
 * [SQLite](http://www.sqlite.org/)
 * [WebMock](https://github.com/bblimke/webmock/)
 * [YARD](http://yardoc.org/)
+
+Copyright
+---------
+Copyright (c) 2010 Erik Michaels-Ober.
+See [LICENSE](https://github.com/sferik/mlb/blob/master/LICENSE.md) for details.

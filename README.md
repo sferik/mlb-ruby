@@ -12,7 +12,7 @@ Documentation
 
 Continuous Integration
 ----------------------
-[![Build Status](http://travis-ci.org/sferik/mlb.png)](http://travis-ci.org/sferik/mlb)
+[![Build Status](https://secure.travis-ci.org/sferik/mlb.png)](http://travis-ci.org/sferik/mlb)
 
 Usage Examples
 -----

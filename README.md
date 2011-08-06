@@ -80,7 +80,7 @@ against](http://travis-ci.org/sferik/mlb) the following Ruby implementations:
 * Ruby 1.8.7
 * Ruby 1.9.1
 * Ruby 1.9.2
-* Ruby Enterprise Edition 1.8.7
+* [Ruby Enterprise Edition](http://www.rubyenterpriseedition.com/)
 
 If something doesn't work on one of these interpreters, it should be considered
 a bug.

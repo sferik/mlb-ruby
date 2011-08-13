@@ -2,19 +2,19 @@ MLB.rb
 ======
 MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.
 
-Installation
+<a name="installation">Installation</a>
 ------------
     gem install mlb
 
-Documentation
+<a name="documentation">Documentation</a>
 -------------
 [http://rdoc.info/gems/mlb](http://rdoc.info/gems/mlb)
 
-Continuous Integration
+<a name="ci">Continuous Integration</a>
 ----------------------
 [![Build Status](https://secure.travis-ci.org/sferik/mlb.png)](http://travis-ci.org/sferik/mlb)
 
-Usage Examples
+<a name="examples">Usage Examples</a>
 -----
     $ irb
     >> require 'mlb'
@@ -32,7 +32,7 @@ Usage Examples
     >> MLB::Team.all.first.players.first.number   # => 28
     >> MLB::Team.all.first.players.first.position # => "Right fielder"
 
-Contributing
+<a name="contributing">Contributing</a>
 ------------
 In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project.
 
@@ -51,7 +51,7 @@ Here are some ways *you* can contribute:
 
 All contributors will be added to the credits and will receive the respect and gratitude of the community.
 
-Submitting an Issue
+<a name="issues">Submitting an Issue</a>
 -------------------
 We use the [GitHub issue tracker](https://github.com/sferik/mlb/issues) to track bugs and
 features. Before submitting a bug report or feature request, check to make sure it hasn't already
@@ -60,7 +60,7 @@ bug report, please include a [Gist](https://gist.github.com/) that includes a st
 details that may be necessary to reproduce the bug, including your gem version, Ruby version, and
 operating system. Ideally, a bug report should include a pull request with failing specs.
 
-Submitting a Pull Request
+<a name="pulls">Submitting a Pull Request</a>
 -------------------------
 1. Fork the project.
 2. Create a topic branch.
@@ -72,7 +72,7 @@ Submitting a Pull Request
 8. Commit and push your changes.
 9. Submit a pull request. Please do not include changes to the gemspec, version, or history file. (If you want to create your own version for some reason, please do so in a separate commit.)
 
-Supported Rubies
+<a name="rubies">Supported Rubies</a>
 ----------------
 This library aims to support and is [tested
 against](http://travis-ci.org/sferik/mlb) the following Ruby implementations:
@@ -113,7 +113,7 @@ Many thanks to:
 * [WebMock](https://github.com/bblimke/webmock/)
 * [YARD](http://yardoc.org/)
 
-Copyright
+<a name="copyright">Copyright</a>
 ---------
 Copyright (c) 2010 Erik Michaels-Ober.
 See [LICENSE](https://github.com/sferik/mlb/blob/master/LICENSE.md) for details.

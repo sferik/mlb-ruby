@@ -8,7 +8,7 @@ MLB.rb is a Ruby library for retrieving current Major League Baseball players, m
 [http://rdoc.info/gems/mlb](http://rdoc.info/gems/mlb)
 
 ## <a name="ci">Continuous Integration</a>
-[![Build Status](https://secure.travis-ci.org/sferik/mlb.png)](http://travis-ci.org/sferik/mlb)
+[![Build Status](https://travis-ci.org/sferik/mlb.png)](http://travis-ci.org/sferik/mlb)
 
 ## <a name="examples">Usage Examples</a>
     $ irb

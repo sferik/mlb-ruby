@@ -6,8 +6,8 @@ module MLB
     private
 
     def initialize(attributes={})
-      attributes.each_pair do |key, value|
-        instance_eval("@#{key}=value") if self.respond_to?(key)
+      attributes.each do |key, value|
+        instance_variable_set("@#{key}", value) if self.respond_to?(key)
       end
     end
 

@@ -64,11 +64,6 @@
           "position": "First baseman"
         },
         {
-          "number": 19,
-          "player": "Chris Snyder",
-          "position": "Catcher"
-        },
-        {
           "number": 64,
           "player": "Clay Zavada",
           "position": "Pitcher"
@@ -293,11 +288,6 @@
           "position": "First baseman"
         },
         {
-          "number": 50,
-          "player": "Charlie Morton",
-          "position": "Starting pitcher"
-        },
-        {
           "number": 10,
           "player": "Chipper Jones",
           "position": "Third baseman"
@@ -406,11 +396,6 @@
           "number": 14,
           "player": "Mart\u00edn Prado",
           "position": "Second baseman"
-        },
-        {
-          "number": 23,
-          "player": "Matt Diaz",
-          "position": "Left fielder"
         },
         {
           "number": 51,
@@ -725,8 +710,8 @@
     {
       "/common/topic/image": [
         {
-          "id": "/m/03r68rn",
-          "timestamp": "2008-03-12T04:11:19.0000Z"
+          "id": "/m/0h5dbn2",
+          "timestamp": "2011-09-22T02:51:59.0000Z"
         }
       ],
       "/sports/sports_team/arena_stadium": [
@@ -1080,11 +1065,6 @@
         {
           "number": 63,
           "player": "Kevin Gregg",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 22,
-          "player": "Kevin Hart",
           "position": "Relief pitcher"
         },
         {
@@ -1951,254 +1931,6 @@
     {
       "/common/topic/image": [
         {
-          "id": "/m/029hc9n",
-          "timestamp": "2007-04-15T02:48:23.0022Z"
-        }
-      ],
-      "/sports/sports_team/arena_stadium": [
-        {
-          "name": "Coors Field"
-        }
-      ],
-      "/sports/sports_team/founded": [
-        {
-          "value": "1993"
-        }
-      ],
-      "/sports/sports_team/team_mascot": [
-        {
-          "id": "/m/0fgjk2",
-          "name": "Dinger",
-          "type": [
-            "/common/topic",
-            "/sports/mascot"
-          ]
-        }
-      ],
-      "current_manager": {
-        "name": "Clint Hurdle"
-      },
-      "current_roster": [
-        {
-          "number": 28,
-          "player": "Aaron Cook",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 41,
-          "player": "Alan Embree",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 11,
-          "player": "Brad Hawpe",
-          "position": "Right fielder"
-        },
-        {
-          "number": 5,
-          "player": "Carlos Gonz\u00e1lez",
-          "position": "Center fielder"
-        },
-        {
-          "number": 20,
-          "player": "Chris Iannetta",
-          "position": "Catcher"
-        },
-        {
-          "number": 64,
-          "player": "Chris Nelson",
-          "position": "Shortstop"
-        },
-        {
-          "number": 12,
-          "player": "Clint Barmes",
-          "position": "Shortstop"
-        },
-        {
-          "number": 24,
-          "player": "Dexter Fowler",
-          "position": "Center fielder"
-        },
-        {
-          "number": 4,
-          "player": "Eric Young, Jr.",
-          "position": "Second baseman"
-        },
-        {
-          "number": 61,
-          "player": "Esmil Rogers",
-          "position": "Pitcher"
-        },
-        {
-          "number": 56,
-          "player": "Franklin Morales",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 27,
-          "player": "Garrett Atkins",
-          "position": "Third baseman"
-        },
-        {
-          "number": 54,
-          "player": "Greg Reynolds",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 23,
-          "player": "Greg Smith",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 63,
-          "player": "Hector Gomez",
-          "position": "Shortstop"
-        },
-        {
-          "number": 16,
-          "player": "Huston Street",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 9,
-          "player": "Ian Stewart",
-          "position": "Third baseman"
-        },
-        {
-          "number": 49,
-          "player": "Jason Grilli",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 48,
-          "player": "Jason Hirsh",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 21,
-          "player": "Jason Marquis",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 10,
-          "player": "Jeff Baker",
-          "position": "Second baseman"
-        },
-        {
-          "number": 26,
-          "player": "Jeff Francis",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 47,
-          "player": "Joe Koshansky",
-          "position": "First baseman"
-        },
-        {
-          "number": 29,
-          "player": "Jorge de la Rosa",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 52,
-          "player": "Juan Morillo",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 60,
-          "player": "Manuel Corpas",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 14,
-          "player": "Matt Murton",
-          "position": "Left fielder"
-        },
-        {
-          "number": 6,
-          "player": "Omar Quintanilla",
-          "position": "Shortstop"
-        },
-        {
-          "number": 46,
-          "player": "Ryan Mattheus",
-          "position": "Pitcher"
-        },
-        {
-          "number": 37,
-          "player": "Ryan Speier",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 19,
-          "player": "Ryan Spilborghs",
-          "position": "Right fielder"
-        },
-        {
-          "number": 70,
-          "player": "Samuel Deduno",
-          "position": "Pitcher"
-        },
-        {
-          "number": 7,
-          "player": "Seth Smith",
-          "position": "Right fielder"
-        },
-        {
-          "number": 44,
-          "player": "Shane Lindsay",
-          "position": "Pitcher"
-        },
-        {
-          "number": 58,
-          "player": "Steven Register",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 35,
-          "player": "Taylor Buchholz",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 17,
-          "player": "Todd Helton",
-          "position": "First baseman"
-        },
-        {
-          "number": 2,
-          "player": "Troy Tulowitzki",
-          "position": "Shortstop"
-        },
-        {
-          "number": 38,
-          "player": "Ubaldo Jimenez",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 8,
-          "player": "Yorvit Torrealba",
-          "position": "Catcher"
-        }
-      ],
-      "division": {
-        "name": "National League West"
-      },
-      "league": {
-        "name": "National League"
-      },
-      "name": "Colorado Rockies",
-      "team_stats": [
-        {
-          "losses": 88,
-          "season": "2008 Major League Baseball season",
-          "wins": 74
-        }
-      ],
-      "type": "/baseball/baseball_team"
-    },
-    {
-      "/common/topic/image": [
-        {
           "id": "/m/029hfst",
           "timestamp": "2007-04-15T02:50:49.0014Z"
         }
@@ -2521,11 +2253,6 @@
           "position": "Starting pitcher"
         },
         {
-          "number": 63,
-          "player": "Christopher Leroux",
-          "position": "Pitcher"
-        },
-        {
           "number": 12,
           "player": "Cody Ross",
           "position": "Center fielder"
@@ -2833,11 +2560,6 @@
           "number": 3,
           "player": "Kazuo Matsui",
           "position": "Second baseman"
-        },
-        {
-          "number": 17,
-          "player": "Lance Berkman",
-          "position": "First baseman"
         },
         {
           "number": 22,
@@ -3221,11 +2943,6 @@
           "position": "Catcher"
         },
         {
-          "number": 3,
-          "player": "Brandon Wood",
-          "position": "Shortstop"
-        },
-        {
           "number": 40,
           "player": "Brian Fuentes",
           "position": "Relief pitcher"
@@ -3535,11 +3252,6 @@
           "position": "First baseman"
         },
         {
-          "number": 52,
-          "player": "James McDonald",
-          "position": "Relief pitcher"
-        },
-        {
           "number": 77,
           "player": "Jamie Hoffmann",
           "position": "Right fielder"
@@ -3638,11 +3350,6 @@
           "number": 78,
           "player": "Victor Garate",
           "position": "Pitcher"
-        },
-        {
-          "number": 75,
-          "player": "Xavier Paul",
-          "position": "Center fielder"
         }
       ],
       "division": {
@@ -4567,11 +4274,6 @@
           "position": "Catcher"
         },
         {
-          "number": 41,
-          "player": "Jose Veras",
-          "position": "Relief pitcher"
-        },
-        {
           "number": 26,
           "player": "Jos\u00e9 Molina",
           "position": "Catcher"
@@ -5172,53 +4874,73 @@
         }
       ],
       "current_manager": {
-        "name": "John Russell"
+        "name": "Clint Hurdle"
       },
       "current_roster": [
         {
-          "number": 25,
-          "player": "Adam LaRoche",
-          "position": "First baseman"
-        },
-        {
-          "number": 15,
-          "player": "Andy LaRoche",
-          "position": "Third baseman"
-        },
-        {
           "number": 44,
-          "player": "Brandon Moss",
-          "position": "Left fielder"
+          "player": "Alex Presley",
+          "position": "Center fielder"
         },
         {
-          "number": 10,
-          "player": "Brian Bixler",
+          "number": 22,
+          "player": "Andrew McCutchen",
+          "position": "Center fielder"
+        },
+        {
+          "number": 32,
+          "player": "Brad Lincoln",
+          "position": "Starting pitcher"
+        },
+        {
+          "number": 2,
+          "player": "Brandon Wood",
           "position": "Shortstop"
         },
         {
-          "number": 38,
-          "player": "Craig Hansen",
-          "position": "Relief pitcher"
+          "number": 64,
+          "player": "Bryan Morris",
+          "position": "Starting pitcher"
         },
         {
           "number": 50,
-          "player": "Dave Davidson",
+          "player": "Charlie Morton",
+          "position": "Starting pitcher"
+        },
+        {
+          "number": 12,
+          "player": "Chase d'Arnaud",
+          "position": "Shortstop"
+        },
+        {
+          "number": 30,
+          "player": "Chris Resop",
           "position": "Relief pitcher"
         },
         {
-          "number": null,
-          "player": "Delwyn Young",
-          "position": null
+          "number": 19,
+          "player": "Chris Snyder",
+          "position": "Catcher"
         },
         {
-          "number": 56,
-          "player": "Donald Veal",
-          "position": "Pitcher"
+          "number": 63,
+          "player": "Christopher Leroux",
+          "position": "Relief pitcher"
         },
         {
-          "number": 16,
-          "player": "Eric Hinske",
-          "position": "Left fielder"
+          "number": 34,
+          "player": "Daniel McCutchen",
+          "position": "Relief pitcher"
+        },
+        {
+          "number": 57,
+          "player": "Daniel Moskos",
+          "position": "Relief pitcher"
+        },
+        {
+          "number": 69,
+          "player": "Eric Fryer",
+          "position": "Catcher"
         },
         {
           "number": 47,
@@ -5226,19 +4948,19 @@
           "position": "Relief pitcher"
         },
         {
-          "number": 12,
-          "player": "Freddy Sanchez",
-          "position": "Second baseman"
+          "number": 46,
+          "player": "Garrett Jones",
+          "position": "Right fielder"
         },
         {
-          "number": 45,
-          "player": "Ian Snell",
+          "number": 66,
+          "player": "Gorkys Hernandez",
+          "position": "Center fielder"
+        },
+        {
+          "number": 53,
+          "player": "James McDonald",
           "position": "Starting pitcher"
-        },
-        {
-          "number": 2,
-          "player": "Jack Wilson",
-          "position": "Shortstop"
         },
         {
           "number": 35,
@@ -5247,8 +4969,8 @@
         },
         {
           "number": 61,
-          "player": "Jeff Sues",
-          "position": "Pitcher"
+          "player": "Jeff Locke",
+          "position": "Starting pitcher"
         },
         {
           "number": 27,
@@ -5256,49 +4978,69 @@
           "position": "Starting pitcher"
         },
         {
-          "number": 43,
-          "player": "Jesse Chavez",
+          "number": 97,
+          "player": "Joe Beimel",
           "position": "Relief pitcher"
         },
         {
-          "number": 46,
-          "player": "Jimmy Barthmaier",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 34,
-          "player": "John Grabow",
+          "number": 52,
+          "player": "Joel Hanrahan",
           "position": "Relief pitcher"
         },
         {
           "number": 31,
           "player": "Jose Tabata",
-          "position": "Center fielder"
+          "position": "Left fielder"
         },
         {
-          "number": 36,
-          "player": "Luis Cruz",
-          "position": "Second baseman"
-        },
-        {
-          "number": 55,
-          "player": "Matt Capps",
+          "number": 43,
+          "player": "Jose Veras",
           "position": "Relief pitcher"
         },
         {
-          "number": 13,
-          "player": "Nate McLouth",
-          "position": "Center fielder"
-        },
-        {
-          "number": 19,
-          "player": "Neil Walker",
+          "number": 62,
+          "player": "Josh Harrison",
           "position": "Third baseman"
         },
         {
-          "number": 3,
-          "player": "Nyjer Morgan",
-          "position": "Outfielder"
+          "number": 29,
+          "player": "Kevin Correia",
+          "position": "Starting pitcher"
+        },
+        {
+          "number": 25,
+          "player": "Kevin Hart",
+          "position": "Relief pitcher"
+        },
+        {
+          "number": 67,
+          "player": "Kyle McPherson",
+          "position": "Starting pitcher"
+        },
+        {
+          "number": 37,
+          "player": "Lyle Overbay",
+          "position": "First baseman"
+        },
+        {
+          "number": 23,
+          "player": "Matt Diaz",
+          "position": "Right fielder"
+        },
+        {
+          "number": 60,
+          "player": "Michael Crotta",
+          "position": "Relief pitcher"
+        },
+        {
+          "number": 55,
+          "player": "Michael McKenry",
+          "position": "Catcher"
+        },
+        {
+          "number": 18,
+          "player": "Neil Walker",
+          "position": "Second baseman"
         },
         {
           "number": 28,
@@ -5306,34 +5048,24 @@
           "position": "Starting pitcher"
         },
         {
-          "number": 53,
+          "number": 24,
           "player": "Pedro Alvarez",
           "position": "Third baseman"
         },
         {
-          "number": 32,
-          "player": "Phil Dumatrait",
-          "position": "Starting pitcher"
+          "number": 3,
+          "player": "Pedro Ciriaco",
+          "position": "Shortstop"
         },
         {
           "number": 5,
-          "player": "Ram\u00f3n V\u00e1zquez",
-          "position": "Third baseman"
-        },
-        {
-          "number": 23,
-          "player": "Robinzon Diaz",
-          "position": "Catcher"
-        },
-        {
-          "number": 63,
-          "player": "Ronald Uviedo",
-          "position": "Pitcher"
+          "player": "Ronny Cede\u00f1o",
+          "position": "Shortstop"
         },
         {
           "number": 49,
           "player": "Ross Ohlendorf",
-          "position": "Relief pitcher"
+          "position": "Starting pitcher"
         },
         {
           "number": 41,
@@ -5341,49 +5073,24 @@
           "position": "Catcher"
         },
         {
-          "number": 58,
-          "player": "R\u00f3mulo S\u00e1nchez",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 17,
-          "player": "Sean Burnett",
-          "position": "Relief pitcher"
-        },
-        {
           "number": 51,
           "player": "Steve Pearce",
-          "position": "Right fielder"
+          "position": "First baseman"
         },
         {
-          "number": 64,
-          "player": "Steven Lerud",
-          "position": "Catcher"
-        },
-        {
-          "number": null,
-          "player": "Tim Alderson",
-          "position": null
-        },
-        {
-          "number": 24,
-          "player": "Tom Gorzelanny",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 30,
-          "player": "Tyler Yates",
+          "number": 48,
+          "player": "Tim Wood",
           "position": "Relief pitcher"
         },
         {
-          "number": 76,
-          "player": "Virgil Vasquez",
-          "position": "Pitcher"
+          "number": 65,
+          "player": "Tony Watson",
+          "position": "Relief pitcher"
         },
         {
-          "number": 57,
-          "player": "Zach Duke",
-          "position": "Starting pitcher"
+          "number": 38,
+          "player": "Xavier Paul",
+          "position": "Left fielder"
         }
       ],
       "division": {
@@ -5395,9 +5102,9 @@
       "name": "Pittsburgh Pirates",
       "team_stats": [
         {
-          "losses": 95,
-          "season": "2008 Major League Baseball season",
-          "wins": 67
+          "losses": 105,
+          "season": "2010 Major League Baseball season",
+          "wins": 57
         }
       ],
       "type": "/baseball/baseball_team"
@@ -5877,6 +5584,9 @@
       "/sports/sports_team/arena_stadium": [
         {
           "name": "Safeco Field"
+        },
+        {
+          "name": "Kingdome"
         }
       ],
       "/sports/sports_team/founded": [
@@ -6052,11 +5762,6 @@
           "number": 32,
           "player": "Rob Johnson",
           "position": "Catcher"
-        },
-        {
-          "number": 3,
-          "player": "Ronny Cede\u00f1o",
-          "position": "Second baseman"
         },
         {
           "number": 48,
@@ -6240,6 +5945,11 @@
           "number": 46,
           "player": "Kyle McClellan",
           "position": "Relief pitcher"
+        },
+        {
+          "number": 17,
+          "player": "Lance Berkman",
+          "position": "Right fielder"
         },
         {
           "number": 78,
@@ -6872,11 +6582,6 @@
           "position": "Third baseman"
         },
         {
-          "number": 35,
-          "player": "Lyle Overbay",
-          "position": "First baseman"
-        },
-        {
           "number": 24,
           "player": "Ricardo Romero",
           "position": "Pitcher"
@@ -7008,11 +6713,6 @@
           "number": 3,
           "player": "Jes\u00fas Flores",
           "position": "Catcher"
-        },
-        {
-          "number": 38,
-          "player": "Joel Hanrahan",
-          "position": "Relief pitcher"
         },
         {
           "number": 31,
@@ -7158,5 +6858,5 @@
     }
   ],
   "status": "200 OK",
-  "transaction_id": "cache;cache02.p01.sjc1:8101;2011-05-03T00:10:07Z;0043"
+  "transaction_id": "cache;cache02.p01.sjc1:8101;2011-10-14T05:41:59Z;0033"
 }

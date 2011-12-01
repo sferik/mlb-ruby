@@ -14,6 +14,11 @@ MLB.rb is a Ruby library for retrieving current Major League Baseball players, m
 
 [ci]: http://travis-ci.org/sferik/mlb
 
+## <a name="dependencies"></a>Dependency Status
+[![Dependency Status](https://gemnasium.com/sferik/mlb.png)][gemnasium]
+
+[gemnasium]: https://gemnasium.com/sferik/mlb
+
 ## <a name="examples"></a>Usage Examples
     $ irb
     >> require 'mlb'
@@ -83,8 +88,8 @@ This library aims to support and is [tested against][ci] the following Ruby
 implementations:
 
 * Ruby 1.8.7
-* Ruby 1.9.1
 * Ruby 1.9.2
+* Ruby 1.9.3
 * [JRuby][]
 * [Rubinius][]
 * [Ruby Enterprise Edition][ree]

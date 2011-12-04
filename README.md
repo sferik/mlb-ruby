@@ -15,7 +15,7 @@ MLB.rb is a Ruby library for retrieving current Major League Baseball players, m
 [ci]: http://travis-ci.org/sferik/mlb
 
 ## <a name="dependencies"></a>Dependency Status
-[![Dependency Status](https://gemnasium.com/sferik/mlb.png)][gemnasium]
+[![Dependency Status](https://gemnasium.com/sferik/mlb.png?travis)][gemnasium]
 
 [gemnasium]: https://gemnasium.com/sferik/mlb
 

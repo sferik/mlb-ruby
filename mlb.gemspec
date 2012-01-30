@@ -3,7 +3,7 @@ require File.expand_path('../lib/mlb/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.add_dependency 'faraday', '~> 0.7'
-  gem.add_dependency 'faraday_middleware', '~> 0.7'
+  gem.add_dependency 'faraday_middleware', '~> 0.8'
   gem.add_dependency 'multi_json', '~> 1.0'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rdiscount'

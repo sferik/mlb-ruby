@@ -16,7 +16,7 @@ module MLB
 
     def self.connection(raw=false)
       Faraday.new(:url => 'http://api.freebase.com') do |connection|
-        connection.use Faraday::Response::ParseJson unless raw
+        connection.use FaradayMiddleware::ParseJson unless raw
         connection.adapter Faraday.default_adapter
       end
     end

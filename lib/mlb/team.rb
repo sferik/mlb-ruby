@@ -1,3 +1,4 @@
+require 'faraday'
 require 'multi_json'
 
 module MLB
@@ -26,7 +27,7 @@ module MLB
       # connection error, in which case read from a fixture file
       @all ||= begin
         results_to_team(results_from_freebase)
-      rescue SocketError, Errno::ECONNREFUSED, Timeout::Error
+      rescue SocketError, Errno::ECONNREFUSED, Timeout::Error, Faraday::Error::TimeoutError
         results_to_team(results_from_cache)
       end
     end

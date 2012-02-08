@@ -1,5 +1,5 @@
 require 'faraday'
-require 'multi_json'
+require 'json'
 
 module MLB
   class Team
@@ -50,7 +50,7 @@ module MLB
     end
 
     def self.results_from_cache
-      MultiJson.decode(file_from_cache("teams.json").read)
+      JSON.parse(file_from_cache("teams.json").read)
     end
 
     def self.file_from_cache(file_name)

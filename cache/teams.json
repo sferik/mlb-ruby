@@ -249,7 +249,7 @@
       ],
       "/sports/sports_team/team_mascot": [],
       "current_manager": {
-        "name": "Bobby Cox"
+        "name": "Fredi Gonz\u00e1lez"
       },
       "current_roster": [
         {
@@ -1187,249 +1187,6 @@
     {
       "/common/topic/image": [
         {
-          "id": "/m/03t4s0m",
-          "timestamp": "2008-03-13T04:36:58.0013Z"
-        }
-      ],
-      "/sports/sports_team/arena_stadium": [
-        {
-          "name": "U.S. Cellular Field"
-        }
-      ],
-      "/sports/sports_team/founded": [
-        {
-          "value": "1900"
-        }
-      ],
-      "/sports/sports_team/team_mascot": [
-        {
-          "id": "/m/0b7nrv",
-          "name": "Southpaw",
-          "type": [
-            "/common/topic",
-            "/sports/mascot"
-          ]
-        }
-      ],
-      "current_manager": {
-        "name": "Ozzie Guill\u00e9n"
-      },
-      "current_roster": [
-        {
-          "number": 12,
-          "player": "A. J. Pierzynski",
-          "position": "Catcher"
-        },
-        {
-          "number": 46,
-          "player": "Adam Russell",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 10,
-          "player": "Alexei Ram\u00edrez",
-          "position": "Second baseman"
-        },
-        {
-          "number": 40,
-          "player": "Bartolo Col\u00f3n",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 45,
-          "player": "Bobby Jenks",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 60,
-          "player": "Brandon Allen",
-          "position": "First baseman"
-        },
-        {
-          "number": 18,
-          "player": "Brent Lillibridge",
-          "position": "Shortstop"
-        },
-        {
-          "number": 32,
-          "player": "Brian Anderson",
-          "position": "Center fielder"
-        },
-        {
-          "number": 20,
-          "player": "Carlos Quentin",
-          "position": "Left fielder"
-        },
-        {
-          "number": 17,
-          "player": "Chris Getz",
-          "position": "Second baseman"
-        },
-        {
-          "number": 54,
-          "player": "Clayton Richard",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 63,
-          "player": "Clevelan Santeliz",
-          "position": "Pitcher"
-        },
-        {
-          "number": 38,
-          "player": "Cole Armstrong",
-          "position": "Catcher"
-        },
-        {
-          "number": 53,
-          "player": "D. J. Carrasco",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 24,
-          "player": "Day\u00e1n Viciedo",
-          "position": "Third baseman"
-        },
-        {
-          "number": 31,
-          "player": "Dewayne Wise",
-          "position": "Center fielder"
-        },
-        {
-          "number": 43,
-          "player": "Ehren Wassermann",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 34,
-          "player": "Gavin Floyd",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 62,
-          "player": "Jack Egbert",
-          "position": "Pitcher"
-        },
-        {
-          "number": 5,
-          "player": "Jayson Nix",
-          "position": "Second baseman"
-        },
-        {
-          "number": 48,
-          "player": "Jeffrey Marquez",
-          "position": "Pitcher"
-        },
-        {
-          "number": 23,
-          "player": "Jermaine Dye",
-          "position": "Right fielder"
-        },
-        {
-          "number": 7,
-          "player": "Jerry Owens",
-          "position": "Left fielder"
-        },
-        {
-          "number": 65,
-          "player": "Jhonny N\u00fa\u00f1ez",
-          "position": "Pitcher"
-        },
-        {
-          "number": 25,
-          "player": "Jim Thome",
-          "position": "Designated hitter"
-        },
-        {
-          "number": 50,
-          "player": "John Danks",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 61,
-          "player": "Jon Link",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 22,
-          "player": "Josh Fields",
-          "position": "Third baseman"
-        },
-        {
-          "number": 52,
-          "player": "Jos\u00e9 Contreras",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 57,
-          "player": "Kelvin Jimenez",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 41,
-          "player": "Lance Broadway",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 64,
-          "player": "Lucas Harrell",
-          "position": "Pitcher"
-        },
-        {
-          "number": 56,
-          "player": "Mark Buehrle",
-          "position": "Starting pitcher"
-        },
-        {
-          "number": 37,
-          "player": "Matt Thornton",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 26,
-          "player": "Octavio Dotel",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": 14,
-          "player": "Paul Konerko",
-          "position": "First baseman"
-        },
-        {
-          "number": 71,
-          "player": "Scott Linebrink",
-          "position": "Relief pitcher"
-        },
-        {
-          "number": null,
-          "player": "Scott Podsednik",
-          "position": "Outfielder"
-        },
-        {
-          "number": 15,
-          "player": "Wilson Betemit",
-          "position": "First baseman"
-        }
-      ],
-      "division": {
-        "name": "American League Central"
-      },
-      "league": {
-        "name": "American League"
-      },
-      "name": "Chicago White Sox",
-      "team_stats": [
-        {
-          "losses": 74,
-          "season": "2008 Major League Baseball season",
-          "wins": 89
-        }
-      ],
-      "type": "/baseball/baseball_team"
-    },
-    {
-      "/common/topic/image": [
-        {
           "id": "/m/029hcb4",
           "timestamp": "2007-04-15T02:48:25.0000Z"
         }
@@ -2204,7 +1961,7 @@
         }
       ],
       "current_manager": {
-        "name": "Fredi Gonz\u00e1lez"
+        "name": "Ozzie Guill\u00e9n"
       },
       "current_roster": [
         {
@@ -5186,6 +4943,11 @@
           "position": "Relief pitcher"
         },
         {
+          "number": 33,
+          "player": "Clayton Richard",
+          "position": "Starting pitcher"
+        },
+        {
           "number": 16,
           "player": "Cliff Floyd",
           "position": "Right fielder"
@@ -5922,11 +5684,6 @@
           "position": "Starting pitcher"
         },
         {
-          "number": 30,
-          "player": "John Smoltz",
-          "position": "Pitcher"
-        },
-        {
           "number": 52,
           "player": "Josh Kinney",
           "position": "Relief pitcher"
@@ -6651,7 +6408,7 @@
         }
       ],
       "current_manager": {
-        "name": "Jim Riggleman"
+        "name": "Davey Johnson"
       },
       "current_roster": [
         {
@@ -6858,5 +6615,5 @@
     }
   ],
   "status": "200 OK",
-  "transaction_id": "cache;cache02.p01.sjc1:8101;2011-10-14T05:41:59Z;0033"
+  "transaction_id": "cache;cache02.p01.sjc1:8101;2012-02-18T19:10:31Z;0048"
 }

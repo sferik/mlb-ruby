@@ -1,5 +1,3 @@
-module MLB
-  require 'mlb/request'
-  require 'mlb/team'
-  require 'mlb/player'
-end
+require 'mlb/request'
+require 'mlb/team'
+require 'mlb/player'

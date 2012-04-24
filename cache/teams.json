@@ -56,17 +56,12 @@
         {
           "number": 5,
           "player": "Cole Gillespie",
-          "position": "Left fielder"
+          "position": "Outfielder"
         },
         {
           "number": 32,
           "player": "Craig Breslow",
           "position": "Relief pitcher"
-        },
-        {
-          "number": null,
-          "player": "Craig Tatum",
-          "position": "Catcher"
         },
         {
           "number": 41,
@@ -222,11 +217,6 @@
           "number": 56,
           "player": "Yonata Ortega",
           "position": "Relief pitcher"
-        },
-        {
-          "number": 43,
-          "player": "Zach Kroenke",
-          "position": "Pitcher"
         }
       ],
       "division": {
@@ -281,11 +271,6 @@
           "number": 37,
           "player": "Brandon Beachy",
           "position": "Pitcher"
-        },
-        {
-          "number": 19,
-          "player": "Brandon Hicks",
-          "position": "Infielder"
         },
         {
           "number": 16,
@@ -374,6 +359,11 @@
         },
         {
           "number": null,
+          "player": "Juan Francisco",
+          "position": "Third baseman"
+        },
+        {
+          "number": 25,
           "player": "Juan Francisco",
           "position": "Third baseman"
         },
@@ -546,6 +536,11 @@
           "position": "Pitcher"
         },
         {
+          "number": 53,
+          "player": "Dontrelle Willis",
+          "position": "Pitcher"
+        },
+        {
           "number": 82,
           "player": "Dylan Bundy",
           "position": "Pitcher"
@@ -571,11 +566,6 @@
           "position": "Pitcher"
         },
         {
-          "number": 49,
-          "player": "Jason Berken",
-          "position": "Pitcher"
-        },
-        {
           "number": 39,
           "player": "Jason Hammel",
           "position": "Pitcher"
@@ -588,7 +578,7 @@
         {
           "number": 51,
           "player": "Joe Mahoney",
-          "position": "First baseman"
+          "position": "Infielder"
         },
         {
           "number": 25,
@@ -609,11 +599,6 @@
           "number": 12,
           "player": "Mark Reynolds",
           "position": "Third baseman"
-        },
-        {
-          "number": 27,
-          "player": "Matt Antonelli",
-          "position": "Second baseman"
         },
         {
           "number": 32,
@@ -653,7 +638,7 @@
         {
           "number": 6,
           "player": "Ryan Adams",
-          "position": "Second baseman"
+          "position": "Infielder"
         },
         {
           "number": 3,
@@ -694,6 +679,11 @@
           "number": 58,
           "player": "Zachary Phillips",
           "position": "Pitcher"
+        },
+        {
+          "number": 51,
+          "player": "Zelous Wheeler",
+          "position": "Third baseman"
         }
       ],
       "division": {
@@ -998,11 +988,6 @@
           "position": "Left fielder"
         },
         {
-          "number": 21,
-          "player": "Andy Sonnanstine",
-          "position": "Pitcher"
-        },
-        {
           "number": 44,
           "player": "Anthony Rizzo",
           "position": "First baseman"
@@ -1020,11 +1005,6 @@
         {
           "number": 27,
           "player": "Casey Coleman",
-          "position": "Pitcher"
-        },
-        {
-          "number": 56,
-          "player": "Casey Weathers",
           "position": "Pitcher"
         },
         {
@@ -1048,9 +1028,19 @@
           "position": "Right fielder"
         },
         {
+          "number": 48,
+          "player": "Eulogio De La Cruz",
+          "position": "Pitcher"
+        },
+        {
           "number": 18,
           "player": "Geovany Soto",
           "position": "Catcher"
+        },
+        {
+          "number": null,
+          "player": "Gerardo Concepci\u00f3n",
+          "position": "Pitcher"
         },
         {
           "number": 2,
@@ -1085,12 +1075,12 @@
         {
           "number": 61,
           "player": "Josh Vitters",
-          "position": "Third baseman"
+          "position": "Infielder"
         },
         {
           "number": 73,
           "player": "Junior Lake",
-          "position": "Shortstop"
+          "position": "Infielder"
         },
         {
           "number": 34,
@@ -1125,7 +1115,7 @@
         {
           "number": 72,
           "player": "Matt Szczur",
-          "position": "Center fielder"
+          "position": "Outfielder"
         },
         {
           "number": 28,
@@ -1378,7 +1368,7 @@
         {
           "number": 28,
           "player": "Osvaldo Mart\u00ednez",
-          "position": "Shortstop"
+          "position": "Infielder"
         },
         {
           "number": 14,
@@ -1534,6 +1524,11 @@
           "position": "Starting pitcher"
         },
         {
+          "number": null,
+          "player": "J. J. Hoover",
+          "position": "Pitcher"
+        },
+        {
           "number": 32,
           "player": "Jay Bruce",
           "position": "Right fielder"
@@ -1554,19 +1549,9 @@
           "position": "Pitcher"
         },
         {
-          "number": 56,
-          "player": "Josh Judy",
-          "position": "Pitcher"
-        },
-        {
           "number": 33,
           "player": "Jos\u00e9 Arredondo",
           "position": "Relief pitcher"
-        },
-        {
-          "number": 68,
-          "player": "Juan Francisco",
-          "position": "Third baseman"
         },
         {
           "number": 67,
@@ -1719,7 +1704,7 @@
         {
           "number": 13,
           "player": "Asdrubal Cabrera",
-          "position": "Infielder"
+          "position": "Shortstop"
         },
         {
           "number": 59,
@@ -1770,6 +1755,11 @@
           "number": 12,
           "player": "Ezequiel Carrera",
           "position": "Center fielder"
+        },
+        {
+          "number": 55,
+          "player": "Fausto Carmona",
+          "position": "Pitcher"
         },
         {
           "number": 56,
@@ -1854,7 +1844,7 @@
         {
           "number": 71,
           "player": "Nick Weglarz",
-          "position": "Left fielder"
+          "position": "Outfielder"
         },
         {
           "number": 53,
@@ -1960,6 +1950,11 @@
       },
       "current_roster": [
         {
+          "number": null,
+          "player": "Adam Ottavino",
+          "position": "Pitcher"
+        },
+        {
           "number": 6,
           "player": "Alex White",
           "position": "Pitcher"
@@ -1977,7 +1972,7 @@
         {
           "number": 8,
           "player": "Charlie Blackmon",
-          "position": "Outfielder"
+          "position": "Center fielder"
         },
         {
           "number": 10,
@@ -2035,11 +2030,6 @@
           "position": "Shortstop"
         },
         {
-          "number": 39,
-          "player": "Jamie Hoffmann",
-          "position": "Outfielder"
-        },
-        {
           "number": 23,
           "player": "Jason Giambi",
           "position": "First baseman"
@@ -2087,7 +2077,7 @@
         {
           "number": 19,
           "player": "Marco Scutaro",
-          "position": "Infielder"
+          "position": "Second baseman"
         },
         {
           "number": 34,
@@ -2122,7 +2112,7 @@
         {
           "number": 14,
           "player": "Thomas Field",
-          "position": "Shortstop"
+          "position": "Infielder"
         },
         {
           "number": 17,
@@ -2305,12 +2295,7 @@
         {
           "number": 52,
           "player": "Hernan Perez",
-          "position": "Second baseman"
-        },
-        {
-          "number": 50,
-          "player": "Jacob Turner",
-          "position": "Pitcher"
+          "position": "Infielder"
         },
         {
           "number": 27,
@@ -2507,7 +2492,7 @@
           "position": "Outfielder"
         },
         {
-          "number": 45,
+          "number": 43,
           "player": "Fernando Rodriguez",
           "position": "Relief pitcher"
         },
@@ -2515,11 +2500,6 @@
           "number": 65,
           "player": "Henry Sosa",
           "position": "Pitcher"
-        },
-        {
-          "number": 55,
-          "player": "Humberto Quintero",
-          "position": "Catcher"
         },
         {
           "number": 30,
@@ -2539,12 +2519,7 @@
         {
           "number": 9,
           "player": "Jack Cust",
-          "position": "Outfielder"
-        },
-        {
-          "number": 11,
-          "player": "Jason Bourgeois",
-          "position": "Outfielder"
+          "position": "Left fielder"
         },
         {
           "number": 15,
@@ -2597,7 +2572,7 @@
           "position": "Pitcher"
         },
         {
-          "number": 70,
+          "number": 9,
           "player": "Marwin Gonzalez",
           "position": "Infielder"
         },
@@ -2765,8 +2740,18 @@
           "position": "Pitcher"
         },
         {
+          "number": 33,
+          "player": "Humberto Quintero",
+          "position": "Catcher"
+        },
+        {
           "number": 1,
           "player": "Jarrod Dyson",
+          "position": "Outfielder"
+        },
+        {
+          "number": 30,
+          "player": "Jason Bourgeois",
           "position": "Outfielder"
         },
         {
@@ -2948,11 +2933,6 @@
           "position": "Second baseman"
         },
         {
-          "number": 18,
-          "player": "Andrew Romine",
-          "position": "Third baseman"
-        },
-        {
           "number": 56,
           "player": "Ariel Pe\u00f1a",
           "position": "Pitcher"
@@ -3028,9 +3008,14 @@
           "position": "Second baseman"
         },
         {
+          "number": 55,
+          "player": "Jason Isringhausen",
+          "position": "Pitcher"
+        },
+        {
           "number": 20,
           "player": "Jean Segura",
-          "position": "Shortstop"
+          "position": "Infielder"
         },
         {
           "number": 36,
@@ -3075,7 +3060,7 @@
         {
           "number": 35,
           "player": "Luis Jim\u00e9nez",
-          "position": "Third baseman"
+          "position": "Infielder"
         },
         {
           "number": 13,
@@ -3184,12 +3169,12 @@
         {
           "number": 76,
           "player": "Alex Castellanos",
-          "position": "Right fielder"
+          "position": "Outfielder"
         },
         {
           "number": 75,
           "player": "Alfredo Silverio",
-          "position": "Left fielder"
+          "position": "Outfielder"
         },
         {
           "number": 16,
@@ -3334,7 +3319,7 @@
         {
           "number": 77,
           "player": "Scott Van Slyke",
-          "position": "Left fielder"
+          "position": "Outfielder"
         },
         {
           "number": 79,
@@ -3565,11 +3550,6 @@
           "position": "Pitcher"
         },
         {
-          "number": 77,
-          "player": "Ram\u00f3n Benjam\u00edn",
-          "position": "Pitcher"
-        },
-        {
           "number": 36,
           "player": "Randy Choate",
           "position": "Relief pitcher"
@@ -3688,7 +3668,7 @@
         {
           "number": 66,
           "player": "Brock Kjeldgaard",
-          "position": "Right fielder"
+          "position": "Outfielder"
         },
         {
           "number": 54,
@@ -3718,12 +3698,7 @@
         {
           "number": 33,
           "player": "Eric Farris",
-          "position": "Second baseman"
-        },
-        {
-          "number": 63,
-          "player": "Eulogio De La Cruz",
-          "position": "Pitcher"
+          "position": "Infielder"
         },
         {
           "number": 57,
@@ -3734,11 +3709,6 @@
           "number": 9,
           "player": "George Kottaras",
           "position": "Catcher"
-        },
-        {
-          "number": 65,
-          "player": "Jeff Bianchi",
-          "position": "Shortstop"
         },
         {
           "number": 59,
@@ -3864,11 +3834,6 @@
           "number": 13,
           "player": "Zack Greinke",
           "position": "Pitcher"
-        },
-        {
-          "number": 51,
-          "player": "Zelous Wheeler",
-          "position": "Third baseman"
         }
       ],
       "division": {
@@ -3929,6 +3894,11 @@
           "position": "Second baseman"
         },
         {
+          "number": 39,
+          "player": "Anthony Slama",
+          "position": "Pitcher"
+        },
+        {
           "number": 51,
           "player": "Anthony Swarzak",
           "position": "Pitcher"
@@ -3959,14 +3929,24 @@
           "position": "First baseman"
         },
         {
+          "number": null,
+          "player": "Daniel Turpen",
+          "position": "Pitcher"
+        },
+        {
           "number": 19,
           "player": "Danny Valencia",
           "position": "Third baseman"
         },
         {
-          "number": null,
+          "number": 19,
           "player": "Darin Mastroianni",
-          "position": "Left fielder"
+          "position": "Outfielder"
+        },
+        {
+          "number": null,
+          "player": "Deibinson Romero",
+          "position": "Third baseman"
         },
         {
           "number": 2,
@@ -4076,12 +4056,12 @@
         {
           "number": 80,
           "player": "Oswaldo Arcia",
-          "position": "Right fielder"
+          "position": "Outfielder"
         },
         {
           "number": 23,
           "player": "Rene Tosoni",
-          "position": "Left fielder"
+          "position": "Outfielder"
         },
         {
           "number": 18,
@@ -4099,11 +4079,6 @@
           "position": "Pitcher"
         },
         {
-          "number": 56,
-          "player": "Terry Doyle",
-          "position": "Pitcher"
-        },
-        {
           "number": 24,
           "player": "Trevor Plouffe",
           "position": "Left fielder"
@@ -4111,7 +4086,7 @@
         {
           "number": 1,
           "player": "Tsuyoshi Nishioka",
-          "position": "Second baseman"
+          "position": "Infielder"
         },
         {
           "number": 64,
@@ -4300,7 +4275,7 @@
           "position": "Infielder"
         },
         {
-          "number": 72,
+          "number": 9,
           "player": "Kirk Nieuwenhuis",
           "position": "Outfielder"
         },
@@ -4372,12 +4347,12 @@
         {
           "number": 71,
           "player": "Wilmer Flores",
-          "position": "Shortstop"
+          "position": "Infielder"
         },
         {
           "number": 65,
           "player": "Zach Lutz",
-          "position": "Third baseman"
+          "position": "Infielder"
         }
       ],
       "division": {
@@ -4467,6 +4442,11 @@
           "position": "Pitcher"
         },
         {
+          "number": 19,
+          "player": "Chris Stewart",
+          "position": "Catcher"
+        },
+        {
           "number": null,
           "player": "Cody Eppley",
           "position": "Pitcher"
@@ -4480,6 +4460,11 @@
           "number": 53,
           "player": "Cory Wade",
           "position": "Relief pitcher"
+        },
+        {
+          "number": null,
+          "player": "Craig Tatum",
+          "position": "Catcher"
         },
         {
           "number": 14,
@@ -4535,11 +4520,6 @@
           "number": 36,
           "player": "Freddy Garc\u00eda",
           "position": "Starting pitcher"
-        },
-        {
-          "number": 70,
-          "player": "George Kontos",
-          "position": "Pitcher"
         },
         {
           "number": 18,
@@ -4700,6 +4680,11 @@
           "position": "First baseman"
         },
         {
+          "number": null,
+          "player": "Brandon Hicks",
+          "position": "Third baseman"
+        },
+        {
           "number": 32,
           "player": "Brandon McCarthy",
           "position": "Starting pitcher"
@@ -4782,7 +4767,7 @@
         {
           "number": 64,
           "player": "Jermaine Mitchell",
-          "position": "Center fielder"
+          "position": "Outfielder"
         },
         {
           "number": 13,
@@ -4973,11 +4958,6 @@
           "position": "Left fielder"
         },
         {
-          "number": 53,
-          "player": "Dontrelle Willis",
-          "position": "Pitcher"
-        },
-        {
           "number": 31,
           "player": "Erik Kratz",
           "position": "Catcher"
@@ -4985,7 +4965,7 @@
         {
           "number": 13,
           "player": "Freddy Galvis",
-          "position": "Shortstop"
+          "position": "Second baseman"
         },
         {
           "number": 3,
@@ -5023,7 +5003,7 @@
           "position": "Pitcher"
         },
         {
-          "number": 40,
+          "number": 15,
           "player": "John Mayberry",
           "position": "Right fielder"
         },
@@ -5048,12 +5028,12 @@
           "position": "Pitcher"
         },
         {
-          "number": 7,
+          "number": 19,
           "player": "Laynce Nix",
           "position": "Left fielder"
         },
         {
-          "number": 19,
+          "number": 7,
           "player": "Michael Martinez",
           "position": "Second baseman"
         },
@@ -5068,7 +5048,12 @@
           "position": "Pitcher"
         },
         {
-          "number": 75,
+          "number": null,
+          "player": "Mike Fontenot",
+          "position": "Second baseman"
+        },
+        {
+          "number": 43,
           "player": "Phillipe Aumont",
           "position": "Pitcher"
         },
@@ -5105,7 +5090,7 @@
         {
           "number": 64,
           "player": "Tyson Gillies",
-          "position": "Center fielder"
+          "position": "Outfielder"
         },
         {
           "number": 49,
@@ -5196,9 +5181,9 @@
           "position": "Pitcher"
         },
         {
-          "number": 12,
+          "number": 3,
           "player": "Chase d'Arnaud",
-          "position": "Shortstop"
+          "position": "Infielder"
         },
         {
           "number": 30,
@@ -5216,7 +5201,7 @@
           "position": "Shortstop"
         },
         {
-          "number": 34,
+          "number": 25,
           "player": "Daniel McCutchen",
           "position": "Pitcher"
         },
@@ -5266,7 +5251,7 @@
           "position": "Relief pitcher"
         },
         {
-          "number": 61,
+          "number": 37,
           "player": "Jeff Locke",
           "position": "Starting pitcher"
         },
@@ -5306,7 +5291,7 @@
           "position": "Pitcher"
         },
         {
-          "number": 67,
+          "number": 60,
           "player": "Kyle McPherson",
           "position": "Starting pitcher"
         },
@@ -5351,7 +5336,7 @@
           "position": "Outfielder"
         },
         {
-          "number": 65,
+          "number": 44,
           "player": "Tony Watson",
           "position": "Pitcher"
         },
@@ -5436,7 +5421,7 @@
         {
           "number": 9,
           "player": "Blake Tekotte",
-          "position": "Center fielder"
+          "position": "Outfielder"
         },
         {
           "number": 58,
@@ -5486,7 +5471,7 @@
         {
           "number": 63,
           "player": "Edinson Rinc\u00f3n",
-          "position": "Third baseman"
+          "position": "Infielder"
         },
         {
           "number": 37,
@@ -5502,6 +5487,11 @@
           "number": 39,
           "player": "Ernesto Frieri",
           "position": "Relief pitcher"
+        },
+        {
+          "number": 32,
+          "player": "Everett Williams",
+          "position": "Center fielder"
         },
         {
           "number": 2,
@@ -5601,7 +5591,7 @@
         {
           "number": 62,
           "player": "Rymer Liriano",
-          "position": "Right fielder"
+          "position": "Outfielder"
         },
         {
           "number": 46,
@@ -5741,11 +5731,6 @@
           "position": "Second baseman"
         },
         {
-          "number": 37,
-          "player": "Chris Stewart",
-          "position": "Catcher"
-        },
-        {
           "number": 34,
           "player": "Clay Hensley",
           "position": "Starting pitcher"
@@ -5796,6 +5781,11 @@
           "position": "Second baseman"
         },
         {
+          "number": null,
+          "player": "George Kontos",
+          "position": "Pitcher"
+        },
+        {
           "number": 59,
           "player": "Guillermo Mota",
           "position": "Pitcher"
@@ -5834,11 +5824,6 @@
           "number": 53,
           "player": "Melky Cabrera",
           "position": "Outfielder"
-        },
-        {
-          "number": 14,
-          "player": "Mike Fontenot",
-          "position": "Infielder"
         },
         {
           "number": 12,
@@ -5967,24 +5952,14 @@
           "position": "Shortstop"
         },
         {
-          "number": 4,
-          "player": "Carlos Peguero",
-          "position": "Left fielder"
-        },
-        {
           "number": 64,
           "player": "Carlos Triunfel",
-          "position": "Shortstop"
+          "position": "Infielder"
         },
         {
           "number": 33,
           "player": "Casper Wells",
           "position": "Right fielder"
-        },
-        {
-          "number": 59,
-          "player": "Chance Ruffin",
-          "position": "Pitcher"
         },
         {
           "number": 41,
@@ -5994,17 +5969,12 @@
         {
           "number": 5,
           "player": "Chih-Hsien Chiang",
-          "position": "Right fielder"
+          "position": "Outfielder"
         },
         {
           "number": 9,
           "player": "Chone Figgins",
           "position": "Third baseman"
-        },
-        {
-          "number": 37,
-          "player": "C\u00e9sar Jim\u00e9nez",
-          "position": "Relief pitcher"
         },
         {
           "number": 75,
@@ -6017,9 +5987,14 @@
           "position": "Second baseman"
         },
         {
+          "number": 50,
+          "player": "Erasmo Ram\u00edrez",
+          "position": "Pitcher"
+        },
+        {
           "number": 66,
           "player": "Francisco Mart\u00ednez",
-          "position": "Third baseman"
+          "position": "Infielder"
         },
         {
           "number": 21,
@@ -6040,11 +6015,6 @@
           "number": 18,
           "player": "Hisashi Iwakuma",
           "position": "Starting pitcher"
-        },
-        {
-          "number": 32,
-          "player": "Hong-Chih Kuo",
-          "position": "Pitcher"
         },
         {
           "number": 45,
@@ -6069,7 +6039,7 @@
         {
           "number": 70,
           "player": "Johermyn Ch\u00e1vez",
-          "position": "Right fielder"
+          "position": "Outfielder"
         },
         {
           "number": 27,
@@ -6080,6 +6050,11 @@
           "number": 17,
           "player": "Justin Smoak",
           "position": "First baseman"
+        },
+        {
+          "number": 25,
+          "player": "Kevin Millwood",
+          "position": "Pitcher"
         },
         {
           "number": 15,
@@ -6112,9 +6087,9 @@
           "position": "Left fielder"
         },
         {
-          "number": 57,
-          "player": "Shawn Camp",
-          "position": "Relief pitcher"
+          "number": 61,
+          "player": "Munenori Kawasaki",
+          "position": "Shortstop"
         },
         {
           "number": 23,
@@ -6134,7 +6109,7 @@
         {
           "number": 12,
           "player": "Trayvon Robinson",
-          "position": "Left fielder"
+          "position": "Outfielder"
         },
         {
           "number": 74,
@@ -6200,11 +6175,6 @@
       },
       "current_roster": [
         {
-          "number": 53,
-          "player": "Adam Ottavino",
-          "position": "Pitcher"
-        },
-        {
           "number": 68,
           "player": "Adam Reifer",
           "position": "Relief pitcher"
@@ -6213,11 +6183,6 @@
           "number": 50,
           "player": "Adam Wainwright",
           "position": "Starting pitcher"
-        },
-        {
-          "number": 56,
-          "player": "Adron Chambers",
-          "position": "Center fielder"
         },
         {
           "number": 21,
@@ -6265,12 +6230,12 @@
           "position": "Pitcher"
         },
         {
-          "number": 82,
+          "number": 44,
           "player": "Erik Komatsu",
           "position": "Right fielder"
         },
         {
-          "number": 52,
+          "number": 59,
           "player": "Fernando Salas",
           "position": "Pitcher"
         },
@@ -6350,9 +6315,9 @@
           "position": "Starting pitcher"
         },
         {
-          "number": 47,
+          "number": 58,
           "player": "Peter Kozma",
-          "position": "Second baseman"
+          "position": "Infielder"
         },
         {
           "number": 15,
@@ -6392,7 +6357,7 @@
         {
           "number": 84,
           "player": "Zack Cox",
-          "position": "Third baseman"
+          "position": "Infielder"
         },
         {
           "number": 43,
@@ -6792,11 +6757,6 @@
           "position": "Catcher"
         },
         {
-          "number": 58,
-          "player": "Mark Hamburger",
-          "position": "Pitcher"
-        },
-        {
           "number": 57,
           "player": "Mark Lowe",
           "position": "Relief pitcher"
@@ -7092,7 +7052,7 @@
         {
           "number": 66,
           "player": "Mike McDade",
-          "position": "First baseman"
+          "position": "Infielder"
         },
         {
           "number": 74,
@@ -7108,11 +7068,6 @@
           "number": 24,
           "player": "Ricardo Romero",
           "position": "Starting pitcher"
-        },
-        {
-          "number": 60,
-          "player": "Rick VandenHurk",
-          "position": "Pitcher"
         },
         {
           "number": 21,
@@ -7285,7 +7240,7 @@
         {
           "number": 55,
           "player": "Eury P\u00e9rez",
-          "position": "Center fielder"
+          "position": "Outfielder"
         },
         {
           "number": 47,
@@ -7294,7 +7249,7 @@
         },
         {
           "number": 63,
-          "player": "Henry Rodriguez",
+          "player": "Henry Rodr\u00edguez",
           "position": "Pitcher"
         },
         {
@@ -7308,7 +7263,7 @@
           "position": "Right fielder"
         },
         {
-          "number": 3,
+          "number": 26,
           "player": "Jes\u00fas Flores",
           "position": "Catcher"
         },
@@ -7403,6 +7358,11 @@
           "position": "Catcher"
         },
         {
+          "number": 21,
+          "player": "Xavier Nady",
+          "position": "Left fielder"
+        },
+        {
           "number": 29,
           "player": "Yunieski Maya",
           "position": "Pitcher"
@@ -7426,5 +7386,5 @@
     }
   ],
   "status": "200 OK",
-  "transaction_id": "cache;cache02.p01.sjc1:8101;2012-04-18T14:31:34Z;0020"
+  "transaction_id": "cache;cache02.p01.sjc1:8101;2012-04-24T10:11:05Z;0030"
 }

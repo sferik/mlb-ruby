@@ -4,6 +4,7 @@ require File.expand_path('../lib/mlb/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.add_dependency 'faraday', '~> 0.8'
   gem.add_dependency 'faraday_middleware', '~> 0.8'
+  gem.add_dependency 'json', '~> 1.7'
   gem.add_dependency 'multi_json', '~> 1.3'
   gem.add_development_dependency 'maruku'
   gem.add_development_dependency 'rake'
@@ -18,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.homepage = 'https://github.com/sferik/mlb'
   gem.name = 'mlb'
   gem.require_paths = ['lib']
-  gem.required_ruby_version = '>= 1.9.0'
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   gem.summary = gem.description
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")

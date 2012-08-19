@@ -1,26 +1,27 @@
 # encoding: utf-8
 require File.expand_path('../lib/mlb/version', __FILE__)
 
-Gem::Specification.new do |gem|
-  gem.add_dependency 'faraday', '~> 0.8'
-  gem.add_dependency 'faraday_middleware', '~> 0.8'
-  gem.add_dependency 'json', '~> 1.7'
-  gem.add_dependency 'multi_json', '~> 1.3'
-  gem.add_development_dependency 'maruku'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec', '>= 2.11.0'
-  gem.add_development_dependency 'simplecov'
-  gem.add_development_dependency 'webmock'
-  gem.add_development_dependency 'yard'
-  gem.author = "Erik Michaels-Ober"
-  gem.description = %q{MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.}
-  gem.email = 'sferik@gmail.com'
-  gem.files = `git ls-files`.split("\n")
-  gem.homepage = 'https://github.com/sferik/mlb'
-  gem.name = 'mlb'
-  gem.require_paths = ['lib']
-  gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
-  gem.summary = gem.description
-  gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.version = MLB::VERSION
+Gem::Specification.new do |spec|
+  spec.add_dependency 'faraday', '~> 0.8'
+  spec.add_dependency 'faraday_middleware', '~> 0.8'
+  spec.add_dependency 'json', '~> 1.7'
+  spec.add_dependency 'multi_json', '~> 1.3'
+  spec.add_development_dependency 'maruku'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec', '>= 2.11.0'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'yard'
+  spec.author = "Erik Michaels-Ober"
+  spec.description = %q{MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.}
+  spec.email = 'sferik@gmail.com'
+  spec.files = `git ls-files`.split("\n")
+  spec.homepage = 'https://github.com/sferik/mlb'
+  spec.homepage = ['MIT']
+  spec.name = 'mlb'
+  spec.require_paths = ['lib']
+  spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
+  spec.summary = spec.description
+  spec.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  spec.version = MLB::VERSION
 end

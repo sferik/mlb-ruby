@@ -7,17 +7,6 @@ RSpec::Core::RakeTask.new(:spec)
 task :test => :spec
 task :default => :spec
 
-namespace :doc do
-  require 'yard'
-  YARD::Rake::YardocTask.new do |task|
-    task.files   = ['LICENSE.md', 'lib/**/*.rb']
-    task.options = [
-      '--output-dir', 'doc/yard',
-      '--markup', 'markdown',
-    ]
-  end
-end
-
 namespace :cache do
   require 'mlb'
   desc "Update the teams file cache"
@@ -28,3 +17,6 @@ namespace :cache do
     end
   end
 end
+
+require 'yard'
+YARD::Rake::YardocTask.new

@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.homepage = ['MIT']
   spec.name = 'mlb'
   spec.require_paths = ['lib']
-  spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
+  spec.required_rubygems_version = '>= 1.3.6'
   spec.required_ruby_version = '>= 1.9.2'
   spec.summary = spec.description
   spec.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")

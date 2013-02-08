@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
   spec.homepage = 'https://github.com/sferik/mlb'
-  spec.homepage = ['MIT']
+  spec.licenses = ['MIT']
   spec.name = 'mlb'
   spec.require_paths = ['lib']
   spec.required_rubygems_version = '>= 1.3.6'

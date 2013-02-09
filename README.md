@@ -48,11 +48,15 @@ Then, install the gem with the high security trust policy:
 This library aims to support and is [tested against][travis] the following Ruby
 implementations:
 
+* Ruby 1.8.7
 * Ruby 1.9.2
 * Ruby 1.9.3
+* Ruby 2.0.0
 * [Rubinius][]
+* [JRuby][]
 
 [rubinius]: http://rubini.us/
+[jruby]: http://jruby.org/
 
 If something doesn't work on one of these interpreters, it should be considered
 a bug.

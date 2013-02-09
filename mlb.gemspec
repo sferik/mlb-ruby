@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   spec.name = 'mlb'
   spec.require_paths = ['lib']
   spec.required_rubygems_version = '>= 1.3.6'
-  spec.required_ruby_version = '>= 1.9.2'
   spec.signing_key = File.expand_path("~/.gem/private_key.pem") if $0 =~ /gem\z/
   spec.summary = spec.description
   spec.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")

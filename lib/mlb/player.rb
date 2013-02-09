@@ -15,9 +15,9 @@ module MLB
     def self.all_from_roster(players)
       players.map do |player|
         new(
-          name:     player['player'],
-          number:   player['number'],
-          position: player['position']
+          :name     => player['player'],
+          :number   => player['number'],
+          :position => player['position']
         )
       end
     end

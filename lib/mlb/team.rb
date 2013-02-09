@@ -45,7 +45,7 @@ module MLB
     end
 
     def self.results_from_freebase(raw=false)
-      options = {query: mql_query}
+      options = {:query => mql_query}
       Request.get('/api/service/mqlread', options, raw)
     end
 
@@ -72,17 +72,17 @@ module MLB
         players     = result['current_roster']
 
         teams << new(
-          name:     result['name'],
-          league:   (league      ? league['name']                  : nil),
-          division: (division    ? division['name']                : nil),
-          manager:  (manager     ? manager['name']                 : nil),
-          wins:     (stats       ? stats['wins'].to_i              : nil),
-          losses:   (stats       ? stats['losses'].to_i            : nil),
-          founded:  (founded     ? founded['value'].to_i           : nil),
-          mascot:   (mascot      ? mascot['name']                  : nil),
-          ballpark: (ballpark    ? ballpark['name']                : nil),
-          logo_url: (logo_suffix ? logo_prefix + logo_suffix['id'] : nil),
-          players:  (players     ? Player.all_from_roster(players) : [])
+          :name     => result['name'],
+          :league   => (league      ? league['name']                  : nil),
+          :division => (division    ? division['name']                : nil),
+          :manager  => (manager     ? manager['name']                 : nil),
+          :wins     => (stats       ? stats['wins'].to_i              : nil),
+          :losses   => (stats       ? stats['losses'].to_i            : nil),
+          :founded  => (founded     ? founded['value'].to_i           : nil),
+          :mascot   => (mascot      ? mascot['name']                  : nil),
+          :ballpark => (ballpark    ? ballpark['name']                : nil),
+          :logo_url => (logo_suffix ? logo_prefix + logo_suffix['id'] : nil),
+          :players  => (players     ? Player.all_from_roster(players) : [])
         )
       end
       teams

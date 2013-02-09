@@ -99,6 +99,6 @@ MLB was built with the following tools:
 [yard]: http://yardoc.org/
 
 ## Copyright
-Copyright (c) 2010 Erik Michaels-Ober. See [LICENSE][] for details.
+Copyright (c) 2010-2013 Erik Michaels-Ober. See [LICENSE][] for details.
 
 [license]: LICENSE.md

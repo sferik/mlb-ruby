@@ -101,4 +101,4 @@ MLB was built with the following tools:
 ## Copyright
 Copyright (c) 2010 Erik Michaels-Ober. See [LICENSE][] for details.
 
-[license]: https://github.com/sferik/mlb/blob/master/LICENSE.md
+[license]: LICENSE.md

@@ -50,7 +50,7 @@ module MLB
     end
 
     def self.results_from_cache
-      MultiJson.load(file_from_cache("teams.json").read)
+      MultiJson.decode(file_from_cache("teams.json").read)
     end
 
     def self.file_from_cache(file_name)

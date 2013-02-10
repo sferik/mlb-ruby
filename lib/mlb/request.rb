@@ -1,5 +1,5 @@
 require 'faraday'
-require 'faraday_middleware'
+require 'mlb/response/parse_json'
 
 module MLB
   # @private
@@ -15,9 +15,9 @@ module MLB
     private
 
     def self.connection(raw=false)
-      Faraday.new(:url => 'http://api.freebase.com') do |connection|
-        connection.use FaradayMiddleware::ParseJson unless raw
-        connection.adapter Faraday.default_adapter
+      Faraday.new(:url => 'http://api.freebase.com') do |builder|
+        builder.use MLB::Response::ParseJson unless raw
+        builder.adapter Faraday.default_adapter
       end
     end
   end

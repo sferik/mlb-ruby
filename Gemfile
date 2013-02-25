@@ -11,6 +11,7 @@ group :development do
 end
 
 group :test do
+  gem 'coveralls', :require => false
   gem 'json', :platforms => [:jruby, :ruby_18]
   gem 'rspec', '>= 2.11'
   gem 'simplecov', :require => false

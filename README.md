@@ -2,10 +2,12 @@
 [![Gem Version](https://badge.fury.io/rb/mlb.png)][gem]
 [![Build Status](https://secure.travis-ci.org/sferik/mlb.png?branch=master)][travis]
 [![Dependency Status](https://gemnasium.com/sferik/mlb.png?travis)][gemnasium]
+[![Coverage Status](https://coveralls.io/repos/sferik/mlb/badge.png?branch=master)][coveralls]
 
 [gem]: https://rubygems.org/gems/mlb
 [travis]: http://travis-ci.org/sferik/mlb
 [gemnasium]: https://gemnasium.com/sferik/mlb
+[coveralls]: https://coveralls.io/r/sferik/mlb
 
 MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.
 

@@ -3,8 +3,6 @@ module MLB
     private_class_method :new
     attr_reader :name, :number, :position
 
-    private
-
     def initialize(attributes={})
       attributes.each do |key, value|
         instance_variable_set("@#{key}", value) if self.respond_to?(key)

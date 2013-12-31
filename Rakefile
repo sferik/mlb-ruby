@@ -8,7 +8,7 @@ task :test => :spec
 
 namespace :cache do
   require 'mlb'
-  desc "Update the teams file cache"
+  desc 'Update the teams file cache'
   task :update do
     doc = MLB::Team.results_from_freebase(true)
     File.open('cache/teams.json', 'w') do |file|

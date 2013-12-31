@@ -3,7 +3,6 @@ require 'multi_json'
 
 module MLB
   class Team
-    private_class_method :new
     attr_reader :name, :league, :division, :manager, :wins, :losses, :founded, :mascot, :ballpark, :logo_url, :players
 
     # Returns an array of Team objects
@@ -36,30 +35,29 @@ module MLB
       @all = nil
     end
 
-    private
+  private
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       attributes.each do |key, value|
         instance_variable_set("@#{key}", value) if self.respond_to?(key)
       end
     end
 
-    def self.results_from_freebase(raw=false)
+    def self.results_from_freebase(raw = false)
       options = {:query => mql_query}
       Request.get('/api/service/mqlread', options, raw)
     end
 
     def self.results_from_cache
-      JSON.load(file_from_cache("teams.json").read)
+      JSON.load(file_from_cache('teams.json').read)
     end
 
     def self.file_from_cache(file_name)
-      File.new(File.expand_path("../../../cache", __FILE__) + "/" + file_name)
+      File.new(File.expand_path('../../../cache', __FILE__) + '/' + file_name)
     end
 
-    def self.results_to_team(results)
-      teams = []
-      results['result'].each do |result|
+    def self.results_to_team(results) # rubocop:disable CyclomaticComplexity, MethodLength
+      results['result'].map do |result|
         league      = result['league']
         division    = result['division']
         manager     = result['current_manager']
@@ -71,7 +69,7 @@ module MLB
         logo_suffix = result['/common/topic/image'].first
         players     = result['current_roster']
 
-        teams << new(
+        new(
           :name     => result['name'],
           :league   => (league      ? league['name']                  : nil),
           :division => (division    ? division['name']                : nil),
@@ -85,11 +83,10 @@ module MLB
           :players  => (players     ? Player.all_from_roster(players) : [])
         )
       end
-      teams
     end
 
     # Returns the MQL query for teams, as a Ruby hash
-    def self.mql_query
+    def self.mql_query # rubocop:disable MethodLength
       query = <<-eos
         [{
           "name":          null,
@@ -134,6 +131,5 @@ module MLB
         eos
       '{"query":' + query.gsub!("\n", '').gsub!(' ', '') + '}'
     end
-
   end
 end

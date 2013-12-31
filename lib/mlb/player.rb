@@ -1,9 +1,8 @@
 module MLB
   class Player
-    private_class_method :new
     attr_reader :name, :number, :position
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       attributes.each do |key, value|
         instance_variable_set("@#{key}", value) if self.respond_to?(key)
       end
@@ -19,6 +18,5 @@ module MLB
         )
       end
     end
-
   end
 end

@@ -24,7 +24,7 @@ RSpec.configure do |config|
 end
 
 def fixture_path
-  File.expand_path("../../cache", __FILE__)
+  File.expand_path('../../cache', __FILE__)
 end
 
 def fixture(file)

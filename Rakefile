@@ -5,7 +5,6 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
 task :test => :spec
-task :default => :spec
 
 namespace :cache do
   require 'mlb'
@@ -18,5 +17,16 @@ namespace :cache do
   end
 end
 
+begin
+  require 'rubocop/rake_task'
+  Rubocop::RakeTask.new
+rescue LoadError
+  task :rubocop do
+    $stderr.puts 'Rubocop is disabled'
+  end
+end
+
 require 'yard'
 YARD::Rake::YardocTask.new
+
+task :default => [:spec, :rubocop]

@@ -15,7 +15,8 @@ module MLB
   private
 
     def self.connection(raw = false)
-      Faraday.new(:url => 'http://api.freebase.com') do |builder|
+      Faraday.new(:url => 'https://www.googleapis.com', :ssl => {:verify => false}) do |builder|
+        builder.request :url_encoded
         builder.use FaradayMiddleware::ParseJson unless raw
         builder.adapter Faraday.default_adapter
       end

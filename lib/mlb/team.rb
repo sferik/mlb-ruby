@@ -45,7 +45,7 @@ module MLB
 
     def self.results_from_freebase(raw = false)
       options = {:query => mql_query}
-      Request.get('/api/service/mqlread', options, raw)
+      Request.get('/freebase/v1/mqlread', options, raw)
     end
 
     def self.results_from_cache
@@ -106,10 +106,12 @@ module MLB
             "limit":  1,
             "sort":   "-season"
           }],
-          "current_roster": [{
+          "/sports/sports_team/roster": [{
             "player":   null,
-            "position": null,
             "number":   null,
+            "from": null,
+            "to": null,
+            "position": [],
             "sort":     "player"
           }],
           "/sports/sports_team/founded": [{
@@ -129,7 +131,7 @@ module MLB
           "type":          "/baseball/baseball_team"
         }]
         eos
-      '{"query":' + query.gsub!("\n", '').gsub!(' ', '') + '}'
+      query.gsub!("\n", '').gsub!(' ', '')
     end
   end
 end

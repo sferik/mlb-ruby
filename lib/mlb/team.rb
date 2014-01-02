@@ -67,7 +67,7 @@ module MLB
         ballpark    = result['/sports/sports_team/arena_stadium'].first
         logo_prefix = 'http://img.freebase.com/api/trans/image_thumb'
         logo_suffix = result['/common/topic/image'].first
-        players     = result['current_roster']
+        players     = result['/sports/sports_team/roster']
 
         new(
           :name     => result['name'],

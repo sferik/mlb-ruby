@@ -10,7 +10,7 @@ module MLB
 
     # Returns an array of Player objects given a team roster
     def self.all_from_roster(players)
-      players.select{ |player| player['to'].nil? }.map do |player|
+      players.select { |player| player['to'].nil? }.map do |player|
         new(
           :name     => player['player'],
           :number   => player['number'],

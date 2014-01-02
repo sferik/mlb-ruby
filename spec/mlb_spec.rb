@@ -3,7 +3,7 @@ require 'helper'
 describe MLB::Team, '.all' do
   context 'with connection' do
     before do
-      stub_request(:get, 'http://api.freebase.com/api/service/mqlread').with(:query => {:query => MLB::Team.mql_query}).to_return(:body => fixture('teams.json'))
+      stub_request(:get, 'https://www.googleapis.com/freebase/v1/mqlread').with(:query => {:query => MLB::Team.mql_query}).to_return(:body => fixture('teams.json'))
     end
 
     after do
@@ -12,7 +12,7 @@ describe MLB::Team, '.all' do
 
     it 'requests the correct resource' do
       MLB::Team.all
-      expect(a_request(:get, 'http://api.freebase.com/api/service/mqlread').with(:query => {:query => MLB::Team.mql_query})).to have_been_made
+      expect(a_request(:get, 'https://www.googleapis.com/freebase/v1/mqlread').with(:query => {:query => MLB::Team.mql_query})).to have_been_made
     end
 
     it 'returns the correct results' do
@@ -23,7 +23,7 @@ describe MLB::Team, '.all' do
 
   context 'with timeout' do
     before do
-      stub_request(:get, 'http://api.freebase.com/api/service/mqlread').with(:query => {:query => MLB::Team.mql_query}).to_timeout
+      stub_request(:get, 'https://www.googleapis.com/freebase/v1/mqlread').with(:query => {:query => MLB::Team.mql_query}).to_timeout
     end
 
     after do
@@ -38,7 +38,7 @@ describe MLB::Team, '.all' do
 
   context 'without connection' do
     before do
-      stub_request(:get, 'http://api.freebase.com/api/service/mqlread').with(:query => {:query => MLB::Team.mql_query}).to_raise(SocketError)
+      stub_request(:get, 'https://www.googleapis.com/freebase/v1/mqlread').with(:query => {:query => MLB::Team.mql_query}).to_raise(SocketError)
     end
 
     after do

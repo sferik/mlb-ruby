@@ -22,7 +22,7 @@
       "current_manager": {
         "name": "Kirk Gibson"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 2,
           "player": "Aaron Hill",
@@ -256,7 +256,7 @@
       "current_manager": {
         "name": "Fredi Gonz\u00e1lez"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 38,
           "player": "Anthony Varvaro",
@@ -484,7 +484,7 @@
       "current_manager": {
         "name": "Buck Showalter"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 10,
           "player": "Adam Jones",
@@ -732,7 +732,7 @@
       "current_manager": {
         "name": "Bobby Valentine"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 28,
           "player": "Adri\u00e1n Gonz\u00e1lez",
@@ -971,7 +971,7 @@
       "current_manager": {
         "name": "Dale Sveum"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": null,
           "player": "Adrian Cardenas",
@@ -1219,7 +1219,7 @@
       "current_manager": {
         "name": "Robin Ventura"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 12,
           "player": "A. J. Pierzynski",
@@ -1452,7 +1452,7 @@
       "current_manager": {
         "name": "Dusty Baker"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 50,
           "player": "Andrew Brackman",
@@ -1695,7 +1695,7 @@
       "current_manager": {
         "name": "Manny Acta"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 2,
           "player": "Aaron Cunningham",
@@ -1948,7 +1948,7 @@
       "current_manager": {
         "name": "Jim Tracy"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": null,
           "player": "Adam Ottavino",
@@ -2191,7 +2191,7 @@
       "current_manager": {
         "name": "Jim Leyland"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 57,
           "player": "Adam Wilk",
@@ -2420,7 +2420,7 @@
       "current_manager": {
         "name": "Brad Mills"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 62,
           "player": "Aneury Rodr\u00edguez",
@@ -2658,7 +2658,7 @@
       "current_manager": {
         "name": "Ned Yost"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 43,
           "player": "Aaron Crow",
@@ -2916,7 +2916,7 @@
       "current_manager": {
         "name": "Mike Scioscia"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 5,
           "player": "Albert Pujols",
@@ -3150,7 +3150,7 @@
       "current_manager": {
         "name": "Don Mattingly"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 17,
           "player": "A.J. Ellis",
@@ -3398,7 +3398,7 @@
       "current_manager": {
         "name": "Ozzie Guill\u00e9n"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 59,
           "player": "Alejandro Sanabia",
@@ -3644,7 +3644,7 @@
       "current_manager": {
         "name": "Ron Roenicke"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 11,
           "player": "Alex Gonz\u00e1lez",
@@ -3882,7 +3882,7 @@
       "current_manager": {
         "name": "Ron Gardenhire"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 31,
           "player": "Alex Burnett",
@@ -4153,7 +4153,7 @@
       "current_manager": {
         "name": "Terry Collins"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 56,
           "player": "Andres Torres",
@@ -4395,7 +4395,7 @@
       "current_manager": {
         "name": "Joe Girardi"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 13,
           "player": "Alex Rodriguez",
@@ -4648,7 +4648,7 @@
       "current_manager": {
         "name": "Bob Melvin"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 7,
           "player": "Adam Rosales",
@@ -4906,7 +4906,7 @@
       "current_manager": {
         "name": "Charlie Manuel"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 37,
           "player": "Antonio Bastardo",
@@ -5144,7 +5144,7 @@
       "current_manager": {
         "name": "Clint Hurdle"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 34,
           "player": "A.J. Burnett",
@@ -5402,7 +5402,7 @@
       "current_manager": {
         "name": "Bud Black"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 34,
           "player": "Andrew Cashner",
@@ -5679,7 +5679,7 @@
       "current_manager": {
         "name": "Bruce Bochy"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 16,
           "player": "Angel Pag\u00e1n",
@@ -5925,7 +5925,7 @@
       "current_manager": {
         "name": "Eric Wedge"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 10,
           "player": "Adam Moore",
@@ -6173,7 +6173,7 @@
       "current_manager": {
         "name": "Mike Matheny"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 68,
           "player": "Adam Reifer",
@@ -6416,7 +6416,7 @@
       "current_manager": {
         "name": "Joe Maddon"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 50,
           "player": "Albert Suarez",
@@ -6655,7 +6655,7 @@
       "current_manager": {
         "name": "Ron Washington"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 29,
           "player": "Adri\u00e1n Beltr\u00e9",
@@ -6898,7 +6898,7 @@
       "current_manager": {
         "name": "John Farrell"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 26,
           "player": "Adam Lind",
@@ -7171,7 +7171,7 @@
       "current_manager": {
         "name": "Davey Johnson"
       },
-      "current_roster": [
+      "/sports/sports_team/roster": [
         {
           "number": 25,
           "player": "Adam LaRoche",

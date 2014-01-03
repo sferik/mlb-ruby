@@ -95,6 +95,7 @@ module MLB
             "name": null
           },
           "current_manager": {
+            "optional": true,
             "name": null
           },
           "team_stats": [{

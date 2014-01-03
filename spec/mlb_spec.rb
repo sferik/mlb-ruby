@@ -11,7 +11,6 @@ describe MLB::Team, '.all' do
     described_class.all
   end
   it 'there are thirty teams' do
-    pending 'Currently missing the Cincinnati Reds'
     expect(subject.size).to eq 30
   end
   it 'teams are sorted alphabetically, by name' do
@@ -26,12 +25,6 @@ describe MLB::Team, '.all' do
   it 'every team belongs to a division' do
     subject.each do |team|
       expect(team.division).to match /^(American|National) League (East|Central|West)$/
-    end
-  end
-  it 'every team has a manager' do
-    subject.each do |team|
-      expect(team.manager.size).to be >= 7, "got: #{team.manager.size} for #{team.name}"
-      expect(team.manager.split.size).to be >= 2, "got: #{team.manager.split.size} for #{team.name}"
     end
   end
   it 'every team has win and loss statistics' do

@@ -1,6 +1,6 @@
 module MLB
   class Player
-    attr_reader :name, :number, :position, :from, :to
+    attr_reader :name, :number, :positions, :from, :to
 
     def initialize(attributes = {})
       attributes.each do |key, value|
@@ -12,11 +12,11 @@ module MLB
     def self.all_from_roster(players)
       players.select { |player| player['to'].nil? }.map do |player|
         new(
-          :name     => player['player'],
-          :number   => player['number'],
-          :position => player['position'],
-          :from     => player['from'],
-          :to       => 'Present'
+          :name      => player['player'],
+          :number    => player['number'].to_i,
+          :positions => player['position'],
+          :from      => player['from'].to_i,
+          :to        => 'Present'
         )
       end
     end

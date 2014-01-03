@@ -22,7 +22,7 @@ describe MLB::Team, '.all' do
 
     it 'returns the correct player results' do
       teams = MLB::Team.all
-      expect(teams.first.players.first.name).to eq 'Aaron Hill'
+      expect(teams.first.players.first.name).to eq 'A.J. Pollock'
     end
   end
 

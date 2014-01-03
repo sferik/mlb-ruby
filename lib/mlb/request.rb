@@ -5,19 +5,18 @@ module MLB
   # @private
   class Request
     # Perform an HTTP GET request
-    def self.get(path, options = {}, raw = false)
-      response = connection(raw).get do |request|
+    def self.get(path, options = {})
+      connection.get do |request|
         request.url(path, options)
-      end
-      raw ? response : response.body
+      end.body
     end
 
   private
 
-    def self.connection(raw = false)
+    def self.connection
       Faraday.new(:url => 'https://www.googleapis.com', :ssl => {:verify => false}) do |builder|
         builder.request :url_encoded
-        builder.use FaradayMiddleware::ParseJson unless raw
+        builder.use FaradayMiddleware::ParseJson
         builder.adapter Faraday.default_adapter
       end
     end

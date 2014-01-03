@@ -10,9 +10,15 @@ namespace :cache do
   require 'mlb'
   desc 'Update the teams file cache'
   task :update do
-    doc = MLB::Team.results_from_freebase(true)
-    File.open('cache/teams.json', 'w') do |file|
-      file.write(doc.body)
+    json = MLB::Team.results_from_freebase
+    file = File.new('cache/teams.json', 'w+')
+    tempfile = Tempfile.new('teams.json')
+    tempfile.write(JSON.dump(json))
+    if system("python -mjson.tool #{tempfile.path} #{file.path}")
+      puts "File sucessfully written to #{file.path}"
+      tempfile.delete
+    else
+      abort "Error parsing #{tempfile.path}"
     end
   end
 end

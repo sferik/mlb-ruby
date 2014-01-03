@@ -120,6 +120,7 @@ module MLB
             "name": null
           }],
           "/common/topic/image": [{
+            "optional": true,
             "id":        null,
             "timestamp": null,
             "sort":      "-timestamp",

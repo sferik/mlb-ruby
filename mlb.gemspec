@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.signing_key = File.expand_path('~/.gem/private_key.pem') if $PROGRAM_NAME =~ /gem\z/
   spec.summary = spec.description
   spec.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  spec.version = MLB::VERSION
+  spec.version = MLB::Version
 end

@@ -19,12 +19,12 @@ describe MLB::Team, '.all' do
   end
   it 'every team belongs to a league' do
     subject.each do |team|
-      expect(team.league).to match /^(American|National|Major) League( Baseball)?$/
+      expect(team.league).to match(/^(American|National|Major) League( Baseball)?$/)
     end
   end
   it 'every team belongs to a division' do
     subject.each do |team|
-      expect(team.division).to match /^(American|National) League (East|Central|West)$/
+      expect(team.division).to match(/^(American|National) League (East|Central|West)$/)
     end
   end
   it 'every team has win and loss statistics' do
@@ -44,7 +44,7 @@ describe MLB::Team, '.all' do
   end
   it 'every team has a ballpark' do
     subject.each do |team|
-      expect(team.ballpark).to match /(Ballpark|Centre|Coliseum|Field|Park|Stadium)( (at|in|of) .+)?$/
+      expect(team.ballpark).to match(/(Ballpark|Centre|Coliseum|Field|Park|Stadium)( (at|in|of) .+)?$/)
     end
   end
   it 'every team has a 25-player roster' do

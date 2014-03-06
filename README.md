@@ -19,16 +19,6 @@ MLB.rb is a Ruby library for retrieving current Major League Baseball players, m
 ## Installation
     gem install mlb
 
-To ensure the code you're installing hasn't been tampered with, it's
-recommended that you verify the signature. To do this, you need to add my
-public key as a trusted certificate (you only need to do this once):
-
-    gem cert --add <(curl -Ls https://raw.github.com/sferik/mlb/master/certs/sferik.pem)
-
-Then, install the gem with the high security trust policy:
-
-    gem install mlb -P HighSecurity
-
 ## Documentation
 [http://rdoc.info/gems/mlb][documentation]
 

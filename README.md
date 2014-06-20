@@ -1,18 +1,16 @@
 # MLB.rb
 
-[![Gem Version](http://img.shields.io/gem/v/mlb.svg)][gem]
-[![Build Status](http://img.shields.io/travis/sferik/mlb.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/sferik/mlb.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/sferik/mlb.svg)][codeclimate]
-[![Coverage Status](http://img.shields.io/coveralls/sferik/mlb.svg)][coveralls]
-[![Gittip](http://img.shields.io/gittip/gems.svg)][gittip]
+[![Gem Version](http://img.shields.io/gem/v/gems.svg)][gem]
+[![Build Status](http://img.shields.io/travis/sferik/gems.svg)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/sferik/gems.svg)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/sferik/gems.svg)][codeclimate]
+[![Coverage Status](http://img.shields.io/coveralls/sferik/gems.svg)][coveralls]
 
 [gem]: https://rubygems.org/gems/mlb
 [travis]: http://travis-ci.org/sferik/mlb
 [gemnasium]: https://gemnasium.com/sferik/mlb
 [codeclimate]: https://codeclimate.com/github/sferik/mlb
 [coveralls]: https://coveralls.io/r/sferik/mlb
-[gittip]: https://www.gittip.com/gems/
 
 MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.
 

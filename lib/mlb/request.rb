@@ -11,8 +11,6 @@ module MLB
       end.body
     end
 
-  private
-
     def self.connection
       Faraday.new(:url => 'https://www.googleapis.com', :ssl => {:verify => false}) do |builder|
         builder.request :url_encoded

@@ -25,10 +25,10 @@ end
 
 begin
   require 'rubocop/rake_task'
-  Rubocop::RakeTask.new
+  RuboCop::RakeTask.new
 rescue LoadError
   task :rubocop do
-    $stderr.puts 'Rubocop is disabled'
+    $stderr.puts 'RuboCop is disabled'
   end
 end
 
@@ -42,7 +42,7 @@ end
 
 require 'yardstick/rake/verify'
 Yardstick::Rake::Verify.new do |verify|
-  verify.threshold = 56.2
+  verify.threshold = 56.5
 end
 
 task :default => [:spec, :rubocop, :verify_measurements]

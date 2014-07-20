@@ -6,7 +6,6 @@ require 'mlb/version'
 Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', ['~> 0.8', '< 0.10']
   spec.add_dependency 'faraday_middleware', '~> 0.9'
-  spec.add_dependency 'json', '~> 1.8'
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.author = 'Erik Michaels-Ober'
   spec.description = 'MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.'
@@ -18,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.licenses = %w(MIT)
   spec.name = 'mlb'
   spec.require_paths = %w(lib)
+  spec.required_ruby_version = '>= 1.9.3'
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = spec.description
   spec.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")

@@ -1,5 +1,4 @@
 require 'faraday'
-require 'multi_json'
 
 module MLB
   class Team

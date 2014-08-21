@@ -12,8 +12,8 @@ rvm:
   - rbx-2
   - ruby-head
 matrix:
-  include:
   allow_failures:
     - rvm: jruby-head
     - rvm: ruby-head
   fast_finish: true
+sudo: false

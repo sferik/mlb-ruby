@@ -54,7 +54,7 @@ module MLB
       File.new(File.expand_path('../../../cache', __FILE__) + '/' + file_name)
     end
 
-    def self.results_to_team(results) # rubocop:disable CyclomaticComplexity, MethodLength
+    def self.results_to_team(results) # rubocop:disable CyclomaticComplexity, MethodLength, PerceivedComplexity
       results['result'].map do |result|
         league      = result['league']
         division    = result['division']

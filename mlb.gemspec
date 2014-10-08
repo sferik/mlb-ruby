@@ -10,9 +10,7 @@ Gem::Specification.new do |spec|
   spec.author = 'Erik Michaels-Ober'
   spec.description = 'MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.'
   spec.email = 'sferik@gmail.com'
-  spec.files = %w(.yardopts CONTRIBUTING.md LICENSE.md README.md Rakefile mlb.gemspec)
-  spec.files += Dir.glob('lib/**/*.rb')
-  spec.files += Dir.glob('spec/**/*')
+  spec.files = %w(.yardopts CONTRIBUTING.md LICENSE.md README.md mlb.gemspec) + Dir['lib/**/*.rb']
   spec.homepage = 'https://github.com/sferik/mlb'
   spec.licenses = %w(MIT)
   spec.name = 'mlb'
@@ -20,6 +18,5 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 1.9.3'
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = spec.description
-  spec.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   spec.version = MLB::Version
 end

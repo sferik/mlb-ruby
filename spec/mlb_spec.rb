@@ -110,5 +110,4 @@ describe MLB::Team, '.all' do
       expect { subject }.not_to raise_exception
     end
   end
-
 end

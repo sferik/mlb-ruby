@@ -129,7 +129,7 @@ module MLB
           "type":          "/baseball/baseball_team"
         }]
         eos
-      query.gsub!("\n", '').gsub!(' ', '')
+      query.delete!("\n").delete!(' ')
     end
   end
 end

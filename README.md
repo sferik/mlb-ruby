@@ -1,98 +1,121 @@
-# MLB.rb
+[![Tests](https://github.com/sferik/mlb-ruby/actions/workflows/test.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/test.yml)
+[![Linter](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml)
+[![Mutant](https://github.com/sferik/mlb-ruby/actions/workflows/mutant.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/mutant.yml)
+[![Typer Checker](https://github.com/sferik/mlb-ruby/actions/workflows/steep.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/steep.yml)
+[![Gem Version](https://badge.fury.io/rb/mlb.svg)](https://rubygems.org/gems/mlb)
 
-[![Gem Version](http://img.shields.io/gem/v/gems.svg)][gem]
-[![Build Status](http://img.shields.io/travis/sferik/gems.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/sferik/gems.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/sferik/gems.svg)][codeclimate]
-[![Coverage Status](http://img.shields.io/coveralls/sferik/gems.svg)][coveralls]
+# A [Ruby](https://www.ruby-lang.org) interface to the [MLB Data API](https://appac.github.io/mlb-data-api-docs/)
 
-[gem]: https://rubygems.org/gems/mlb
-[travis]: http://travis-ci.org/sferik/mlb
-[gemnasium]: https://gemnasium.com/sferik/mlb
-[codeclimate]: https://codeclimate.com/github/sferik/mlb
-[coveralls]: https://coveralls.io/r/sferik/mlb
+## Follow
 
-MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.
+For updates and announcements, follow [@sferik](https://x.com/sferik) on X.
 
 ## Installation
+
+Install the gem and add to the application's Gemfile:
+
+    bundle add mlb
+
+Or, if Bundler is not being used to manage dependencies:
+
     gem install mlb
 
-## Documentation
-[http://rdoc.info/gems/mlb][documentation]
+## Usage
 
-[documentation]: http://rdoc.info/gems/mlb
+```ruby
+require "mlb"
 
-## Usage Examples
-    $ irb
-    >> require 'mlb'
-    >> MLB::Team.all.first.name                   # => "Arizona Diamondbacks"
-    >> MLB::Team.all.first.league                 # => "National League"
-    >> MLB::Team.all.first.division               # => "National League West"
-    >> MLB::Team.all.first.manager                # => "Bob Melvin"
-    >> MLB::Team.all.first.wins                   # => 82
-    >> MLB::Team.all.first.losses                 # => 80
-    >> MLB::Team.all.first.founded                # => 1998
-    >> MLB::Team.all.first.mascot                 # => nil
-    >> MLB::Team.all.first.ballpark               # => "Chase Field"
-    >> MLB::Team.all.first.logo_url               # => "http://img.freebase.com/api/trans/image_thumb/wikipedia/images/en_id/13104064"
-    >> MLB::Team.all.first.players.first.name     # => "Alex Romero"
-    >> MLB::Team.all.first.players.first.number   # => 28
-    >> MLB::Team.all.first.players.first.position # => "Right fielder"
+dbacks = MLB::Team.all(season: 2024).first
+dbacks.name_display_full       # => "Arizona Diamondbacks"
+dbacks.name_display_brief      # => "D-backs"
+dbacks.name_abbrev             # => "AZ"
+dbacks.city                    # => "Phoenix"
+dbacks.league_full             # => "National League"
+dbacks.league_abbrev           # => "NL"
+dbacks.spring_league_full      # => "Cactus League"
+dbacks.spring_league_abbrev    # => "CL"
+dbacks.division_full           # => "National League West"
+dbacks.division_abbrev         # => "NLW"
+dbacks.first_year_of_play      # => "1996"
+dbacks.venue_name              # => "Chase Field"
 
-## Supported Ruby Versions
-This library aims to support and is [tested against][travis] the following Ruby
-implementations:
+blaze = dbacks.roster.first
+blaze.name_display_first_last  # => "Blaze Alexander"
+blaze.jersey_number            # => "9"
+blaze.primary_position         # => "6"
+blaze.position_txt             # => "SS"
+blaze.height_feet              # => "5"
+blaze.height_inches            # => "11"
+blaze.weight                   # => "160"
+blaze.bats                     # => "R"
+blaze.throws                   # => "R"
+blaze.birth_date               # => "1999-06-11T00:00:00"
+blaze.start_date               # => "2022-11-15T00:00:00"
+blaze.pro_debut_date           # => "2024-03-28T00:00:00"
+```
 
-* Ruby 1.9.3
-* Ruby 2.0.0
-* Ruby 2.1.0
-* [Rubinius][]
-* [JRuby][]
+## Sponsorship
 
-[rubinius]: http://rubini.us/
-[jruby]: http://jruby.org/
+By contributing to the project, you help:
 
-If something doesn't work on one of these interpreters, it's a bug.
+1. Maintain the library: Keeping it up-to-date and secure.
+2. Add new features: Enhancements that make your life easier.
+3. Provide support: Faster responses to issues and feature requests.
 
-This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the versions listed
-above.
+⭐️ Bonus: Sponsors will get priority support and influence over the project roadmap. We will also list your name or your company's logo on our GitHub page.
 
-If you would like this library to support another Ruby version, you may
-volunteer to be a maintainer. Being a maintainer entails making sure all tests
-run and pass on that implementation. When something breaks on your
-implementation, you will be responsible for providing patches in a timely
-fashion. If critical issues for a particular implementation exist at the time
-of a major release, support for that Ruby version may be dropped.
+Building and maintaining an open-source project like this takes a considerable amount of time and effort. Your sponsorship can help sustain this project. Even a small monthly donation makes a huge difference!
 
-## Colophon
-MLB was built with the following tools:
+[Click here to sponsor this project.](https://github.com/sponsors/sferik)
 
-* [Bundler][]
-* [Freebase][]
-* [Faraday][]
-* [Markdown][]
-* [MultiJSON][]
-* [RSpec][]
-* [SimpleCov][]
-* [SQLite][]
-* [vim][]
-* [WebMock][]
-* [YARD][]
+## Development
 
-[bundler]: http://gembundler.com/
-[freebase]: http://www.freebase.com/
-[faraday]: https://github.com/technoweenie/faraday
-[markdown]: http://daringfireball.net/projects/markdown/
-[multijson]: https://github.com/intridea/multi_json
-[rspec]: http://relishapp.com/rspec/
-[simplecov]: https://github.com/colszowka/simplecov
-[sqlite]: http://www.sqlite.org/
-[vim]: http://www.vim.org/
-[webmock]: https://github.com/bblimke/webmock
-[yard]: http://yardoc.org/
+1. Checkout and repo:
 
-## Copyright
-Copyright (c) 2010-2013 Erik Michaels-Ober. See [LICENSE][] for details.
+       git checkout git@github.com:sferik/mlb-ruby.git
 
-[license]: LICENSE.md
+2. Enter the repo’s directory:
+
+       cd mlb-ruby
+
+3. Install dependencies via Bundler:
+
+       bin/setup
+
+4. Run the default Rake task to ensure all tests pass:
+
+       bundle exec rake
+
+5. Create a new branch for your feature or bug fix:
+
+       git checkout -b my-new-branch
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/sferik/mlb-ruby.
+
+Pull requests will only be accepted if they meet all the following criteria:
+
+1. Code must conform to [Standard Ruby](https://github.com/standardrb/standard#readme). This can be verified with:
+
+       bundle exec rake standard
+
+2. Code must conform to the [RuboCop rules](https://github.com/rubocop/rubocop#readme). This can be verified with:
+
+       bundle exec rake rubocop
+
+3. 100% C0 code coverage. This can be verified with:
+
+       bundle exec rake test
+
+4. 100% mutation coverage. This can be verified with:
+
+       bundle exec rake mutant
+
+5. RBS type signatures (in `sig/mlb.rbs`). This can be verified with:
+
+       bundle exec rake steep
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

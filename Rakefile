@@ -1,48 +1,34 @@
-require 'bundler'
-Bundler::GemHelper.install_tasks
+require "bundler/gem_tasks"
+require "rake/testtask"
 
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec)
-
-task :test => :spec
-
-namespace :cache do
-  require 'mlb'
-  desc 'Update the teams file cache'
-  task :update do
-    json = MLB::Team.results_from_freebase
-    file = File.new('cache/teams.json', 'w+')
-    tempfile = Tempfile.new('teams.json')
-    tempfile.write(JSON.dump(json))
-    if system("python -mjson.tool #{tempfile.path} #{file.path}")
-      puts "File sucessfully written to #{file.path}"
-      tempfile.delete
-    else
-      abort "Error parsing #{tempfile.path}"
-    end
-  end
+Rake::TestTask.new(:test) do |t|
+  t.libs << "test"
+  t.libs << "lib"
+  t.options = "--pride"
+  t.test_files = FileList["test/**/*_test.rb"]
 end
 
-begin
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new
-rescue LoadError
-  task :rubocop do
-    $stderr.puts 'RuboCop is disabled'
-  end
+require "standard/rake"
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
+require "steep"
+require "steep/cli"
+
+desc "Type check with Steep"
+task :steep do
+  Steep::CLI.new(argv: ["check"], stdout: $stdout, stderr: $stderr, stdin: $stdin).run
 end
 
-require 'yard'
-YARD::Rake::YardocTask.new
+require "mutant"
 
-require 'yardstick/rake/measurement'
-Yardstick::Rake::Measurement.new do |measurement|
-  measurement.output = 'measurement/report.txt'
+desc "Run mutant"
+task :mutant do
+  system(*%w[bundle exec mutant run]) or raise "Mutant task failed"
 end
 
-require 'yardstick/rake/verify'
-Yardstick::Rake::Verify.new do |verify|
-  verify.threshold = 56.5
-end
+desc "Run linters"
+task lint: %i[rubocop standard]
 
-task :default => [:spec, :rubocop, :verify_measurements]
+task default: %i[test lint mutant steep]

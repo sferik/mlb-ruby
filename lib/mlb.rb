@@ -1,3 +1,3 @@
-require 'mlb/request'
-require 'mlb/team'
-require 'mlb/player'
+require_relative "mlb/client"
+require_relative "mlb/team"
+require_relative "mlb/transaction"

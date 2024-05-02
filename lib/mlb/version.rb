@@ -1,15 +1,5 @@
-module MLB
-  class Version
-    MAJOR = 0
-    MINOR = 7
-    PATCH = 0
-    PRE = nil
+require "rubygems/version"
 
-    class << self
-      # @return [String]
-      def to_s
-        [MAJOR, MINOR, PATCH, PRE].compact.join('.')
-      end
-    end
-  end
+module MLB
+  VERSION = Gem::Version.create("0.8.0")
 end

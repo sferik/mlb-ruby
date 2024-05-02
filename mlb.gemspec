@@ -1,21 +1,35 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mlb/version'
+require_relative "lib/mlb/version"
 
 Gem::Specification.new do |spec|
-  spec.add_dependency 'faraday', ['~> 0.8', '< 0.10']
-  spec.add_dependency 'faraday_middleware', '~> 0.9'
-  spec.add_development_dependency 'bundler', '~> 1.0'
-  spec.author = 'Erik Michaels-Ober'
-  spec.description = 'MLB.rb is a Ruby library for retrieving current Major League Baseball players, managers, teams, divisions, and leagues.'
-  spec.email = 'sferik@gmail.com'
-  spec.files = %w(.yardopts CONTRIBUTING.md LICENSE.md README.md mlb.gemspec) + Dir['lib/**/*.rb']
-  spec.homepage = 'https://github.com/sferik/mlb'
-  spec.licenses = %w(MIT)
-  spec.name = 'mlb'
-  spec.require_paths = %w(lib)
-  spec.required_ruby_version = '>= 1.9.3'
-  spec.summary = spec.description
-  spec.version = MLB::Version
+  spec.name = "mlb"
+  spec.version = MLB::VERSION
+  spec.authors = "Erik Berlin"
+  spec.email = "sferik@gmail.com"
+
+  spec.summary = "A Ruby interface to the MLB Data API."
+  spec.homepage = "https://sferik.github.io/mlb-ruby"
+  spec.license = "MIT"
+  spec.required_ruby_version = ">= 3.1.2"
+  spec.platform = Gem::Platform::RUBY
+
+  spec.metadata = {
+    "allowed_push_host" => "https://rubygems.org",
+    "rubygems_mfa_required" => "true",
+    "homepage_uri" => spec.homepage,
+    "source_code_uri" => "https://github.com/sferik/mlb-ruby",
+    "changelog_uri" => "https://github.com/sferik/mlb-ruby/blob/master/CHANGELOG.md",
+    "bug_tracker_uri" => "https://github.com/sferik/mlb-ruby/issues",
+    "documentation_uri" => "https://rubydoc.info/gems/mlb/"
+  }
+
+  spec.files = Dir[
+    "bin/*",
+    "lib/**/*.rb",
+    "sig/*.rbs",
+    "*.md",
+    "LICENSE.txt"
+  ]
+  spec.bindir = "exe"
+  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
 end

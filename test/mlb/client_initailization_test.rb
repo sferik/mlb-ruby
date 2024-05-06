@@ -1,4 +1,3 @@
-require "ostruct"
 require_relative "../test_helper"
 
 module MLB
@@ -34,20 +33,15 @@ module MLB
     def test_defaults
       @client = Client.new
 
-      assert_equal "https://lookup-service-prod.mlb.com/json/", @client.base_url
+      assert_equal "https://statsapi.mlb.com/api/v1/", @client.base_url
       assert_equal 10, @client.max_redirects
-      assert_equal Hash, @client.default_object_class
-      assert_equal Array, @client.default_array_class
     end
 
     def test_overwrite_defaults
-      @client = Client.new(base_url: "https://lookup-service-prod.mlb.com/v2/", max_redirects: 5, default_object_class: OpenStruct,
-        default_array_class: Set)
+      @client = Client.new(base_url: "https://statsapi.mlb.com/v2/", max_redirects: 5)
 
-      assert_equal "https://lookup-service-prod.mlb.com/v2/", @client.base_url
+      assert_equal "https://statsapi.mlb.com/v2/", @client.base_url
       assert_equal 5, @client.max_redirects
-      assert_equal OpenStruct, @client.default_object_class
-      assert_equal Set, @client.default_array_class
     end
 
     def test_passes_options_to_redirect_handler

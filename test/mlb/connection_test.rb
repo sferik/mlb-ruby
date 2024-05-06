@@ -123,11 +123,11 @@ module MLB
     end
 
     def test_no_host_or_port
-      stub_request(:get, "http://lookup-service-prod.mlb.com:443/json/models")
-      request = Net::HTTP::Get.new(URI("http://lookup-service-prod.mlb.com:443/json/models"))
+      stub_request(:get, "http://statsapi.mlb.com:443/json/models")
+      request = Net::HTTP::Get.new(URI("http://statsapi.mlb.com:443/json/models"))
       request.stub(:uri, URI("/json/models")) { @connection.perform(request:) }
 
-      assert_requested :get, "http://lookup-service-prod.mlb.com:443/json/models"
+      assert_requested :get, "http://statsapi.mlb.com:443/json/models"
     end
   end
 end

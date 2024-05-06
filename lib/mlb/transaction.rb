@@ -1,37 +1,31 @@
-require "date"
-require "uri"
+require "shale"
+require_relative "player"
+require_relative "team"
 
 module MLB
-  Transaction = Struct.new(:conditional_sw, :effective_date, :final_asset,
-    :final_asset_type, :from_team, :from_team_id, :name_display_first_last,
-    :name_display_last_first, :name_sort, :note, :orig_asset, :orig_asset_type,
-    :player, :player_id, :resolution_cd, :resolution_date, :team, :team_id,
-    :trans_date, :trans_date_cd, :transaction_id, :type, :type_cd, keyword_init: true) do
-    def self.all(start_date: Date.today, end_date: Date.today)
-      sport_code = "'mlb'"
-      start_date = Date.parse(start_date.to_s).strftime("%Y%m%d")
-      end_date = Date.parse(end_date.to_s).strftime("%Y%m%d")
-      params = {sport_code:, start_date:, end_date:}
-      query_string = URI.encode_www_form(params)
-      response = CLIENT.get("named.transaction_all.bam?#{query_string}")
-      transactions = response.fetch(:transaction_all, {}).fetch(:queryResults, {}).fetch(:row, [])
-      transactions.collect { |transaction| Transaction.new(**transaction) }
-    end
+  class Transaction < Shale::Mapper
+    attribute :id, Shale::Type::Integer
+    attribute :player, Player
+    attribute :from_team, Team, default: nil
+    attribute :to_team, Team
+    attribute :date, Shale::Type::Date
+    attribute :effective_date, Shale::Type::Date
+    attribute :resolution_date, Shale::Type::Date
+    attribute :type_code, Shale::Type::String
+    attribute :type_desc, Shale::Type::String
+    attribute :description, Shale::Type::String
 
-    def team
-      require_relative "team"
-      teams = effective_date.to_s.empty? ? Team.all : Team.all(season: effective_date.to_s[0...4].to_i)
-      teams.find { |t| t[:team_id] == team_id.to_s }
-    end
-
-    def player
-      params = {team_id:}
-      query_string = URI.encode_www_form(params)
-      response = CLIENT.get("named.roster_40.bam?#{query_string}")
-      players = response[:roster_40][:queryResults][:row]
-      player = players.find { |p| p[:player_id] == player_id.to_s }
-      require_relative "player"
-      Player.new(**player)
+    json do
+      map "id", to: :id
+      map "person", to: :player
+      map "fromTeam", to: :from_team
+      map "toTeam", to: :to_team
+      map "date", to: :date
+      map "effectiveDate", to: :effective_date
+      map "resolutionDate", to: :resolution_date
+      map "typeCode", to: :type_code
+      map "typeDesc", to: :type_desc
+      map "description", to: :description
     end
   end
 end

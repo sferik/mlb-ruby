@@ -127,11 +127,11 @@ module MLB
     def send_new_request: (URI::Generic new_uri, Net::HTTPRequest new_request) -> Net::HTTPResponse
   end
 
-  class ResponseParser
+  class ErrorHandler
     ERROR_MAP: Hash[Integer, singleton(BadGateway) | singleton(BadRequest) | singleton(ConnectionException) | singleton(Forbidden) | singleton(GatewayTimeout) | singleton(Gone) | singleton(InternalServerError) | singleton(NotAcceptable) | singleton(NotFound) | singleton(PayloadTooLarge) | singleton(ServiceUnavailable) | singleton(TooManyRequests) | singleton(Unauthorized) | singleton(UnprocessableEntity)]
     JSON_CONTENT_TYPE_REGEXP: Regexp
 
-    def parse: (response: Net::HTTPResponse, ?array_class: Class?, ?object_class: Class?) -> untyped
+    def parse: (response: Net::HTTPResponse) -> untyped
 
     private
     def error: (Net::HTTPResponse response) -> HTTPError
@@ -141,26 +141,21 @@ module MLB
 
   class Client
     DEFAULT_BASE_URL: String
-    DEFAULT_ARRAY_CLASS: singleton(Array)
-    DEFAULT_OBJECT_CLASS: singleton(Hash)
     extend Forwardable
     @connection: Connection
     @request_builder: RequestBuilder
     @redirect_handler: RedirectHandler
-    @response_parser: ResponseParser
+    @error_handler: ErrorHandler
 
     attr_accessor base_url: String
-    attr_accessor default_array_class: singleton(Array)
-    attr_accessor default_object_class: singleton(Hash)
-    def initialize: (?base_url: String, ?open_timeout: Integer, ?read_timeout: Integer, ?write_timeout: Integer, ?debug_output: untyped, ?proxy_url: nil, ?default_array_class: singleton(Array), ?default_object_class: singleton(Hash), ?max_redirects: Integer) -> void
-    def get: (String endpoint, ?headers: Hash[String, String], ?array_class: Class, ?object_class: Class) -> untyped
-    def post: (String endpoint, ?String? body, ?headers: Hash[String, String], ?array_class: Class, ?object_class: Class) -> untyped
-    def put: (String endpoint, ?String? body, ?headers: Hash[String, String], ?array_class: Class, ?object_class: Class) -> untyped
-    def delete: (String endpoint, ?headers: Hash[String, String], ?array_class: Class, ?object_class: Class) -> untyped
+    def initialize: (?base_url: String, ?open_timeout: Integer, ?read_timeout: Integer, ?write_timeout: Integer, ?debug_output: untyped, ?proxy_url: nil, ?max_redirects: Integer) -> void
+    def get: (String endpoint, ?headers: Hash[String, String]) -> untyped
+    def post: (String endpoint, ?String? body, ?headers: Hash[String, String]) -> untyped
+    def put: (String endpoint, ?String? body, ?headers: Hash[String, String]) -> untyped
+    def delete: (String endpoint, ?headers: Hash[String, String]) -> untyped
 
     private
-    def initialize_default_classes: (singleton(Array) default_array_class, singleton(Hash) default_object_class) -> singleton(Hash)
-    def execute_request: (:delete | :get | :post | :put http_method, String endpoint, ?body: String?, ?headers: Hash[String, String], ?array_class: Class, ?object_class: Class) -> nil
+    def execute_request: (:delete | :get | :post | :put http_method, String endpoint, ?body: String?, ?headers: Hash[String, String]) -> nil
   end
 
   attr_accessor effective_date: String

@@ -1,14 +1,15 @@
 [![Tests](https://github.com/sferik/mlb-ruby/actions/workflows/test.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/test.yml)
-[![Linter](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fc32f80cb778b773a5b2/test_coverage)](https://codeclimate.com/github/sferik/mlb-ruby/test_coverage)
 [![Mutant](https://github.com/sferik/mlb-ruby/actions/workflows/mutant.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/mutant.yml)
-[![Typer Checker](https://github.com/sferik/mlb-ruby/actions/workflows/steep.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/steep.yml)
+[![Linter](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fc32f80cb778b773a5b2/maintainability)](https://codeclimate.com/github/sferik/mlb-ruby/maintainability)
 [![Gem Version](https://badge.fury.io/rb/mlb.svg)](https://rubygems.org/gems/mlb)
 
-# A [Ruby](https://www.ruby-lang.org) interface to the [MLB Data API](https://appac.github.io/mlb-data-api-docs/)
+# A [Ruby](https://www.ruby-lang.org) interface to the [MLB Stats API](https://statsapi.mlb.com)
 
 ## Follow
 
-For updates and announcements, follow [@sferik](https://x.com/sferik) on X.
+For updates and announcements, follow [@sferik](https://x.com/sferik).
 
 ## Installation
 
@@ -25,33 +26,34 @@ Or, if Bundler is not being used to manage dependencies:
 ```ruby
 require "mlb"
 
-dbacks = MLB::Team.all(season: 2024).first
-dbacks.name_display_full       # => "Arizona Diamondbacks"
-dbacks.name_display_brief      # => "D-backs"
-dbacks.name_abbrev             # => "AZ"
-dbacks.city                    # => "Phoenix"
-dbacks.league_full             # => "National League"
-dbacks.league_abbrev           # => "NL"
-dbacks.spring_league_full      # => "Cactus League"
-dbacks.spring_league_abbrev    # => "CL"
-dbacks.division_full           # => "National League West"
-dbacks.division_abbrev         # => "NLW"
-dbacks.first_year_of_play      # => "1996"
-dbacks.venue_name              # => "Chase Field"
+mets = MLB::Teams.all(season: 2024).last
+mets.name                   # => "New York Mets"
+mets.short_name             # => "NY Mets"
+mets.abbreviation           # => "NYM"
+mets.league.name            # => "National League"
+mets.spring_league.name     # => "Grapefruit League"
+mets.division.name          # => "National League East"
+mets.first_year_of_play     # => 1962
+mets.location_name          # => "Flushing"
+mets.venue.name             # => "Citi Field"
 
-blaze = dbacks.roster.first
-blaze.name_display_first_last  # => "Blaze Alexander"
-blaze.jersey_number            # => "9"
-blaze.primary_position         # => "6"
-blaze.position_txt             # => "SS"
-blaze.height_feet              # => "5"
-blaze.height_inches            # => "11"
-blaze.weight                   # => "160"
-blaze.bats                     # => "R"
-blaze.throws                   # => "R"
-blaze.birth_date               # => "1999-06-11T00:00:00"
-blaze.start_date               # => "2022-11-15T00:00:00"
-blaze.pro_debut_date           # => "2024-03-28T00:00:00"
+adam = MLB::Players.all(season: 2024).find { |player| player.id == mets.roster.first.player.id }
+
+adam.full_name              # => "Adam Ottavino"
+adam.primary_number         # => 0
+adam.primary_position.name  # => "Pitcher"
+adam.pitch_hand.description # => "Right"
+adam.bat_side.description   # => "Switch"
+adam.current_age            # => 38
+adam.birth_date.to_s        # => "1985-11-22"
+adam.birth_city             # => "New York"
+adam.birth_state_province   # => "NY"
+adam.birth_country          # => "USA"
+adam.draft_year             # => 2006
+adam.mlb_debut_date.to_s    # => "2010-05-29"
+adam.height                 # => "6' 5\""
+adam.weight                 # => 246
+adam.active?                # => true
 ```
 
 ## Sponsorship
@@ -111,10 +113,6 @@ Pull requests will only be accepted if they meet all the following criteria:
 4. 100% mutation coverage. This can be verified with:
 
        bundle exec rake mutant
-
-5. RBS type signatures (in `sig/mlb.rbs`). This can be verified with:
-
-       bundle exec rake steep
 
 ## License
 

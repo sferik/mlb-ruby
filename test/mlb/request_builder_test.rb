@@ -42,7 +42,7 @@ module MLB
     end
 
     def test_escape_query_params
-      uri = "https://lookup-service-prod.mlb.com/v2/models?media_type=video/mp4"
+      uri = "https://statsapi.mlb.com/v2/models?media_type=video/mp4"
       request = @request_builder.build(http_method: :post, uri:)
 
       assert_equal "media_type=video%2Fmp4", request.uri.query

@@ -8,7 +8,7 @@ module MLB
   class Connection
     extend Forwardable
 
-    DEFAULT_HOST = "lookup-service-prod.mlb.com".freeze
+    DEFAULT_HOST = "statsapi.mlb.com".freeze
     DEFAULT_PORT = 443
     DEFAULT_OPEN_TIMEOUT = 60 # seconds
     DEFAULT_READ_TIMEOUT = 60 # seconds

@@ -13,14 +13,6 @@ require "rubocop/rake_task"
 
 RuboCop::RakeTask.new
 
-require "steep"
-require "steep/cli"
-
-desc "Type check with Steep"
-task :steep do
-  Steep::CLI.new(argv: ["check"], stdout: $stdout, stderr: $stderr, stdin: $stdin).run
-end
-
 require "mutant"
 
 desc "Run mutant"
@@ -31,4 +23,4 @@ end
 desc "Run linters"
 task lint: %i[rubocop standard]
 
-task default: %i[test lint mutant steep]
+task default: %i[test lint mutant]

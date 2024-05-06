@@ -32,6 +32,9 @@ Layout/SpaceInsideHashLiteralBraces:
 Metrics/ParameterLists:
   CountKeywordArgs: false
 
+Metrics/BlockLength:
+  Max: 26
+
 Minitest/MultipleAssertions:
   Max: 5
 

@@ -1,4 +1,3 @@
-require "json"
 require "net/http"
 require_relative "errors/bad_gateway"
 require_relative "errors/bad_request"
@@ -17,7 +16,7 @@ require_relative "errors/unauthorized"
 require_relative "errors/unprocessable_entity"
 
 module MLB
-  class ResponseParser
+  class ErrorHandler
     ERROR_MAP = {
       400 => BadRequest,
       401 => Unauthorized,
@@ -34,14 +33,11 @@ module MLB
       503 => ServiceUnavailable,
       504 => GatewayTimeout
     }.freeze
-    JSON_CONTENT_TYPE_REGEXP = %r{application/json}
 
-    def parse(response:, array_class: nil, object_class: nil)
+    def handle(response:)
       raise error(response) unless response.is_a?(Net::HTTPSuccess)
 
-      return unless json?(response)
-
-      JSON.parse(response.body, array_class:, object_class:, symbolize_names: true)
+      response.body
     end
 
     private
@@ -52,10 +48,6 @@ module MLB
 
     def error_class(response)
       ERROR_MAP[Integer(response.code)] || HTTPError
-    end
-
-    def json?(response)
-      JSON_CONTENT_TYPE_REGEXP.match?(response["content-type"])
     end
   end
 end

@@ -1,3 +1,4 @@
+require "equalizer"
 require "shale"
 require_relative "division"
 require_relative "league"
@@ -6,9 +7,11 @@ require_relative "venue"
 
 module MLB
   class Team < Shale::Mapper
+    include Equalizer.new(:id)
+
+    attribute :id, Shale::Type::Integer
     attribute :spring_league, League
     attribute :all_star_status, Shale::Type::String
-    attribute :id, Shale::Type::Integer
     attribute :name, Shale::Type::String
     attribute :link, Shale::Type::String
     attribute :season, Shale::Type::Integer

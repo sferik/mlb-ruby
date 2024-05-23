@@ -1,7 +1,10 @@
+require "equalizer"
 require "shale"
 
 module MLB
   class Venue < Shale::Mapper
+    include Equalizer.new(:id)
+
     attribute :id, Shale::Type::Integer
     attribute :name, Shale::Type::String
     attribute :link, Shale::Type::String

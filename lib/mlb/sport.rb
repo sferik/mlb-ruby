@@ -1,8 +1,10 @@
+require "equalizer"
 require "shale"
 
 module MLB
   class Sport < Shale::Mapper
     include Comparable
+    include Equalizer.new(:id)
 
     attribute :id, Shale::Type::Integer
     attribute :code, Shale::Type::String

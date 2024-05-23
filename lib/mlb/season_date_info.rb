@@ -2,6 +2,8 @@ require "shale"
 
 module MLB
   class SeasonDateInfo < Shale::Mapper
+    include Equalizer.new(:season_id)
+
     attribute :season_id, Shale::Type::String
     attribute :pre_season_start_date, Shale::Type::Date
     attribute :pre_season_end_date, Shale::Type::Date

@@ -1,3 +1,4 @@
+require "equalizer"
 require "shale"
 require_relative "position"
 require_relative "handedness"
@@ -5,6 +6,8 @@ require_relative "team"
 
 module MLB
   class Player < Shale::Mapper
+    include Equalizer.new(:id)
+
     attribute :id, Shale::Type::Integer
     attribute :full_name, Shale::Type::String
     attribute :link, Shale::Type::String

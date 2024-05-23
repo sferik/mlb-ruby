@@ -13,5 +13,12 @@ module MLB
       assert_equal(1, league1 <=> league0)
       assert_equal(-1, league1 <=> league2)
     end
+
+    def test_objects_with_same_id_are_equal
+      league0 = League.new(id: 0)
+      league1 = League.new(id: 0)
+
+      assert_equal league0, league1
+    end
   end
 end

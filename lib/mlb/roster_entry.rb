@@ -5,6 +5,8 @@ require_relative "status"
 
 module MLB
   class RosterEntry < Shale::Mapper
+    include Equalizer.new(:team_id, :player)
+
     attribute :player, Player
     attribute :jersey_number, Shale::Type::Integer
     attribute :position, Position

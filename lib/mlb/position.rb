@@ -2,6 +2,8 @@ require "shale"
 
 module MLB
   class Position < Shale::Mapper
+    include Equalizer.new(:code)
+
     attribute :code, Shale::Type::String
     attribute :name, Shale::Type::String
     attribute :type, Shale::Type::String

@@ -1,9 +1,12 @@
+require "equalizer"
 require "shale"
 require_relative "player"
 require_relative "team"
 
 module MLB
   class Transaction < Shale::Mapper
+    include Equalizer.new(:id)
+
     attribute :id, Shale::Type::Integer
     attribute :player, Player
     attribute :from_team, Team, default: nil

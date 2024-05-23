@@ -1,3 +1,4 @@
+require "equalizer"
 require "shale"
 require_relative "league"
 require_relative "sport"
@@ -5,6 +6,7 @@ require_relative "sport"
 module MLB
   class Division < Shale::Mapper
     include Comparable
+    include Equalizer.new(:id)
 
     attribute :id, Shale::Type::Integer
     attribute :name, Shale::Type::String

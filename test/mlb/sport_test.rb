@@ -13,5 +13,12 @@ module MLB
       assert_equal(1, sport1 <=> sport0)
       assert_equal(-1, sport1 <=> sport2)
     end
+
+    def test_objects_with_same_id_are_equal
+      sport0 = Sport.new(id: 0)
+      sport1 = Sport.new(id: 0)
+
+      assert_equal sport0, sport1
+    end
   end
 end

@@ -37,7 +37,7 @@ mets.first_year_of_play     # => 1962
 mets.location_name          # => "Flushing"
 mets.venue.name             # => "Citi Field"
 
-adam = MLB::Players.all(season: 2024).find { |player| player.id == mets.roster.first.player.id }
+adam = MLB::Players.find(mets.roster.first.player)
 
 adam.full_name              # => "Adam Ottavino"
 adam.primary_number         # => 0

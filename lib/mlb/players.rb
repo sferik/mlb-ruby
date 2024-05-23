@@ -21,5 +21,25 @@ module MLB
       players = from_json(response)
       players.players
     end
+
+    def self.find(player)
+      player_id = player.respond_to?(:id) ? player.id : player
+      params = {personIds: player_id}
+      query_string = URI.encode_www_form(params)
+      response = CLIENT.get("people?#{query_string}")
+      players = from_json(response)
+      players.players.first
+    end
+
+    def self.find_all(*players)
+      return all if players.empty?
+
+      player_ids = players.map { |player| player.respond_to?(:id) ? player.id : player }.join(",")
+      params = {personIds: player_ids}
+      query_string = URI.encode_www_form(params)
+      response = CLIENT.get("people?#{query_string}")
+      players = from_json(response)
+      players.players
+    end
   end
 end

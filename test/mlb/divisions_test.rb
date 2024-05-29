@@ -26,7 +26,8 @@ module MLB
 
     def test_self_find
       stub_request(:get, "https://statsapi.mlb.com/api/v1/divisions/1?sportId=1")
-        .to_return(body: '{"divisions":[{"id":1},{"id":2}]}', headers: {"Content-Type" => "application/json;charset=UTF-8"})
+        .to_return(body: '{"divisions":[{"id":2,"sortOrder":2},{"id":1,"sortOrder":1}]}',
+          headers: {"Content-Type" => "application/json;charset=UTF-8"})
       division = Divisions.find(Division.new(id: 1))
 
       assert_requested :get, "https://statsapi.mlb.com/api/v1/divisions/1?sportId=1"
@@ -35,7 +36,8 @@ module MLB
 
     def test_self_find_with_division_id
       stub_request(:get, "https://statsapi.mlb.com/api/v1/divisions/1?sportId=1")
-        .to_return(body: '{"divisions":[{"id":1}]}', headers: {"Content-Type" => "application/json;charset=UTF-8"})
+        .to_return(body: '{"divisions":[{"id":2,"sortOrder":2},{"id":1,"sortOrder":1}]}',
+          headers: {"Content-Type" => "application/json;charset=UTF-8"})
       division = Divisions.find(1)
 
       assert_requested :get, "https://statsapi.mlb.com/api/v1/divisions/1?sportId=1"
@@ -44,7 +46,8 @@ module MLB
 
     def test_self_find_with_sport_id
       stub_request(:get, "https://statsapi.mlb.com/api/v1/divisions/1?sportId=1")
-        .to_return(body: '{"divisions":[{"id":1}]}', headers: {"Content-Type" => "application/json;charset=UTF-8"})
+        .to_return(body: '{"divisions":[{"id":2,"sortOrder":2},{"id":1,"sortOrder":1}]}',
+          headers: {"Content-Type" => "application/json;charset=UTF-8"})
       division = Divisions.find(Division.new(id: 1), sport: 1)
 
       assert_requested :get, "https://statsapi.mlb.com/api/v1/divisions/1?sportId=1"

@@ -16,7 +16,7 @@ module MLB
       id = sport.respond_to?(:id) ? sport.id : sport
       response = CLIENT.get("sports/#{id}")
       sports = from_json(response)
-      sports.sports.first
+      sports.sports.sort!.first
     end
   end
 end

@@ -24,7 +24,7 @@ module MLB
       query_string = URI.encode_www_form(params)
       response = CLIENT.get("divisions/#{id}?#{query_string}")
       divisions = from_json(response)
-      divisions.divisions.first
+      divisions.divisions.sort!.first
     end
   end
 end

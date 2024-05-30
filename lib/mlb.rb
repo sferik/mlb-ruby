@@ -1,4 +1,5 @@
 require_relative "mlb/client"
+require_relative "mlb/awards"
 require_relative "mlb/conferences"
 require_relative "mlb/divisions"
 require_relative "mlb/leagues"

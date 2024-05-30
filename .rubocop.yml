@@ -33,7 +33,7 @@ Metrics/ParameterLists:
   CountKeywordArgs: false
 
 Metrics/BlockLength:
-  Max: 26
+  Max: 27
 
 Minitest/MultipleAssertions:
   Max: 5

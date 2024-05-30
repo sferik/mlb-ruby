@@ -1,5 +1,6 @@
 require "equalizer"
 require "shale"
+require "uri"
 require_relative "division"
 require_relative "league"
 require_relative "sport"

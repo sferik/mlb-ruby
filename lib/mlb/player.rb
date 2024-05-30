@@ -42,6 +42,7 @@ module MLB
     json do
       map "id", to: :id
       map "fullName", to: :full_name
+      map "nameFirstLast", to: :full_name
       map "link", to: :link
       map "firstName", to: :first_name
       map "lastName", to: :last_name

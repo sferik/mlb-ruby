@@ -1,3 +1,4 @@
+require "equalizer"
 require "shale"
 require_relative "player"
 require_relative "position"

@@ -1,3 +1,4 @@
+require "equalizer"
 require "shale"
 
 module MLB

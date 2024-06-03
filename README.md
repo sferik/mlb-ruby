@@ -70,6 +70,82 @@ Building and maintaining an open-source project like this takes a considerable a
 
 [Click here to sponsor this project.](https://github.com/sponsors/sferik)
 
+## TODO
+
+Many of the MLB Stats API endpoints have not yet been implemented in this library. You can contribute to this library by implementing one or more of these endpoinds. If you are financially unable to sponsor this project, you can contribute code instead.
+
+- [ ] /attendance
+- [ ] /baseballStats
+- [ ] /draft{prospects}{year}{latest}
+- [ ] /eventTypes
+- [ ] /game/changes
+- [ ] /game/{gamePk}/boxscore
+- [ ] /game/{gamePk}/content
+- [ ] /game/{gamePk}/contextMetrics
+- [ ] /game/{gamePk}/feed/color
+- [ ] /game/{gamePk}/feed/color/diffPatch
+- [ ] /game/{gamePk}/feed/color/timestamps
+- [ ] /game/{gamePk}/feed/live
+- [ ] /game/{gamePk}/feed/live/diffPatch
+- [ ] /game/{gamePk}/feed/live/timestamps
+- [ ] /game/{gamePk}/linescore
+- [ ] /game/{gamePk}/playByPlay
+- [ ] /game/{gamePk}/winProbability
+- [ ] /gamePace
+- [ ] /gameStatus
+- [ ] /gameTypes
+- [ ] /highLow/{orgType}
+- [ ] /hitTrajectories
+- [ ] /homeRunDerby/{gamePk}{bracket}{pool}
+- [ ] /jobTypes
+- [ ] /jobs
+- [ ] /jobs/datacasters
+- [ ] /jobs/officialScorers
+- [ ] /jobs/umpires
+- [ ] /jobs/umpires/games/{umpireId}
+- [ ] /languages
+- [ ] /league/{leagueId}/allStarBallot
+- [ ] /league/{leagueId}/allStarFinalVote
+- [ ] /league/{leagueId}/allStarWriteIns
+- [ ] /leagueLeaderTypes
+- [ ] /logicalEvents
+- [ ] /metrics
+- [ ] /people/changes
+- [ ] /people/freeAgents
+- [ ] /people/{personId}
+- [ ] /people/{personId}/stats/game/{gamePk}
+- [ ] /pitchCodes
+- [ ] /pitchTypes
+- [ ] /platforms
+- [ ] /positions
+- [ ] /reviewReasons
+- [ ] /rosterTypes
+- [ ] /schedule
+- [ ] /schedule/games/tied
+- [ ] /schedule/postseason
+- [ ] /schedule/postseason/series
+- [ ] /schedule/postseason/tuneIn
+- [ ] /scheduleEventTypes
+- [ ] /situationCodes
+- [ ] /sky
+- [ ] /standings
+- [ ] /standingsTypes
+- [ ] /statGroups
+- [ ] /statTypes
+- [ ] /stats
+- [ ] /stats/leaders
+- [ ] /stats/streaks
+- [ ] /teams/affiliates
+- [ ] /teams/history
+- [ ] /teams/stats
+- [ ] /teams/{teamId}/alumni
+- [ ] /teams/{teamId}/coaches
+- [ ] /teams/{teamId}/leaders
+- [ ] /teams/{teamId}/personnel
+- [ ] /teams/{teamId}/roster
+- [ ] /teams/{teamId}/stats
+- [ ] /windDirection
+
 ## Development
 
 1. Checkout and repo:

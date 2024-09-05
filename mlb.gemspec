@@ -12,8 +12,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.1.2"
   spec.platform = Gem::Platform::RUBY
 
-  spec.add_runtime_dependency "equalizer", "~> 0.0.11"
-  spec.add_runtime_dependency "shale", "~> 1.1"
+  spec.add_dependency "equalizer", "~> 0.0.11"
+  spec.add_dependency "shale", "~> 1.1"
 
   spec.metadata = {
     "allowed_push_host" => "https://rubygems.org",

@@ -3,9 +3,11 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in mlb.gemspec
 gemspec
 
+gem "fiddle", ">= 1.1.2"
 gem "minitest", ">= 5.19"
 gem "mutant", ">= 0.12"
 gem "mutant-minitest", ">= 0.11.24"
+gem "ostruct", ">= 0.6"
 gem "rake", ">= 13.0.6"
 gem "rbs", ">= 3.2.1"
 gem "rubocop", ">= 1.21"

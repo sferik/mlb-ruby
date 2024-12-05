@@ -24,7 +24,6 @@ module MLB
       debug_output: Connection::DEFAULT_DEBUG_OUTPUT,
       proxy_url: nil,
       max_redirects: RedirectHandler::DEFAULT_MAX_REDIRECTS)
-
       @base_url = base_url
       @connection = Connection.new(open_timeout:, read_timeout:, write_timeout:, debug_output:, proxy_url:)
       @request_builder = RequestBuilder.new

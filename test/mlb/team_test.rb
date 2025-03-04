@@ -5,12 +5,12 @@ module MLB
     cover Team
 
     def test_roster
-      stub_request(:get, "https://statsapi.mlb.com/api/v1/teams/144/roster?season=2024")
+      stub_request(:get, "https://statsapi.mlb.com/api/v1/teams/144/roster?season=#{Time.now.year}")
         .to_return(body: '{"roster":[{"parentTeamId":144}]}', headers: {"Content-Type" => "application/json;charset=UTF-8"})
       team = Team.new(id: 144)
       roster_entry = team.roster.first
 
-      assert_requested :get, "https://statsapi.mlb.com/api/v1/teams/144/roster?season=2024"
+      assert_requested :get, "https://statsapi.mlb.com/api/v1/teams/144/roster?season=#{Time.now.year}"
       assert_equal 144, roster_entry.team_id
     end
 

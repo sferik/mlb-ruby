@@ -46,7 +46,7 @@ module MLB
       in 307 | 308
         [request.method.downcase.to_sym, request.body]
       else
-        [:get, nil]
+        :get
       end
 
       request_builder.build(http_method:, uri:, body:)

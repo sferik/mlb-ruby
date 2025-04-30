@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
 
   spec.add_dependency "equalizer", "~> 0.0.11"
-  spec.add_dependency "shale", "~> 1.1"
+  spec.add_dependency "shale", "~> 1.2"
 
   spec.metadata = {
     "allowed_push_host" => "https://rubygems.org",

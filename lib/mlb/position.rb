@@ -6,6 +6,11 @@ module MLB
   class Position < Shale::Mapper
     include Equalizer.new(:code)
 
+    TYPE_PITCHER = "Pitcher".freeze
+    TYPE_CATCHER = "Catcher".freeze
+    TYPE_INFIELDER = "Infielder".freeze
+    TYPE_OUTFIELDER = "Outfielder".freeze
+
     # @!attribute [rw] code
     #   Returns the position code
     #   @api public
@@ -37,6 +42,38 @@ module MLB
     #     position.abbreviation #=> "P"
     #   @return [String] the position abbreviation
     attribute :abbreviation, Shale::Type::String
+
+    # Returns whether this is a pitcher position
+    #
+    # @api public
+    # @example
+    #   position.pitcher? #=> true
+    # @return [Boolean] whether this is a pitcher
+    def pitcher? = type.eql?(TYPE_PITCHER)
+
+    # Returns whether this is a catcher position
+    #
+    # @api public
+    # @example
+    #   position.catcher? #=> false
+    # @return [Boolean] whether this is a catcher
+    def catcher? = type.eql?(TYPE_CATCHER)
+
+    # Returns whether this is an infielder position
+    #
+    # @api public
+    # @example
+    #   position.infielder? #=> false
+    # @return [Boolean] whether this is an infielder
+    def infielder? = type.eql?(TYPE_INFIELDER)
+
+    # Returns whether this is an outfielder position
+    #
+    # @api public
+    # @example
+    #   position.outfielder? #=> false
+    # @return [Boolean] whether this is an outfielder
+    def outfielder? = type.eql?(TYPE_OUTFIELDER)
 
     json do
       map "code", to: :code

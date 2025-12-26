@@ -17,13 +17,13 @@ module MLB
     attribute :sport, Sport
     attribute :name_short, Shale::Type::String
 
-    # Returns whether the conference has a wild card
+    # Checks if the conference has a wildcard
     #
     # @api public
     # @example
-    #   conference.wildcard?
-    # @return [Boolean, nil] true if the conference has a wild card
-    alias_method :wildcard?, :has_wildcard
+    #   conference.wildcard? #=> true
+    # @return [Boolean] whether the conference has a wildcard
+    def wildcard? = has_wildcard
 
     json do
       map "id", to: :id

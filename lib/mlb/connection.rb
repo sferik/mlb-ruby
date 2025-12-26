@@ -21,6 +21,8 @@ module MLB
     DEFAULT_WRITE_TIMEOUT = 60 # seconds
     # Default debug output destination
     DEFAULT_DEBUG_OUTPUT = File.open(File::NULL, "w")
+    # HTTPS scheme identifier
+    HTTPS_SCHEME = "https".freeze
     # Network errors that trigger a NetworkError exception
     NETWORK_ERRORS = [
       Errno::ECONNREFUSED,
@@ -131,7 +133,7 @@ module MLB
       @read_timeout = read_timeout
       @write_timeout = write_timeout
       @debug_output = debug_output
-      self.proxy_url = proxy_url unless proxy_url.nil?
+      self.proxy_url = proxy_url if proxy_url
     end
 
     # Performs an HTTP request
@@ -143,10 +145,9 @@ module MLB
     # @return [Net::HTTPResponse] the HTTP response
     # @raise [NetworkError] if a network error occurs
     def perform(request:)
-      host = request.uri.host || DEFAULT_HOST
-      port = request.uri.port || DEFAULT_PORT
-      http_client = build_http_client(host, port)
-      http_client.use_ssl = request.uri.scheme.eql?("https")
+      uri = request.uri
+      http_client = build_http_client(uri.host || DEFAULT_HOST, uri.port || DEFAULT_PORT)
+      http_client.use_ssl = uri.scheme.eql?(HTTPS_SCHEME)
       http_client.request(request)
     rescue *NETWORK_ERRORS => e
       raise NetworkError, "Network error: #{e}"

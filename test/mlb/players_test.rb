@@ -23,11 +23,20 @@ module MLB
     end
 
     def test_self_all_with_sport_id
-      stub_request(:get, "https://statsapi.mlb.com/api/v1/sports/1/players?season=#{Time.now.year}")
+      stub_request(:get, "https://statsapi.mlb.com/api/v1/sports/11/players?season=#{Time.now.year}")
         .to_return(body: '{"people":[{"id":1}]}', headers: {"Content-Type" => "application/json;charset=UTF-8"})
-      player = Players.all(sport: 1).first
+      player = Players.all(sport: 11).first
 
-      assert_requested :get, "https://statsapi.mlb.com/api/v1/sports/1/players?season=#{Time.now.year}"
+      assert_requested :get, "https://statsapi.mlb.com/api/v1/sports/11/players?season=#{Time.now.year}"
+      assert_equal 1, player.id
+    end
+
+    def test_self_all_with_sport_object
+      stub_request(:get, "https://statsapi.mlb.com/api/v1/sports/11/players?season=#{Time.now.year}")
+        .to_return(body: '{"people":[{"id":1}]}', headers: {"Content-Type" => "application/json;charset=UTF-8"})
+      player = Players.all(sport: Sport.new(id: 11)).first
+
+      assert_requested :get, "https://statsapi.mlb.com/api/v1/sports/11/players?season=#{Time.now.year}"
       assert_equal 1, player.id
     end
 

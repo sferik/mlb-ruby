@@ -1,11 +1,19 @@
 require "equalizer"
 require "shale"
+require_relative "comparable_by_attribute"
 
 module MLB
   # Represents a sport (e.g., MLB, Minor League Baseball)
   class Sport < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer.new(:id)
+
+    # Returns the attribute used for sorting
+    #
+    # @api private
+    # @return [Symbol] the attribute used for comparison
+    def comparable_attribute = :sort_order
 
     attribute :id, Shale::Type::Integer
     attribute :code, Shale::Type::String
@@ -15,13 +23,13 @@ module MLB
     attribute :sort_order, Shale::Type::Integer
     attribute :active, Shale::Type::Boolean
 
-    # Returns whether the sport is active
+    # Checks if the sport is active
     #
     # @api public
     # @example
-    #   sport.active?
-    # @return [Boolean, nil] true if the sport is active
-    alias_method :active?, :active
+    #   sport.active? #=> true
+    # @return [Boolean] whether the sport is active
+    def active? = active
 
     json do
       map "id", to: :id
@@ -31,17 +39,6 @@ module MLB
       map "abbreviation", to: :abbreviation
       map "sortOrder", to: :sort_order
       map "activeStatus", to: :active
-    end
-
-    # Compares sports by sort order
-    #
-    # @api public
-    # @example
-    #   sport1 <=> sport2
-    # @param other [Sport] the sport to compare with
-    # @return [Integer, nil] -1, 0, or 1 for comparison
-    def <=>(other)
-      sort_order <=> other.sort_order
     end
   end
 end

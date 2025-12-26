@@ -8,6 +8,13 @@ module MLB
   class Transaction < Shale::Mapper
     include Equalizer.new(:id)
 
+    TYPE_TRADE = "TR".freeze
+    TYPE_FREE_AGENT = "FA".freeze
+    TYPE_ASSIGNMENT = "ASG".freeze
+    TYPE_SIGNING = "SGN".freeze
+    TYPE_RELEASE = "REL".freeze
+    TYPE_WAIVER = "WV".freeze
+
     # @!attribute [rw] id
     #   Returns the unique identifier for the transaction
     #   @api public
@@ -87,6 +94,54 @@ module MLB
     #     transaction.description #=> "Player X traded to Team Y for Player Z"
     #   @return [String] the full transaction description
     attribute :description, Shale::Type::String
+
+    # Returns whether this is a trade transaction
+    #
+    # @api public
+    # @example
+    #   transaction.trade? #=> true
+    # @return [Boolean] whether this is a trade
+    def trade? = type_code.eql?(TYPE_TRADE)
+
+    # Returns whether this is a free agent transaction
+    #
+    # @api public
+    # @example
+    #   transaction.free_agent? #=> false
+    # @return [Boolean] whether this is a free agent signing
+    def free_agent? = type_code.eql?(TYPE_FREE_AGENT)
+
+    # Returns whether this is an assignment transaction
+    #
+    # @api public
+    # @example
+    #   transaction.assignment? #=> false
+    # @return [Boolean] whether this is an assignment
+    def assignment? = type_code.eql?(TYPE_ASSIGNMENT)
+
+    # Returns whether this is a signing transaction
+    #
+    # @api public
+    # @example
+    #   transaction.signing? #=> false
+    # @return [Boolean] whether this is a signing
+    def signing? = type_code.eql?(TYPE_SIGNING)
+
+    # Returns whether this is a release transaction
+    #
+    # @api public
+    # @example
+    #   transaction.release? #=> false
+    # @return [Boolean] whether this is a release
+    def release? = type_code.eql?(TYPE_RELEASE)
+
+    # Returns whether this is a waiver transaction
+    #
+    # @api public
+    # @example
+    #   transaction.waiver? #=> false
+    # @return [Boolean] whether this is a waiver
+    def waiver? = type_code.eql?(TYPE_WAIVER)
 
     json do
       map "id", to: :id

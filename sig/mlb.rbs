@@ -3,6 +3,84 @@ module MLB
 
   CLIENT: Client
 
+  # Module to mark errors that are safe to retry
+  module Retryable
+  end
+
+  # Base class for simple code/description value objects
+  class CodeDescriptionType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor description: String?
+
+    def to_s: () -> String
+  end
+
+  # Base class for simple id/description value objects
+  class IdDescriptionType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: String?
+    attr_accessor description: String?
+
+    def to_s: () -> String
+  end
+
+  # Provides comparison behavior by attribute
+  module ComparableByAttribute
+    def <=>: (untyped) -> Integer?
+
+    private
+
+    def comparable_attribute: () -> Symbol
+    def compare_values: (untyped, untyped) -> Integer
+  end
+
+  # Utility module
+  module Utils
+    DEFAULT_SPORT_ID: Integer
+
+    def self.current_season: () -> Integer
+    def self.extract_id: (untyped) -> untyped
+    def self.build_query: (Hash[Symbol, untyped]) -> String
+  end
+
+  # Base class for simple collections
+  class Collection < Shale::Mapper
+
+    self.@endpoint: String
+    self.@collection_name: Symbol
+
+    def self.endpoint: () -> String
+    def self.collection_name: () -> Symbol
+    def self.collection: (endpoint: String, item_type: Class, collection_name: Symbol) -> void
+    def self.all: () -> Array[untyped]
+  end
+
+  # Consolidated stat values class
+  class StatValues < Shale::Mapper
+    attr_accessor games_played: Integer?
+    attr_accessor runs: Integer?
+    attr_accessor doubles: Integer?
+    attr_accessor triples: Integer?
+    attr_accessor home_runs: Integer?
+    attr_accessor strike_outs: Integer?
+    attr_accessor base_on_balls: Integer?
+    attr_accessor hits: Integer?
+    attr_accessor avg: String?
+    attr_accessor at_bats: Integer?
+    attr_accessor obp: String?
+    attr_accessor slg: String?
+    attr_accessor ops: String?
+    attr_accessor stolen_bases: Integer?
+    attr_accessor rbi: Integer?
+  end
+
+  # Deprecated aliases for backward compatibility
+  PlayerStatValues: singleton(StatValues)
+  TeamStatValues: singleton(StatValues)
+
   class Client
     extend Forwardable
 
@@ -59,6 +137,7 @@ module MLB
     DEFAULT_READ_TIMEOUT: Integer
     DEFAULT_WRITE_TIMEOUT: Integer
     DEFAULT_DEBUG_OUTPUT: IO
+    HTTPS_SCHEME: String
     NETWORK_ERRORS: Array[singleton(StandardError)]
 
     attr_accessor open_timeout: Integer
@@ -109,6 +188,8 @@ module MLB
 
   class RedirectHandler
     DEFAULT_MAX_REDIRECTS: Integer
+    PRESERVE_METHOD_CODES: Array[Integer]
+    LOCATION_HEADER: String
 
     attr_accessor max_redirects: Integer
     attr_reader connection: Connection
@@ -124,8 +205,8 @@ module MLB
 
     private
 
-    def build_new_uri: (Net::HTTPResponse, String) -> URI::Generic
-    def build_request: (Net::HTTPRequest, URI::Generic, Integer) -> Net::HTTPRequest
+    def build_redirect_uri: (Net::HTTPResponse, String) -> URI::Generic
+    def build_redirect_request: (Net::HTTPRequest, URI::Generic, Integer) -> Net::HTTPRequest
   end
 
   class ErrorHandler
@@ -157,6 +238,7 @@ module MLB
   end
 
   class NetworkError < Error
+    include Retryable
   end
 
   class TooManyRedirects < Error
@@ -190,35 +272,52 @@ module MLB
   end
 
   class TooManyRequests < ClientError
+    include Retryable
   end
 
   class InternalServerError < ServerError
   end
 
   class BadGateway < ServerError
+    include Retryable
   end
 
   class ServiceUnavailable < ServerError
+    include Retryable
   end
 
   class GatewayTimeout < ServerError
+    include Retryable
   end
 
   # Model classes
-  class Handedness < Shale::Mapper
-    include Equalizer
+  class Handedness < CodeDescriptionType
+    LEFT: String
+    RIGHT: String
+    SWITCH: String
 
-    attr_accessor code: String?
-    attr_accessor description: String?
+    def left?: () -> bool
+    def right?: () -> bool
+    def switch?: () -> bool
   end
 
   class Position < Shale::Mapper
     include Equalizer
 
+    TYPE_PITCHER: String
+    TYPE_CATCHER: String
+    TYPE_INFIELDER: String
+    TYPE_OUTFIELDER: String
+
     attr_accessor code: String?
     attr_accessor name: String?
     attr_accessor type: String?
     attr_accessor abbreviation: String?
+
+    def pitcher?: () -> bool
+    def catcher?: () -> bool
+    def infielder?: () -> bool
+    def outfielder?: () -> bool
   end
 
   class Status < Shale::Mapper
@@ -230,6 +329,7 @@ module MLB
 
   class Sport < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer
 
     attr_accessor id: Integer?
@@ -241,8 +341,7 @@ module MLB
     attr_accessor active: bool?
 
     def active?: () -> bool?
-
-    def <=>: (Sport) -> Integer?
+    def comparable_attribute: () -> Symbol
   end
 
   class Venue < Shale::Mapper
@@ -284,6 +383,7 @@ module MLB
 
   class League < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer
 
     attr_accessor id: Integer?
@@ -292,7 +392,7 @@ module MLB
     attr_accessor abbreviation: String?
     attr_accessor name_short: String?
     attr_accessor season_state: String?
-    attr_accessor has_wild_card: bool?
+    attr_accessor has_wildcard: bool?
     attr_accessor has_split_season: bool?
     attr_accessor num_games: Integer?
     attr_accessor has_playoff_points: bool?
@@ -307,20 +407,27 @@ module MLB
     attr_accessor sort_order: Integer?
     attr_accessor active: bool?
 
+    SEASON_PRESEASON: String
+    SEASON_INSEASON: String
+    SEASON_POSTSEASON: String
+    SEASON_OFFSEASON: String
+
     def active?: () -> bool?
-    def wild_card?: () -> bool?
-    def has_wildcard: () -> bool?
     def wildcard?: () -> bool?
     def split_season?: () -> bool?
     def playoff_points?: () -> bool?
     def conferences?: () -> bool?
     def divisions?: () -> bool?
-
-    def <=>: (League) -> Integer?
+    def preseason?: () -> bool
+    def in_season?: () -> bool
+    def postseason?: () -> bool
+    def offseason?: () -> bool
+    def comparable_attribute: () -> Symbol
   end
 
   class Division < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer
 
     attr_accessor id: Integer?
@@ -337,12 +444,12 @@ module MLB
 
     def active?: () -> bool?
     def wildcard?: () -> bool?
-
-    def <=>: (Division) -> Integer?
+    def comparable_attribute: () -> Symbol
   end
 
   class Season < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer
 
     attr_accessor id: Integer?
@@ -368,8 +475,7 @@ module MLB
     attr_accessor qualifier_outs_pitched: Float?
 
     def wildcard?: () -> bool?
-
-    def <=>: (Season) -> Integer?
+    def comparable_attribute: () -> Symbol
   end
 
   class Conference < Shale::Mapper
@@ -389,6 +495,40 @@ module MLB
 
   class Team < Shale::Mapper
     include Equalizer
+
+    ALL_STAR_YES: String
+    ALL_STAR_NO: String
+
+    AZ: Integer
+    ATH: Integer
+    ATL: Integer
+    BAL: Integer
+    BOS: Integer
+    CHC: Integer
+    CWS: Integer
+    CIN: Integer
+    CLE: Integer
+    COL: Integer
+    DET: Integer
+    HOU: Integer
+    KC: Integer
+    LAA: Integer
+    LAD: Integer
+    MIA: Integer
+    MIL: Integer
+    MIN: Integer
+    NYM: Integer
+    NYY: Integer
+    PHI: Integer
+    PIT: Integer
+    SD: Integer
+    SF: Integer
+    SEA: Integer
+    STL: Integer
+    TB: Integer
+    TEX: Integer
+    TOR: Integer
+    WSH: Integer
 
     attr_accessor id: Integer?
     attr_accessor spring_league: League?
@@ -413,8 +553,9 @@ module MLB
     attr_accessor active: bool?
 
     def active?: () -> bool?
+    def all_star?: () -> bool
 
-    def roster: (?season: Integer) -> Array[RosterEntry]
+    def roster: (?season: Integer?) -> Array[RosterEntry]
   end
 
   class Player < Shale::Mapper
@@ -465,6 +606,13 @@ module MLB
   class Transaction < Shale::Mapper
     include Equalizer
 
+    TYPE_TRADE: String
+    TYPE_FREE_AGENT: String
+    TYPE_ASSIGNMENT: String
+    TYPE_SIGNING: String
+    TYPE_RELEASE: String
+    TYPE_WAIVER: String
+
     attr_accessor id: Integer?
     attr_accessor player: Player?
     attr_accessor from_team: Team?
@@ -475,10 +623,18 @@ module MLB
     attr_accessor type_code: String?
     attr_accessor type_desc: String?
     attr_accessor description: String?
+
+    def trade?: () -> bool
+    def free_agent?: () -> bool
+    def assignment?: () -> bool
+    def signing?: () -> bool
+    def release?: () -> bool
+    def waiver?: () -> bool
   end
 
   class Award < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer
 
     attr_accessor id: String?
@@ -492,15 +648,31 @@ module MLB
     attr_accessor league: League?
     attr_accessor sort_order: Integer?
 
-    def <=>: (Award) -> Integer?
+    def comparable_attribute: () -> Symbol
+    def recipients: (?season: Integer?) -> Array[Award]
+  end
 
-    def recipients: (?season: Integer) -> Array[Award]
+  class BaseballStat < Shale::Mapper
+    include Equalizer
+
+    attr_accessor name: String?
+    attr_accessor lookup_param: String?
+    attr_accessor is_counting: bool?
+    attr_accessor label: String?
+    attr_accessor stat_groups: Array[untyped]
+
+    def counting?: () -> bool?
   end
 
   # Collection classes
   # Using untyped for flexibility with Integer or objects responding to :id
+  class BaseballStats < Collection
+    attr_accessor stats: Array[BaseballStat]
+
+    def self.all: () -> Array[BaseballStat]
+  end
+
   class Awards < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor awards: Array[Award]
 
     def self.all: () -> Array[Award]
@@ -508,7 +680,6 @@ module MLB
   end
 
   class Conferences < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor conferences: Array[Conference]
 
     def self.all: () -> Array[Conference]
@@ -516,7 +687,6 @@ module MLB
   end
 
   class Divisions < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor divisions: Array[Division]
 
     def self.all: (?sport: untyped) -> Array[Division]
@@ -524,7 +694,6 @@ module MLB
   end
 
   class Leagues < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor leagues: Array[League]
 
     def self.all: (?sport: untyped) -> Array[League]
@@ -532,23 +701,20 @@ module MLB
   end
 
   class Players < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor players: Array[Player]
 
-    def self.all: (?season: Integer, ?sport: untyped) -> Array[Player]
+    def self.all: (?season: Integer?, ?sport: untyped) -> Array[Player]
     def self.find: (untyped) -> Player?
     def self.find_all: (*untyped) -> Array[Player]
   end
 
   class Roster < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor roster: Array[RosterEntry]
 
-    def self.find: (team: untyped, ?season: Integer, ?sport: untyped) -> Array[RosterEntry]
+    def self.find: (team: untyped, ?season: Integer?, ?sport: untyped) -> Array[RosterEntry]
   end
 
   class Seasons < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor seasons: Array[Season]
 
     def self.all: (?sport: untyped) -> Array[Season]
@@ -556,7 +722,6 @@ module MLB
   end
 
   class Sports < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor sports: Array[Sport]
 
     def self.all: () -> Array[Sport]
@@ -564,25 +729,1327 @@ module MLB
   end
 
   class Teams < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor teams: Array[Team]
 
-    def self.all: (?season: Integer, ?sport: untyped) -> Array[Team]
-    def self.find: (untyped, ?season: Integer, ?sport: untyped) -> Team?
+    def self.all: (?season: Integer?, ?sport: untyped) -> Array[Team]
+    def self.find: (untyped, ?season: Integer?, ?sport: untyped) -> Team?
   end
 
   class Transactions < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor transactions: Array[Transaction]
 
     def self.between: (?start_date: Date, ?end_date: Date) -> Array[Transaction]
   end
 
   class Venues < Shale::Mapper
-    attr_accessor copyright: String?
     attr_accessor venues: Array[Venue]
 
-    def self.all: (?season: Integer, ?sport: untyped) -> Array[Venue]
-    def self.find: (untyped, ?season: Integer, ?sport: untyped) -> Venue?
+    def self.all: (?season: Integer?, ?sport: untyped) -> Array[Venue]
+    def self.find: (untyped, ?season: Integer?, ?sport: untyped) -> Venue?
+  end
+
+  # New model classes
+  class EventType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor description: String?
+    attr_accessor plate_appearance: bool?
+    attr_accessor hit: bool?
+    attr_accessor base_running_event: bool?
+
+    def plate_appearance?: () -> bool?
+    def hit?: () -> bool?
+    def base_running_event?: () -> bool?
+  end
+
+  class EventTypes < Collection
+    attr_accessor event_types: Array[EventType]
+
+    def self.all: () -> Array[EventType]
+  end
+
+  class GameStatus < Shale::Mapper
+    include Equalizer
+
+    FINAL: String
+    LIVE: String
+    PREVIEW: String
+
+    attr_accessor abstract_game_state: String?
+    attr_accessor coded_game_state: String?
+    attr_accessor detailed_state: String?
+    attr_accessor status_code: String?
+    attr_accessor abstract_game_code: String?
+    attr_accessor reason: String?
+
+    def final?: () -> bool
+    def live?: () -> bool
+    def preview?: () -> bool
+  end
+
+  class GameStatuses < Collection
+    attr_accessor game_statuses: Array[GameStatus]
+
+    def self.all: () -> Array[GameStatus]
+  end
+
+  class GameType < IdDescriptionType
+    TYPE_REGULAR: String
+    TYPE_SPRING: String
+    TYPE_EXHIBITION: String
+    TYPE_ALL_STAR: String
+    TYPE_WILD_CARD: String
+    TYPE_DIVISION: String
+    TYPE_LCS: String
+    TYPE_WORLD_SERIES: String
+    POSTSEASON_TYPES: Array[String]
+
+    def regular_season?: () -> bool
+    def spring_training?: () -> bool
+    def exhibition?: () -> bool
+    def all_star?: () -> bool
+    def wild_card?: () -> bool
+    def division_series?: () -> bool
+    def lcs?: () -> bool
+    def world_series?: () -> bool
+    def postseason?: () -> bool
+  end
+
+  class GameTypes < Collection
+    attr_accessor game_types: Array[GameType]
+
+    def self.all: () -> Array[GameType]
+  end
+
+  class HitTrajectory < CodeDescriptionType
+  end
+
+  class HitTrajectories < Collection
+    attr_accessor hit_trajectories: Array[HitTrajectory]
+
+    def self.all: () -> Array[HitTrajectory]
+  end
+
+  class JobType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor job: String?
+    attr_accessor sort_order: Integer?
+  end
+
+  class JobTypes < Collection
+    attr_accessor job_types: Array[JobType]
+
+    def self.all: () -> Array[JobType]
+  end
+
+  class Language < Shale::Mapper
+    include Equalizer
+
+    attr_accessor language_id: Integer?
+    attr_accessor language_code: String?
+    attr_accessor name: String?
+    attr_accessor locale: String?
+  end
+
+  class Languages < Collection
+    attr_accessor languages: Array[Language]
+
+    def self.all: () -> Array[Language]
+  end
+
+  class LeagueLeaderType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor display_name: String?
+  end
+
+  class LeagueLeaderTypes < Collection
+    attr_accessor league_leader_types: Array[LeagueLeaderType]
+
+    def self.all: () -> Array[LeagueLeaderType]
+  end
+
+  class LogicalEvent < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+  end
+
+  class LogicalEvents < Collection
+    attr_accessor logical_events: Array[LogicalEvent]
+
+    def self.all: () -> Array[LogicalEvent]
+  end
+
+  class Metric < Shale::Mapper
+    include Equalizer
+
+    attr_accessor name: String?
+    attr_accessor metric_id: Integer?
+    attr_accessor group: String?
+    attr_accessor unit: String?
+  end
+
+  class Metrics < Collection
+    attr_accessor metrics: Array[Metric]
+
+    def self.all: () -> Array[Metric]
+  end
+
+  class PitchCode < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor description: String?
+    attr_accessor swing_status: bool?
+    attr_accessor strike_status: bool?
+    attr_accessor ball_status: bool?
+    attr_accessor sort_order: Integer?
+
+    def swing?: () -> bool?
+    def strike?: () -> bool?
+    def ball?: () -> bool?
+  end
+
+  class PitchCodes < Collection
+    attr_accessor pitch_codes: Array[PitchCode]
+
+    def self.all: () -> Array[PitchCode]
+  end
+
+  class PitchType < CodeDescriptionType
+  end
+
+  class PitchTypes < Collection
+    attr_accessor pitch_types: Array[PitchType]
+
+    def self.all: () -> Array[PitchType]
+  end
+
+  class Platform < Shale::Mapper
+    include Equalizer
+
+    attr_accessor platform_code: String?
+    attr_accessor platform_description: String?
+  end
+
+  class Platforms < Collection
+    attr_accessor platforms: Array[Platform]
+
+    def self.all: () -> Array[Platform]
+  end
+
+  class Positions < Collection
+    attr_accessor positions: Array[Position]
+
+    def self.all: () -> Array[Position]
+  end
+
+  class ReviewReason < CodeDescriptionType
+  end
+
+  class ReviewReasons < Collection
+    attr_accessor review_reasons: Array[ReviewReason]
+
+    def self.all: () -> Array[ReviewReason]
+  end
+
+  class RosterType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor description: String?
+    attr_accessor lookup_name: String?
+    attr_accessor parameter: String?
+  end
+
+  class RosterTypes < Collection
+    attr_accessor roster_types: Array[RosterType]
+
+    def self.all: () -> Array[RosterType]
+  end
+
+  class ScheduleEventType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor name: String?
+  end
+
+  class ScheduleEventTypes < Collection
+    attr_accessor schedule_event_types: Array[ScheduleEventType]
+
+    def self.all: () -> Array[ScheduleEventType]
+  end
+
+  class SituationCode < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor sort_order: Integer?
+    attr_accessor navigation_menu: String?
+    attr_accessor description: String?
+    attr_accessor team: bool?
+    attr_accessor batting: bool?
+    attr_accessor fielding: bool?
+    attr_accessor pitching: bool?
+
+    def team?: () -> bool?
+    def batting?: () -> bool?
+    def fielding?: () -> bool?
+    def pitching?: () -> bool?
+  end
+
+  class SituationCodes < Collection
+    attr_accessor situation_codes: Array[SituationCode]
+
+    def self.all: () -> Array[SituationCode]
+  end
+
+  class Sky < CodeDescriptionType
+  end
+
+  class Skies < Collection
+    attr_accessor skies: Array[Sky]
+
+    def self.all: () -> Array[Sky]
+  end
+
+  class StandingsType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor name: String?
+    attr_accessor description: String?
+  end
+
+  class StandingsTypes < Collection
+    attr_accessor standings_types: Array[StandingsType]
+
+    def self.all: () -> Array[StandingsType]
+  end
+
+  class StatGroup < Shale::Mapper
+    include Equalizer
+
+    attr_accessor display_name: String?
+  end
+
+  class StatGroups < Collection
+    attr_accessor stat_groups: Array[StatGroup]
+
+    def self.all: () -> Array[StatGroup]
+  end
+
+  class StatType < Shale::Mapper
+    include Equalizer
+
+    attr_accessor display_name: String?
+  end
+
+  class StatTypes < Collection
+    attr_accessor stat_types: Array[StatType]
+
+    def self.all: () -> Array[StatType]
+  end
+
+  class WindDirection < CodeDescriptionType
+  end
+
+  class WindDirections < Collection
+    attr_accessor wind_directions: Array[WindDirection]
+
+    def self.all: () -> Array[WindDirection]
+  end
+
+  # Boxscore classes
+  class BoxscoreBattingStats < Shale::Mapper
+    attr_accessor runs: Integer?
+    attr_accessor hits: Integer?
+    attr_accessor doubles: Integer?
+    attr_accessor triples: Integer?
+    attr_accessor home_runs: Integer?
+    attr_accessor strike_outs: Integer?
+    attr_accessor base_on_balls: Integer?
+    attr_accessor at_bats: Integer?
+    attr_accessor avg: String?
+    attr_accessor rbi: Integer?
+    attr_accessor left_on_base: Integer?
+  end
+
+  class BoxscorePitchingStats < Shale::Mapper
+    attr_accessor runs: Integer?
+    attr_accessor earned_runs: Integer?
+    attr_accessor hits: Integer?
+    attr_accessor home_runs: Integer?
+    attr_accessor strike_outs: Integer?
+    attr_accessor base_on_balls: Integer?
+    attr_accessor innings_pitched: String?
+    attr_accessor era: String?
+  end
+
+  class BoxscoreTeamStats < Shale::Mapper
+    attr_accessor batting: BoxscoreBattingStats?
+    attr_accessor pitching: BoxscorePitchingStats?
+  end
+
+  class BoxscoreTeam < Shale::Mapper
+    attr_accessor team: Team?
+    attr_accessor team_stats: BoxscoreTeamStats?
+  end
+
+  class BoxscoreTeams < Shale::Mapper
+    attr_accessor home: BoxscoreTeam?
+    attr_accessor away: BoxscoreTeam?
+  end
+
+  class Boxscore < Shale::Mapper
+    attr_accessor teams: BoxscoreTeams?
+
+    def self.find: (game: untyped) -> Boxscore
+  end
+
+  # Linescore classes
+  class InningHalfScore < Shale::Mapper
+    attr_accessor runs: Integer?
+    attr_accessor hits: Integer?
+    attr_accessor errors: Integer?
+    attr_accessor left_on_base: Integer?
+  end
+
+  class InningScore < Shale::Mapper
+    attr_accessor num: Integer?
+    attr_accessor ordinal_num: String?
+    attr_accessor home: InningHalfScore?
+    attr_accessor away: InningHalfScore?
+  end
+
+  class LinescoreTeam < Shale::Mapper
+    attr_accessor runs: Integer?
+    attr_accessor hits: Integer?
+    attr_accessor errors: Integer?
+    attr_accessor left_on_base: Integer?
+    attr_accessor is_winner: bool?
+
+    def winner?: () -> bool?
+  end
+
+  class LinescoreTeams < Shale::Mapper
+    attr_accessor home: LinescoreTeam?
+    attr_accessor away: LinescoreTeam?
+  end
+
+  class Linescore < Shale::Mapper
+    INNING_TOP: String
+    INNING_MIDDLE: String
+    INNING_BOTTOM: String
+
+    attr_accessor current_inning: Integer?
+    attr_accessor current_inning_ordinal: String?
+    attr_accessor inning_state: String?
+    attr_accessor inning_half: String?
+    attr_accessor is_top_inning: bool?
+    attr_accessor scheduled_innings: Integer?
+    attr_accessor innings: Array[InningScore]
+    attr_accessor teams: LinescoreTeams?
+
+    def top_inning?: () -> bool?
+    def top?: () -> bool
+    def middle?: () -> bool
+    def bottom?: () -> bool
+    def first?: () -> bool
+    def second?: () -> bool
+    def third?: () -> bool
+    def fourth?: () -> bool
+    def fifth?: () -> bool
+    def sixth?: () -> bool
+    def seventh?: () -> bool
+    def eighth?: () -> bool
+    def ninth?: () -> bool
+    def tenth?: () -> bool
+    def eleventh?: () -> bool
+    def twelfth?: () -> bool
+    def thirteenth?: () -> bool
+    def fourteenth?: () -> bool
+    def fifteenth?: () -> bool
+    def sixteenth?: () -> bool
+    def seventeenth?: () -> bool
+    def eighteenth?: () -> bool
+    def nineteenth?: () -> bool
+    def twentieth?: () -> bool
+    def twenty_first?: () -> bool
+    def twenty_second?: () -> bool
+    def twenty_third?: () -> bool
+    def twenty_fourth?: () -> bool
+    def twenty_fifth?: () -> bool
+    def twenty_sixth?: () -> bool
+
+    def self.find: (game: untyped) -> Linescore
+  end
+
+  # Free Agent classes
+  class FreeAgent < Shale::Mapper
+    include Equalizer
+
+    attr_accessor player: Player?
+    attr_accessor original_team: Team?
+    attr_accessor new_team: Team?
+    attr_accessor notes: String?
+    attr_accessor date_signed: Date?
+    attr_accessor date_declared: Date?
+    attr_accessor position: Position?
+  end
+
+  class FreeAgents < Shale::Mapper
+    attr_accessor free_agents: Array[FreeAgent]
+
+    def self.all: (?season: Integer?) -> Array[FreeAgent]
+  end
+
+  # Attendance classes
+  class AttendanceRecord < Shale::Mapper
+    include Equalizer
+
+    attr_accessor year: String?
+    attr_accessor team: Team?
+    attr_accessor openings_total: Integer?
+    attr_accessor openings_total_home: Integer?
+    attr_accessor openings_total_away: Integer?
+    attr_accessor games_total: Integer?
+    attr_accessor games_home_total: Integer?
+    attr_accessor games_away_total: Integer?
+    attr_accessor attendance_total: Integer?
+    attr_accessor attendance_total_home: Integer?
+    attr_accessor attendance_total_away: Integer?
+    attr_accessor attendance_average_home: Integer?
+    attr_accessor attendance_average_away: Integer?
+    attr_accessor attendance_average_ytd: Integer?
+    attr_accessor attendance_high: Integer?
+    attr_accessor attendance_low: Integer?
+  end
+
+  class Attendance < Shale::Mapper
+    attr_accessor records: Array[AttendanceRecord]
+
+    def self.find: (team: untyped, ?season: Integer?) -> Array[AttendanceRecord]
+  end
+
+  # Job classes
+  class Job < Shale::Mapper
+    include Equalizer
+
+    attr_accessor person: Player?
+    attr_accessor jersey_number: String?
+    attr_accessor job: String?
+    attr_accessor job_id: String?
+    attr_accessor title: String?
+  end
+
+  class Jobs < Shale::Mapper
+    attr_accessor roster: Array[Job]
+
+    def self.umpires: (?season: Integer?) -> Array[Job]
+    def self.datacasters: (?season: Integer?) -> Array[Job]
+    def self.official_scorers: (?season: Integer?) -> Array[Job]
+    def self.umpire_games: (umpire: untyped, ?season: Integer?) -> Array[Job]
+
+    private
+
+    def self.fetch_jobs: (String, season: Integer?) -> Array[Job]
+  end
+
+  # Affiliates class
+  class Affiliates < Shale::Mapper
+    attr_accessor teams: Array[Team]
+
+    def self.find: (team: untyped, ?season: Integer?) -> Array[Team]
+  end
+
+  # Personnel class
+  class Personnel < Shale::Mapper
+    attr_accessor roster: Array[Job]
+
+    def self.find: (team: untyped, ?season: Integer?) -> Array[Job]
+  end
+
+  # HighLow classes
+  class HighLowResult < Shale::Mapper
+    include Equalizer
+
+    attr_accessor season: String?
+    attr_accessor team: Team?
+    attr_accessor opponent: Team?
+    attr_accessor date: String?
+    attr_accessor is_home: bool?
+    attr_accessor rank: Integer?
+
+    def home?: () -> bool?
+  end
+
+  class HighLowGroup < Shale::Mapper
+    attr_accessor splits: Array[HighLowResult]
+  end
+
+  class HighLow < Shale::Mapper
+    attr_accessor high_low_results: Array[HighLowGroup]
+
+    def self.find: (org_type: String, ?season: Integer?) -> Array[HighLowResult]
+  end
+
+  # Draft classes
+  class DraftSchool < Shale::Mapper
+    attr_accessor name: String?
+    attr_accessor school_class: String?
+    attr_accessor city: String?
+    attr_accessor state: String?
+    attr_accessor country: String?
+  end
+
+  class DraftPick < Shale::Mapper
+    include Equalizer
+
+    attr_accessor pick_round: String?
+    attr_accessor pick_number: Integer?
+    attr_accessor round_pick_number: Integer?
+    attr_accessor rank: Integer?
+    attr_accessor pick_value: String?
+    attr_accessor signing_bonus: String?
+    attr_accessor person: Player?
+    attr_accessor team: Team?
+    attr_accessor school: DraftSchool?
+    attr_accessor blurb: String?
+  end
+
+  class DraftRound < Shale::Mapper
+    attr_accessor round: String?
+    attr_accessor picks: Array[DraftPick]
+  end
+
+  class DraftYear < Shale::Mapper
+    attr_accessor draft_year: Integer?
+    attr_accessor rounds: Array[DraftRound]
+  end
+
+  class Draft < Shale::Mapper
+    attr_accessor drafts: DraftYear?
+
+    def self.picks: (?year: Integer?) -> Array[DraftPick]
+  end
+
+  # Leaders classes
+  class Leader < Shale::Mapper
+    include Equalizer
+
+    attr_accessor rank: Integer?
+    attr_accessor value: String?
+    attr_accessor person: Player?
+    attr_accessor team: Team?
+    attr_accessor league: League?
+    attr_accessor sport: Sport?
+    attr_accessor season: String?
+  end
+
+  class LeaderCategory < Shale::Mapper
+    attr_accessor leader_category: String?
+    attr_accessor season: String?
+    attr_accessor leaders: Array[Leader]
+  end
+
+  class Leaders < Shale::Mapper
+    attr_accessor league_leaders: Array[LeaderCategory]
+
+    def self.find: (category: String, ?season: Integer?, ?limit: Integer) -> Array[Leader]
+  end
+
+  # GamePace classes
+  class GamePaceStats < Shale::Mapper
+    attr_accessor hits_per_9inn: Float?
+    attr_accessor runs_per_9inn: Float?
+    attr_accessor pitches_per_9inn: Float?
+    attr_accessor hits_per_game: Float?
+    attr_accessor runs_per_game: Float?
+    attr_accessor pitches_per_game: Float?
+    attr_accessor total_games: Integer?
+    attr_accessor total_innings_played: Float?
+    attr_accessor total_hits: Integer?
+    attr_accessor total_runs: Integer?
+    attr_accessor total_pitches: Integer?
+    attr_accessor time_per_game: String?
+    attr_accessor time_per_pitch: String?
+    attr_accessor season: String?
+    attr_accessor sport: Sport?
+  end
+
+  class GamePace < Shale::Mapper
+    attr_accessor sports: Array[GamePaceStats]
+
+    def self.find: (?season: Integer?) -> GamePaceStats?
+  end
+
+  # Coaches class
+  class Coaches < Shale::Mapper
+    attr_accessor roster: Array[Job]
+
+    def self.find: (team: untyped, ?season: Integer?) -> Array[Job]
+  end
+
+  # PostseasonSchedule class
+  class PostseasonSchedule < Shale::Mapper
+    attr_accessor total_games: Integer?
+    attr_accessor dates: Array[ScheduleDate]
+
+    def self.games: (?season: Integer?) -> Array[ScheduledGame]
+  end
+
+  # TiedGames class
+  class TiedGames < Shale::Mapper
+    attr_accessor dates: Array[ScheduleDate]
+
+    def self.all: (?season: Integer?) -> Array[ScheduledGame]
+  end
+
+  # TeamHistory class
+  class TeamHistory < Shale::Mapper
+    attr_accessor teams: Array[Team]
+
+    def self.find: (team: untyped) -> Array[Team]
+  end
+
+  # Alumni class
+  class Alumni < Shale::Mapper
+    attr_accessor people: Array[Player]
+
+    def self.find: (team: untyped, ?season: Integer?) -> Array[Player]
+  end
+
+  # TeamLeader classes
+  class TeamLeader < Shale::Mapper
+    include Equalizer
+
+    attr_accessor rank: Integer?
+    attr_accessor value: String?
+    attr_accessor person: Player?
+    attr_accessor team: Team?
+    attr_accessor season: String?
+  end
+
+  class TeamLeaderCategory < Shale::Mapper
+    attr_accessor leader_category: String?
+    attr_accessor season: String?
+    attr_accessor leaders: Array[TeamLeader]
+  end
+
+  class TeamLeaders < Shale::Mapper
+    attr_accessor team_leaders: Array[TeamLeaderCategory]
+
+    def self.find: (team: untyped, category: String, ?season: Integer?) -> Array[TeamLeader]
+  end
+
+  # TeamStat classes
+
+  class TeamStat < Shale::Mapper
+    include Equalizer
+
+    attr_accessor season: String?
+    attr_accessor stat: StatValues?
+    attr_accessor team: Team?
+    attr_accessor rank: Integer?
+  end
+
+  class TeamStatGroup < Shale::Mapper
+    attr_accessor splits: Array[TeamStat]
+  end
+
+  class TeamStats < Shale::Mapper
+    attr_accessor stats: Array[TeamStatGroup]
+
+    def self.find: (?season: Integer?, ?group: String, ?stats: String) -> Array[TeamStat]
+  end
+
+  # SingleTeamStats class
+  class SingleTeamStats < Shale::Mapper
+    attr_accessor stats: Array[TeamStatGroup]
+
+    def self.find: (team: untyped, ?season: Integer?, ?group: String, ?stats: String) -> Array[TeamStat]
+  end
+
+  # PlayerStat classes
+
+  class PlayerStat < Shale::Mapper
+    include Equalizer
+
+    attr_accessor season: String?
+    attr_accessor stat: StatValues?
+    attr_accessor player: Player?
+    attr_accessor team: Team?
+    attr_accessor rank: Integer?
+    attr_accessor position: Position?
+  end
+
+  class PlayerStatGroup < Shale::Mapper
+    attr_accessor splits: Array[PlayerStat]
+  end
+
+  class Stats < Shale::Mapper
+    attr_accessor stats: Array[PlayerStatGroup]
+
+    def self.find: (?season: Integer?, ?group: String, ?stats: String, ?sport: untyped) -> Array[PlayerStat]
+  end
+
+  # Schedule classes
+  class ScheduledGameTeam < Shale::Mapper
+    include Equalizer
+
+    attr_accessor team: Team?
+    attr_accessor score: Integer?
+    attr_accessor is_winner: bool?
+
+    def winner?: () -> bool?
+  end
+
+  class ScheduledGameTeams < Shale::Mapper
+    attr_accessor away: ScheduledGameTeam?
+    attr_accessor home: ScheduledGameTeam?
+  end
+
+  class ScheduledGame < Shale::Mapper
+    include Equalizer
+
+    DAY: String
+    NIGHT: String
+    DOUBLE_HEADER_VALUES: Array[String]
+    GAME_TYPE_REGULAR: String
+    GAME_TYPE_SPRING: String
+    GAME_TYPE_EXHIBITION: String
+    GAME_TYPE_ALL_STAR: String
+    POSTSEASON_GAME_TYPES: Array[String]
+
+    attr_accessor game_pk: Integer?
+    attr_accessor link: String?
+    attr_accessor game_type: String?
+    attr_accessor season: String?
+    attr_accessor game_date: String?
+    attr_accessor official_date: Date?
+    attr_accessor status: GameStatus?
+    attr_accessor teams: ScheduledGameTeams?
+    attr_accessor venue: Venue?
+    attr_accessor is_tie: bool?
+    attr_accessor game_number: Integer?
+    attr_accessor double_header: String?
+    attr_accessor day_night: String?
+    attr_accessor scheduled_innings: Integer?
+    attr_accessor series_description: String?
+    attr_accessor games_in_series: Integer?
+    attr_accessor series_game_number: Integer?
+
+    def tie?: () -> bool?
+    def day?: () -> bool
+    def night?: () -> bool
+    def double_header?: () -> bool
+    def regular_season?: () -> bool
+    def spring_training?: () -> bool
+    def exhibition?: () -> bool
+    def all_star?: () -> bool
+    def postseason?: () -> bool
+  end
+
+  class ScheduleDate < Shale::Mapper
+    attr_accessor date: Date?
+    attr_accessor total_games: Integer?
+    attr_accessor games: Array[ScheduledGame]
+  end
+
+  class Schedule < Shale::Mapper
+    attr_accessor total_games: Integer?
+    attr_accessor dates: Array[ScheduleDate]
+
+    def self.games: (?date: Date, ?sport: untyped, ?team: untyped) -> Array[ScheduledGame]
+  end
+
+  # Standings classes
+  class LeagueRecord < Shale::Mapper
+    attr_accessor wins: Integer?
+    attr_accessor losses: Integer?
+    attr_accessor ties: Integer?
+    attr_accessor pct: String?
+  end
+
+  class Streak < Shale::Mapper
+    WINS: String
+    LOSSES: String
+
+    attr_accessor streak_code: String?
+    attr_accessor streak_type: String?
+    attr_accessor streak_number: Integer?
+
+    def winning?: () -> bool
+    def losing?: () -> bool
+  end
+
+  class TeamRecord < Shale::Mapper
+    include Equalizer
+
+    attr_accessor team: Team?
+    attr_accessor season: String?
+    attr_accessor streak: Streak?
+    attr_accessor division_rank: String?
+    attr_accessor league_rank: String?
+    attr_accessor wildcard_rank: String?
+    attr_accessor games_played: Integer?
+    attr_accessor games_back: String?
+    attr_accessor wildcard_games_back: String?
+    attr_accessor league_record: LeagueRecord?
+    attr_accessor wins: Integer?
+    attr_accessor losses: Integer?
+    attr_accessor runs_scored: Integer?
+    attr_accessor runs_allowed: Integer?
+    attr_accessor run_differential: Integer?
+    attr_accessor winning_percentage: String?
+    attr_accessor division_champ: bool?
+    attr_accessor division_leader: bool?
+    attr_accessor clinched: bool?
+
+    def division_champ?: () -> bool?
+    def division_leader?: () -> bool?
+    def clinched?: () -> bool?
+  end
+
+  class StandingsRecord < Shale::Mapper
+    STANDINGS_REGULAR_SEASON: String
+    STANDINGS_WILD_CARD: String
+    STANDINGS_DIVISION_LEADERS: String
+    STANDINGS_WILD_CARD_WITH_LEADERS: String
+    STANDINGS_FIRST_HALF: String
+    STANDINGS_SECOND_HALF: String
+    STANDINGS_SPRING_TRAINING: String
+    STANDINGS_POSTSEASON: String
+
+    attr_accessor standings_type: String?
+    attr_accessor league: League?
+    attr_accessor division: Division?
+    attr_accessor sport: Sport?
+    attr_accessor last_updated: String?
+    attr_accessor team_records: Array[TeamRecord]
+
+    def regular_season?: () -> bool
+    def wild_card?: () -> bool
+    def spring_training?: () -> bool
+    def postseason?: () -> bool
+  end
+
+  class Standings < Shale::Mapper
+    DEFAULT_LEAGUE_IDS: Array[Integer]
+
+    attr_accessor records: Array[StandingsRecord]
+
+    def self.all: (?season: Integer?, ?league_ids: Array[Integer]) -> Array[StandingsRecord]
+    def self.find: (division: untyped, ?season: Integer?, ?league_ids: Array[Integer]) -> StandingsRecord?
+  end
+
+  # PostseasonSeries classes
+  class SeriesInfo < Shale::Mapper
+    attr_accessor id: String?
+    attr_accessor sort_number: Integer?
+    attr_accessor game_type: String?
+  end
+
+  class PostseasonSeriesEntry < Shale::Mapper
+    include Equalizer
+
+    attr_accessor series: SeriesInfo?
+    attr_accessor total_games: Integer?
+    attr_accessor games: Array[ScheduledGame]
+  end
+
+  class PostseasonSeries < Shale::Mapper
+    attr_accessor series: Array[PostseasonSeriesEntry]
+
+    def self.all: (?season: Integer?, ?sport: untyped) -> Array[PostseasonSeriesEntry]
+  end
+
+  # SportPlayers class
+  class SportPlayers < Shale::Mapper
+    attr_accessor people: Array[Player]
+
+    def self.all: (?season: Integer?, ?sport: untyped) -> Array[Player]
+  end
+
+  # PeopleChanges class
+  class PeopleChanges < Shale::Mapper
+    attr_accessor people: Array[Player]
+
+    def self.since: (date: Date) -> Array[Player]
+  end
+
+  # GameChanges classes
+  class ChangedGame < Shale::Mapper
+    include Equalizer
+
+    attr_accessor game_pk: Integer?
+  end
+
+  class ChangedGameDate < Shale::Mapper
+    attr_accessor date: String?
+    attr_accessor games: Array[ChangedGame]
+  end
+
+  class GameChanges < Shale::Mapper
+    attr_accessor dates: Array[ChangedGameDate]
+
+    def self.since: (updated_since: untyped, ?sport_id: Integer?, ?season: Integer?, ?game_type: String?) -> Array[ChangedGame]
+  end
+
+  # ContextMetrics classes
+  class SacFlyProbability < Shale::Mapper
+    include Equalizer
+
+    attr_accessor probability: Float?
+  end
+
+  class ContextMetrics < Shale::Mapper
+    attr_accessor home_win_probability: Float?
+    attr_accessor away_win_probability: Float?
+    attr_accessor left_field_sac_fly_probability: SacFlyProbability?
+    attr_accessor center_field_sac_fly_probability: SacFlyProbability?
+    attr_accessor right_field_sac_fly_probability: SacFlyProbability?
+
+    def self.find: (game: untyped) -> ContextMetrics
+  end
+
+  # Play-by-play classes
+  class PlayResult < Shale::Mapper
+    attr_accessor type: String?
+    attr_accessor event: String?
+    attr_accessor event_type: String?
+    attr_accessor description: String?
+    attr_accessor rbi: Integer?
+    attr_accessor away_score: Integer?
+    attr_accessor home_score: Integer?
+    attr_accessor is_out: bool?
+
+    def out?: () -> bool?
+  end
+
+  class PlayAbout < Shale::Mapper
+    attr_accessor at_bat_index: Integer?
+    attr_accessor half_inning: String?
+    attr_accessor is_top_inning: bool?
+    attr_accessor inning: Integer?
+    attr_accessor is_complete: bool?
+    attr_accessor is_scoring_play: bool?
+
+    def top_inning?: () -> bool?
+    def complete?: () -> bool?
+    def scoring_play?: () -> bool?
+  end
+
+  class PlayCount < Shale::Mapper
+    attr_accessor balls: Integer?
+    attr_accessor strikes: Integer?
+    attr_accessor outs: Integer?
+  end
+
+  class PlayMatchup < Shale::Mapper
+    attr_accessor batter: Player?
+    attr_accessor bat_side: Handedness?
+    attr_accessor pitcher: Player?
+    attr_accessor pitch_hand: Handedness?
+  end
+
+  class Play < Shale::Mapper
+    attr_accessor result: PlayResult?
+    attr_accessor about: PlayAbout?
+    attr_accessor count: PlayCount?
+    attr_accessor matchup: PlayMatchup?
+  end
+
+  class PlayByPlay < Shale::Mapper
+    attr_accessor all_plays: Array[Play]
+    attr_accessor current_play: Play?
+    attr_accessor scoring_plays: Array[Integer]
+
+    def self.find: (game: untyped) -> PlayByPlay
+  end
+
+  # WinProbability classes
+  class WinProbabilityEntry < Shale::Mapper
+    include Equalizer
+
+    attr_accessor at_bat_index: Integer?
+    attr_accessor home_team_win_probability: Float?
+    attr_accessor away_team_win_probability: Float?
+  end
+
+  class WinProbability < Shale::Mapper
+    attr_accessor entries: Array[WinProbabilityEntry]
+
+    def self.find: (game: untyped) -> Array[WinProbabilityEntry]
+  end
+
+  # LiveFeed classes
+  class GameDateTime < Shale::Mapper
+    DAY: String
+    NIGHT: String
+    AM: String
+    PM: String
+
+    attr_accessor date_time: String?
+    attr_accessor original_date: String?
+    attr_accessor day_night: String?
+    attr_accessor time: String?
+    attr_accessor am_pm: String?
+
+    def day?: () -> bool
+    def night?: () -> bool
+    def am?: () -> bool
+    def pm?: () -> bool
+  end
+
+  class GameTeams < Shale::Mapper
+    attr_accessor away: Team?
+    attr_accessor home: Team?
+  end
+
+  class GameData < Shale::Mapper
+    attr_accessor datetime: GameDateTime?
+    attr_accessor teams: GameTeams?
+    attr_accessor venue: Venue?
+  end
+
+  class LivePlays < Shale::Mapper
+    attr_accessor all_plays: Array[Play]
+    attr_accessor current_play: Play?
+    attr_accessor scoring_plays: Array[Integer]
+  end
+
+  class LiveData < Shale::Mapper
+    attr_accessor plays: LivePlays?
+    attr_accessor linescore: Linescore?
+    attr_accessor boxscore: Boxscore?
+  end
+
+  class LiveFeed < Shale::Mapper
+    attr_accessor game_pk: Integer?
+    attr_accessor link: String?
+    attr_accessor game_data: GameData?
+    attr_accessor live_data: LiveData?
+
+    def self.find: (game: untyped) -> LiveFeed
+  end
+
+  # GameContent classes
+  class MediaPlayback < Shale::Mapper
+    attr_accessor name: String?
+    attr_accessor url: String?
+  end
+
+  class MediaCut < Shale::Mapper
+    attr_accessor aspect_ratio: String?
+    attr_accessor width: Integer?
+    attr_accessor height: Integer?
+    attr_accessor src: String?
+  end
+
+  class MediaImage < Shale::Mapper
+    attr_accessor title: String?
+    attr_accessor cuts: Array[MediaCut]
+  end
+
+  class Highlight < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: String?
+    attr_accessor type: String?
+    attr_accessor headline: String?
+    attr_accessor description: String?
+    attr_accessor duration: String?
+    attr_accessor playbacks: Array[MediaPlayback]
+    attr_accessor image: MediaImage?
+  end
+
+  class HighlightsSection < Shale::Mapper
+    attr_accessor highlights: Array[Highlight]
+  end
+
+  class GameContentMedia < Shale::Mapper
+    attr_accessor free_game: bool?
+    attr_accessor enhanced_game: bool?
+  end
+
+  class GameContent < Shale::Mapper
+    attr_accessor link: String?
+    attr_accessor media: GameContentMedia?
+    attr_accessor highlights: HighlightsSection?
+
+    def self.find: (game: untyped) -> GameContent
+  end
+
+  # HomeRunDerby classes
+  class DerbyHomeRun < Shale::Mapper
+    attr_accessor total_distance: Integer?
+    attr_accessor launch_speed: Float?
+    attr_accessor launch_angle: Float?
+    attr_accessor is_bonus_time: bool?
+
+    def bonus_time?: () -> bool?
+  end
+
+  class DerbyBatter < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor full_name: String?
+    attr_accessor link: String?
+    attr_accessor seed: Integer?
+    attr_accessor home_runs: Integer?
+    attr_accessor is_winner: bool?
+    attr_accessor is_bonus: bool?
+    attr_accessor hits: Array[DerbyHomeRun]
+
+    def winner?: () -> bool?
+    def bonus?: () -> bool?
+  end
+
+  class DerbyMatchup < Shale::Mapper
+    attr_accessor matchup_id: Integer?
+    attr_accessor top_seed: DerbyBatter?
+    attr_accessor bottom_seed: DerbyBatter?
+  end
+
+  class DerbyRound < Shale::Mapper
+    attr_accessor round: Integer?
+    attr_accessor num_batters: Integer?
+    attr_accessor matchups: Array[DerbyMatchup]
+  end
+
+  class DerbyInfo < Shale::Mapper
+    attr_accessor id: Integer?
+    attr_accessor name: String?
+  end
+
+  class HomeRunDerby < Shale::Mapper
+    attr_accessor info: DerbyInfo?
+    attr_accessor rounds: Array[DerbyRound]
+
+    def self.find: (game: untyped) -> HomeRunDerby
+  end
+
+  class UniformColor < Shale::Mapper
+    attr_accessor name: String?
+    attr_accessor hex: String?
+  end
+
+  class UniformAsset < Shale::Mapper
+    attr_accessor cap: String?
+    attr_accessor jersey: String?
+  end
+
+  class UniformInfo < Shale::Mapper
+    include Equalizer
+
+    attr_accessor team_id: Integer?
+    attr_accessor uniform_type: String?
+    attr_accessor jersey_color: UniformColor?
+    attr_accessor cap_color: UniformColor?
+    attr_accessor assets: UniformAsset?
+  end
+
+  class GameUniforms < Shale::Mapper
+    attr_accessor away: UniformInfo?
+    attr_accessor home: UniformInfo?
+
+    def self.find: (game: untyped) -> GameUniforms
+  end
+
+  class TeamUniforms < Shale::Mapper
+    attr_accessor uniforms: Array[UniformInfo]
+
+    def self.find: (team: untyped, ?season: Integer?) -> Array[UniformInfo]
+  end
+
+  class PlayerStreak < Shale::Mapper
+    include Equalizer
+
+    STREAK_HITTING: String
+    STREAK_ON_BASE: String
+
+    attr_accessor player_id: Integer?
+    attr_accessor player_name: String?
+    attr_accessor streak_type: String?
+    attr_accessor current_streak: Integer?
+    attr_accessor current_streak_stat: String?
+    attr_accessor team: Team?
+
+    def hitting_streak?: () -> bool
+    def on_base_streak?: () -> bool
+  end
+
+  class StreakCategory < Shale::Mapper
+    CATEGORY_HITTING: String
+    CATEGORY_ON_BASE: String
+
+    attr_accessor category_type: String?
+    attr_accessor streaks: Array[PlayerStreak]
+
+    def hitting_streak?: () -> bool
+    def on_base_streak?: () -> bool
+  end
+
+  class Streaks < Shale::Mapper
+    attr_accessor streak_stats: Array[StreakCategory]
+
+    def self.hitting: (?season: Integer?, ?limit: Integer) -> Array[PlayerStreak]
+    def self.on_base: (?season: Integer?, ?limit: Integer) -> Array[PlayerStreak]
+    def self.find: (streak_type: String, ?season: Integer?, ?limit: Integer) -> Array[PlayerStreak]
+  end
+
+  class PlayerGameBattingStats < Shale::Mapper
+    attr_accessor games_played: Integer?
+    attr_accessor at_bats: Integer?
+    attr_accessor runs: Integer?
+    attr_accessor hits: Integer?
+    attr_accessor doubles: Integer?
+    attr_accessor triples: Integer?
+    attr_accessor home_runs: Integer?
+    attr_accessor rbi: Integer?
+    attr_accessor stolen_bases: Integer?
+    attr_accessor base_on_balls: Integer?
+    attr_accessor strike_outs: Integer?
+  end
+
+  class PlayerGamePitchingStats < Shale::Mapper
+    attr_accessor games_played: Integer?
+    attr_accessor games_started: Integer?
+    attr_accessor wins: Integer?
+    attr_accessor losses: Integer?
+    attr_accessor saves: Integer?
+    attr_accessor innings_pitched: String?
+    attr_accessor hits: Integer?
+    attr_accessor runs: Integer?
+    attr_accessor earned_runs: Integer?
+    attr_accessor home_runs: Integer?
+    attr_accessor base_on_balls: Integer?
+    attr_accessor strike_outs: Integer?
+    attr_accessor number_of_pitches: Integer?
+  end
+
+  class PlayerGameStatSplit < Shale::Mapper
+    attr_accessor stat: untyped
+    attr_accessor team: Team?
+    attr_accessor player: Player?
+  end
+
+  class PlayerGameStatGroup < Shale::Mapper
+    attr_accessor group: String?
+    attr_accessor splits: Array[PlayerGameStatSplit]
+  end
+
+  class PlayerGameStats < Shale::Mapper
+    attr_accessor stats: Array[PlayerGameStatGroup]
+
+    def self.find: (player: untyped, game: untyped) -> PlayerGameStats
+    def batting: () -> PlayerGameBattingStats?
+    def pitching: () -> PlayerGamePitchingStats?
   end
 end

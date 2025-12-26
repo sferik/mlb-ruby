@@ -63,8 +63,7 @@ module MLB
     # @return [void]
     def add_headers(request:, headers:)
       DEFAULT_HEADERS.merge(headers).each do |key, value|
-        request.delete(key)
-        request.add_field(key, value)
+        request[key] = value
       end
     end
 

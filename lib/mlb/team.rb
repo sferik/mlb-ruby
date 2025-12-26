@@ -1,6 +1,5 @@
 require "equalizer"
 require "shale"
-require "uri"
 require_relative "division"
 require_relative "league"
 require_relative "sport"
@@ -11,6 +10,41 @@ module MLB
   # Represents a team
   class Team < Shale::Mapper
     include Equalizer.new(:id)
+
+    ALL_STAR_YES = "Y".freeze
+    ALL_STAR_NO = "N".freeze
+
+    # Team ID constants
+    AZ = 109
+    ATH = 133
+    ATL = 144
+    BAL = 110
+    BOS = 111
+    CHC = 112
+    CWS = 145
+    CIN = 113
+    CLE = 114
+    COL = 115
+    DET = 116
+    HOU = 117
+    KC = 118
+    LAA = 108
+    LAD = 119
+    MIA = 146
+    MIL = 158
+    MIN = 142
+    NYM = 121
+    NYY = 147
+    PHI = 143
+    PIT = 134
+    SD = 135
+    SF = 137
+    SEA = 136
+    STL = 138
+    TB = 139
+    TEX = 140
+    TOR = 141
+    WSH = 120
 
     attribute :id, Shale::Type::Integer
     attribute :spring_league, League
@@ -42,6 +76,14 @@ module MLB
     # @return [Boolean, nil] true if the team is active
     alias_method :active?, :active
 
+    # Returns whether this is an All-Star team
+    #
+    # @api public
+    # @example
+    #   team.all_star? #=> false
+    # @return [Boolean] whether this is an All-Star team
+    def all_star? = all_star_status.eql?(ALL_STAR_YES)
+
     json do
       map "springLeague", to: :spring_league
       map "allStarStatus", to: :all_star_status
@@ -71,14 +113,12 @@ module MLB
     # @api public
     # @example
     #   team.roster
-    # @param season [Integer] the season year
+    # @param season [Integer, nil] the season year (defaults to current year)
     # @return [Array<RosterEntry>] list of roster entries
-    def roster(season: Time.now.year)
-      params = {season:}
-      query_string = URI.encode_www_form(params)
-      response = CLIENT.get("teams/#{id}/roster?#{query_string}")
-      roster = Roster.from_json(response)
-      roster.roster
+    def roster(season: nil)
+      season ||= Utils.current_season
+      response = CLIENT.get("teams/#{id}/roster?#{Utils.build_query(season:)}")
+      Roster.from_json(response).roster
     end
   end
 end

@@ -217,28 +217,8 @@ module MLB
     #   @return [Handedness] the player's pitching hand
     attribute :pitch_hand, Handedness
 
-    # @!method verified?
-    #   Returns whether the player is verified
-    #   @api public
-    #   @example
-    #     player.verified? #=> true
-    #   @return [Boolean] whether the player is verified
     alias_method :verified?, :is_verified
-
-    # @!method player?
-    #   Returns whether the person is a player
-    #   @api public
-    #   @example
-    #     player.player? #=> true
-    #   @return [Boolean] whether the person is a player
     alias_method :player?, :is_player
-
-    # @!method active?
-    #   Returns whether the player is active
-    #   @api public
-    #   @example
-    #     player.active? #=> true
-    #   @return [Boolean] whether the player is active
     alias_method :active?, :active
 
     json do

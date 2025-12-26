@@ -63,30 +63,6 @@ module MLB
       assert_requested :get, "http://example.com/some_relative_path"
     end
 
-    def test_handle_with_301_moved_permanently
-      request = Net::HTTP::Get.new("/some_path")
-      stub_request(:get, "http://example.com/new_path")
-
-      response = Net::HTTPMovedPermanently.new("1.1", "301", "Moved Permanently")
-      response["Location"] = "http://example.com/new_path"
-
-      @redirect_handler.handle(response:, request:, base_url: "http://example.com")
-
-      assert_requested :get, "http://example.com/new_path"
-    end
-
-    def test_handle_with_302_found
-      request = Net::HTTP::Get.new("/some_path")
-      stub_request(:get, "http://example.com/temp_path")
-
-      response = Net::HTTPFound.new("1.1", "302", "Found")
-      response["Location"] = "http://example.com/temp_path"
-
-      @redirect_handler.handle(response:, request:, base_url: "http://example.com")
-
-      assert_requested :get, "http://example.com/temp_path"
-    end
-
     def test_handle_with_303_see_other
       request = Net::HTTP::Post.new("/some_path")
       stub_request(:post, "http://example.com/some_path")
@@ -124,6 +100,20 @@ module MLB
       @redirect_handler.handle(response:, request:, base_url: "http://example.com")
 
       assert_requested :post, "http://example.com/new_path", body: "request_body"
+    end
+
+    def test_handle_with_302_uses_get_method
+      # A 302 redirect should switch to GET even for POST requests
+      request = Net::HTTP::Post.new("/some_path")
+      request.body = "request_body"
+      stub_request(:get, "http://example.com/redirect_path")
+
+      response = Net::HTTPFound.new("1.1", "302", "Found")
+      response["Location"] = "http://example.com/redirect_path"
+
+      @redirect_handler.handle(response:, request:, base_url: "http://example.com")
+
+      assert_requested :get, "http://example.com/redirect_path"
     end
 
     def test_handle_with_too_many_redirects

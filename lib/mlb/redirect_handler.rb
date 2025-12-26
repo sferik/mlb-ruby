@@ -9,6 +9,10 @@ module MLB
   class RedirectHandler
     # Default maximum number of redirects to follow
     DEFAULT_MAX_REDIRECTS = 10
+    # HTTP redirect codes that preserve the original method and body
+    PRESERVE_METHOD_CODES = [307, 308].freeze
+    # HTTP header for redirect location
+    LOCATION_HEADER = "location".freeze
 
     # Returns the maximum number of redirects to follow
     #
@@ -69,18 +73,14 @@ module MLB
     # @return [Net::HTTPResponse] the final HTTP response
     # @raise [TooManyRedirects] if the maximum number of redirects is exceeded
     def handle(response:, request:, base_url:, redirect_count: 0)
-      if response.is_a?(Net::HTTPRedirection)
-        raise TooManyRedirects, "Too many redirects" if redirect_count > max_redirects
+      return response unless response.is_a?(Net::HTTPRedirection)
+      raise TooManyRedirects, "Too many redirects" if redirect_count > max_redirects
 
-        new_uri = build_new_uri(response, base_url)
+      new_uri = build_redirect_uri(response, base_url)
+      new_request = build_redirect_request(request, new_uri, Integer(response.code))
+      new_response = connection.perform(request: new_request)
 
-        new_request = build_request(request, new_uri, Integer(response.code))
-        new_response = connection.perform(request: new_request)
-
-        handle(response: new_response, request: new_request, base_url:, redirect_count: redirect_count + 1)
-      else
-        response
-      end
+      handle(response: new_response, request: new_request, base_url:, redirect_count: redirect_count + 1)
     end
 
     private
@@ -91,9 +91,8 @@ module MLB
     # @param response [Net::HTTPResponse] the redirect response
     # @param base_url [String] the base URL for relative redirects
     # @return [URI::Generic] the new URI
-    def build_new_uri(response, base_url)
-      location = response.fetch("location")
-      # If location is relative, it will join with the original base URL, otherwise it will overwrite it
+    def build_redirect_uri(response, base_url)
+      location = response.fetch(LOCATION_HEADER)
       URI.join(base_url, location)
     end
 
@@ -104,15 +103,12 @@ module MLB
     # @param uri [URI::Generic] the new URI
     # @param response_code [Integer] the redirect response code
     # @return [Net::HTTPRequest] the new request
-    def build_request(request, uri, response_code)
-      http_method, body = case response_code
-      in 307 | 308
-        [request.method.downcase.to_sym, request.body]
+    def build_redirect_request(request, uri, response_code)
+      if PRESERVE_METHOD_CODES.include?(response_code)
+        request_builder.build(http_method: request.method.downcase.to_sym, uri:, body: request.body)
       else
-        :get
+        request_builder.build(http_method: :get, uri:)
       end
-
-      request_builder.build(http_method:, uri:, body:)
     end
   end
 end

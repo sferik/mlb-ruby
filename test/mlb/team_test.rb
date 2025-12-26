@@ -20,5 +20,10 @@ module MLB
 
       assert_equal team0, team1
     end
+
+    def test_all_star_predicate
+      assert_predicate Team.new(all_star_status: "Y"), :all_star?
+      refute_predicate Team.new(all_star_status: "N"), :all_star?
+    end
   end
 end

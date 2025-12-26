@@ -33,5 +33,15 @@ module MLB
       assert_requested :get, "https://statsapi.mlb.com/api/v1/awards"
       assert_equal "MLBHOF", award.id
     end
+
+    def test_self_find_not_found
+      stub_request(:get, "https://statsapi.mlb.com/api/v1/awards")
+        .to_return(body: '{"awards":[{"id":"ALAS","sortOrder":2},{"id":"MLBHOF","sortOrder":1}]}',
+          headers: {"Content-Type" => "application/json;charset=UTF-8"})
+      award = Awards.find("NONEXISTENT")
+
+      assert_requested :get, "https://statsapi.mlb.com/api/v1/awards"
+      assert_nil award
+    end
   end
 end

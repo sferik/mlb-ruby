@@ -1,30 +1,34 @@
-require "equalizer"
-require "shale"
+require_relative "code_description_type"
 
 module MLB
   # Represents handedness (batting or throwing side)
-  class Handedness < Shale::Mapper
-    include Equalizer.new(:code)
+  class Handedness < CodeDescriptionType
+    LEFT = "L".freeze
+    RIGHT = "R".freeze
+    SWITCH = "S".freeze
 
-    # @!attribute [rw] code
-    #   Returns the handedness code
-    #   @api public
-    #   @example
-    #     handedness.code #=> "L"
-    #   @return [String] the handedness code
-    attribute :code, Shale::Type::String
+    # Returns whether this is left-handed
+    #
+    # @api public
+    # @example
+    #   handedness.left? #=> true
+    # @return [Boolean] whether this is left-handed
+    def left? = code.eql?(LEFT)
 
-    # @!attribute [rw] description
-    #   Returns the handedness description
-    #   @api public
-    #   @example
-    #     handedness.description #=> "Left"
-    #   @return [String] the handedness description
-    attribute :description, Shale::Type::String
+    # Returns whether this is right-handed
+    #
+    # @api public
+    # @example
+    #   handedness.right? #=> false
+    # @return [Boolean] whether this is right-handed
+    def right? = code.eql?(RIGHT)
 
-    json do
-      map "code", to: :code
-      map "description", to: :description
-    end
+    # Returns whether this is switch (both sides)
+    #
+    # @api public
+    # @example
+    #   handedness.switch? #=> false
+    # @return [Boolean] whether this is switch
+    def switch? = code.eql?(SWITCH)
   end
 end

@@ -4,6 +4,7 @@ require_relative "season_date_info"
 require_relative "sport"
 
 module MLB
+  # Represents a league (e.g., American League, National League)
   class League < Shale::Mapper
     include Comparable
     include Equalizer.new(:id)
@@ -29,13 +30,68 @@ module MLB
     attribute :sort_order, Shale::Type::Integer
     attribute :active, Shale::Type::Boolean
 
+    # Returns whether the league is active
+    #
+    # @api public
+    # @example
+    #   league.active?
+    # @return [Boolean, nil] true if the league is active
     alias_method :active?, :active
+
+    # Returns whether the league has a wild card
+    #
+    # @api public
+    # @example
+    #   league.wild_card?
+    # @return [Boolean, nil] true if the league has a wild card
     alias_method :wild_card?, :has_wild_card
+
+    # Returns whether the league has a wild card (alias)
+    #
+    # @api public
+    # @example
+    #   league.has_wildcard
+    # @return [Boolean, nil] true if the league has a wild card
     alias_method :has_wildcard, :has_wild_card
+
+    # Returns whether the league has a wild card (alias)
+    #
+    # @api public
+    # @example
+    #   league.wildcard?
+    # @return [Boolean, nil] true if the league has a wild card
     alias_method :wildcard?, :has_wild_card
+
+    # Returns whether the league has a split season
+    #
+    # @api public
+    # @example
+    #   league.split_season?
+    # @return [Boolean, nil] true if the league has a split season
     alias_method :split_season?, :has_split_season
+
+    # Returns whether the league has playoff points
+    #
+    # @api public
+    # @example
+    #   league.playoff_points?
+    # @return [Boolean, nil] true if the league has playoff points
     alias_method :playoff_points?, :has_playoff_points
+
+    # Returns whether conferences are in use
+    #
+    # @api public
+    # @example
+    #   league.conferences?
+    # @return [Boolean, nil] true if conferences are in use
     alias_method :conferences?, :conferences_in_use
+
+    # Returns whether divisions are in use
+    #
+    # @api public
+    # @example
+    #   league.divisions?
+    # @return [Boolean, nil] true if divisions are in use
     alias_method :divisions?, :divisions_in_use
 
     json do
@@ -61,6 +117,13 @@ module MLB
       map "active", to: :active
     end
 
+    # Compares leagues by sort order
+    #
+    # @api public
+    # @example
+    #   league1 <=> league2
+    # @param other [League] the league to compare with
+    # @return [Integer, nil] -1, 0, or 1 for comparison
     def <=>(other)
       sort_order <=> other.sort_order
     end

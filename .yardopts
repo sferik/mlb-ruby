@@ -1,0 +1,5 @@
+--no-private
+--protected
+--readme README.md
+--output-dir doc
+lib/**/*.rb

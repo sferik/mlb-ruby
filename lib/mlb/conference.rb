@@ -4,6 +4,7 @@ require_relative "league"
 require_relative "sport"
 
 module MLB
+  # Represents a conference
   class Conference < Shale::Mapper
     include Equalizer.new(:id)
 
@@ -16,6 +17,12 @@ module MLB
     attribute :sport, Sport
     attribute :name_short, Shale::Type::String
 
+    # Returns whether the conference has a wild card
+    #
+    # @api public
+    # @example
+    #   conference.wildcard?
+    # @return [Boolean, nil] true if the conference has a wild card
     alias_method :wildcard?, :has_wildcard
 
     json do

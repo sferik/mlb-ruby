@@ -27,4 +27,33 @@ require "steep/rake_task"
 
 Steep::RakeTask.new(:steep)
 
-task default: %i[test lint mutant steep]
+require "yard"
+
+desc "Generate YARD documentation"
+task :yard do
+  require "open3"
+  stdout, stderr, status = Open3.capture3("bundle", "exec", "yard", "doc")
+
+  # Filter out multi-line "Undocumentable mixin" warnings for Equalizer.new
+  equalizer_warning = /
+    \[warn\]:\sin\sYARD::Handlers::Ruby::MixinHandler:\s
+    Undocumentable\smixin[^\n]*\n
+    \tin\sfile[^\n]*\n
+    \n
+    \t\d+:\sinclude\sEqualizer\.new[^\n]*\n
+    \n
+  /x
+  filtered = stdout.gsub(equalizer_warning, "")
+
+  print filtered
+  print stderr unless stderr.strip.empty?
+  exit status.exitstatus unless status.success?
+end
+
+require "yardstick/rake/verify"
+
+Yardstick::Rake::Verify.new(:yardstick) do |verify|
+  verify.threshold = 100
+end
+
+task default: %i[test lint mutant steep yardstick]

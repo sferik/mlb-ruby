@@ -2,6 +2,7 @@ require "equalizer"
 require "shale"
 
 module MLB
+  # Represents important dates for an MLB season
   class SeasonDateInfo < Shale::Mapper
     include Equalizer.new(:season_id)
 

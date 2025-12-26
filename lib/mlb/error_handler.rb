@@ -16,7 +16,9 @@ require_relative "errors/unauthorized"
 require_relative "errors/unprocessable_entity"
 
 module MLB
+  # Handles HTTP error responses from the MLB Stats API
   class ErrorHandler
+    # Mapping of HTTP status codes to error classes
     ERROR_MAP = {
       400 => BadRequest,
       401 => Unauthorized,
@@ -34,6 +36,14 @@ module MLB
       504 => GatewayTimeout
     }.freeze
 
+    # Handles an HTTP response
+    #
+    # @api public
+    # @example
+    #   handler.handle(response: response)
+    # @param response [Net::HTTPResponse] the HTTP response
+    # @return [String, nil] the response body if successful
+    # @raise [HTTPError] if the response is not successful
     def handle(response:)
       raise error(response) unless response.is_a?(Net::HTTPSuccess)
 
@@ -42,10 +52,20 @@ module MLB
 
     private
 
+    # Creates an error from a response
+    #
+    # @api private
+    # @param response [Net::HTTPResponse] the HTTP response
+    # @return [HTTPError] the error instance
     def error(response)
       error_class(response).new(response:)
     end
 
+    # Returns the error class for a response
+    #
+    # @api private
+    # @param response [Net::HTTPResponse] the HTTP response
+    # @return [Class] the error class
     def error_class(response)
       ERROR_MAP[Integer(response.code)] || HTTPError
     end

@@ -6,7 +6,9 @@ require_relative "league"
 require_relative "sport"
 require_relative "venue"
 
+# Ruby interface to the MLB Stats API
 module MLB
+  # Represents a team
   class Team < Shale::Mapper
     include Equalizer.new(:id)
 
@@ -32,6 +34,12 @@ module MLB
     attribute :club_name, Shale::Type::String
     attribute :active, Shale::Type::Boolean
 
+    # Returns whether the team is active
+    #
+    # @api public
+    # @example
+    #   team.active?
+    # @return [Boolean, nil] true if the team is active
     alias_method :active?, :active
 
     json do
@@ -58,6 +66,13 @@ module MLB
       map "active", to: :active
     end
 
+    # Retrieves the team's roster
+    #
+    # @api public
+    # @example
+    #   team.roster
+    # @param season [Integer] the season year
+    # @return [Array<RosterEntry>] list of roster entries
     def roster(season: Time.now.year)
       params = {season:}
       query_string = URI.encode_www_form(params)

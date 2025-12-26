@@ -4,6 +4,7 @@ require_relative "league"
 require_relative "sport"
 
 module MLB
+  # Represents a season
   class Season < Shale::Mapper
     include Comparable
     include Equalizer.new(:id)
@@ -30,6 +31,12 @@ module MLB
     attribute :qualifier_plate_appearances, Shale::Type::Float
     attribute :qualifier_outs_pitched, Shale::Type::Float
 
+    # Returns whether the season has a wild card
+    #
+    # @api public
+    # @example
+    #   season.wildcard?
+    # @return [Boolean, nil] true if the season has a wild card
     alias_method :wildcard?, :has_wildcard
 
     json do
@@ -56,6 +63,13 @@ module MLB
       map "qualifierOutsPitched", to: :qualifier_outs_pitched
     end
 
+    # Compares seasons by ID (year)
+    #
+    # @api public
+    # @example
+    #   season1 <=> season2
+    # @param other [Season] the season to compare with
+    # @return [Integer, nil] -1, 0, or 1 for comparison
     def <=>(other)
       id <=> other.id
     end

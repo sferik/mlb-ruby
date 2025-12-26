@@ -1,8 +1,6 @@
 [![Tests](https://github.com/sferik/mlb-ruby/actions/workflows/test.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/test.yml)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/fc32f80cb778b773a5b2/test_coverage)](https://codeclimate.com/github/sferik/mlb-ruby/test_coverage)
 [![Mutant](https://github.com/sferik/mlb-ruby/actions/workflows/mutant.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/mutant.yml)
 [![Linter](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml/badge.svg)](https://github.com/sferik/mlb-ruby/actions/workflows/lint.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/fc32f80cb778b773a5b2/maintainability)](https://codeclimate.com/github/sferik/mlb-ruby/maintainability)
 [![Gem Version](https://badge.fury.io/rb/mlb.svg)](https://rubygems.org/gems/mlb)
 
 # A [Ruby](https://www.ruby-lang.org) interface to the [MLB Stats API](https://statsapi.mlb.com)

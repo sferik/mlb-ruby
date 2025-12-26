@@ -6,8 +6,9 @@ unless $PROGRAM_NAME.end_with?("mutant")
 
   SimpleCov.start do
     add_filter "test"
+    enable_coverage :branch
     formatter SimpleCov::Formatter::JSONFormatter if ENV["GITHUB_ACTIONS"]
-    minimum_coverage(100)
+    minimum_coverage line: 100, branch: 100
   end
 end
 

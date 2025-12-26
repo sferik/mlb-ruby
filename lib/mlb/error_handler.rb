@@ -67,7 +67,7 @@ module MLB
     # @param response [Net::HTTPResponse] the HTTP response
     # @return [Class] the error class
     def error_class(response)
-      ERROR_MAP[Integer(response.code)] || HTTPError
+      ERROR_MAP.fetch(Integer(response.code), HTTPError)
     end
   end
 end

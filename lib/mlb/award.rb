@@ -1,6 +1,6 @@
 require "equalizer"
 require "shale"
-require "uri"
+require_relative "comparable_by_attribute"
 require_relative "league"
 require_relative "sport"
 require_relative "player"
@@ -9,7 +9,14 @@ module MLB
   # Represents an MLB award with recipient and voting information
   class Award < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer.new(:id, :player, :season)
+
+    # Returns the attribute used for sorting
+    #
+    # @api private
+    # @return [Symbol] the attribute used for comparison
+    def comparable_attribute = :sort_order
 
     # @!attribute [rw] id
     #   Returns the unique identifier for the award
@@ -103,30 +110,17 @@ module MLB
       map "votes", to: :votes
     end
 
-    # Compares awards by sort order
-    #
-    # @api public
-    # @example
-    #   award1 <=> award2 #=> -1
-    # @param other [Award] the other award to compare
-    # @return [Integer] -1, 0, or 1
-    def <=>(other)
-      sort_order <=> other.sort_order
-    end
-
     # Retrieves recipients of this award for a given season
     #
     # @api public
     # @example
     #   award.recipients(season: 2024) #=> [#<MLB::Award>, ...]
-    # @param season [Integer] the season year
+    # @param season [Integer, nil] the season year (defaults to current year)
     # @return [Array<Award>] the list of awards with recipients
-    def recipients(season: Time.now.year)
-      params = {season:}
-      query_string = URI.encode_www_form(params)
-      response = CLIENT.get("awards/#{id}/recipients?#{query_string}")
-      awards = Awards.from_json(response)
-      awards.awards
+    def recipients(season: nil)
+      season ||= Utils.current_season
+      response = CLIENT.get("awards/#{id}/recipients?#{Utils.build_query(season:)}")
+      Awards.from_json(response).awards
     end
   end
 end

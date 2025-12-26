@@ -4,7 +4,6 @@ require_relative "sport"
 module MLB
   # Collection of sports from the MLB Stats API
   class Sports < Shale::Mapper
-    attribute :copyright, Shale::Type::String
     attribute :sports, Sport, collection: true
 
     # Retrieves all sports
@@ -15,8 +14,7 @@ module MLB
     # @return [Array<Sport>] list of all sports
     def self.all
       response = CLIENT.get("sports")
-      sports = from_json(response)
-      sports.sports.sort!
+      from_json(response).sports.sort
     end
 
     # Finds a sport by ID
@@ -27,10 +25,8 @@ module MLB
     # @param sport [Integer, Sport] the sport ID or Sport object
     # @return [Sport, nil] the sport if found
     def self.find(sport)
-      id = sport.respond_to?(:id) ? sport.id : sport
-      response = CLIENT.get("sports/#{id}")
-      sports = from_json(response)
-      sports.sports.sort!.first
+      response = CLIENT.get("sports/#{Utils.extract_id(sport)}")
+      from_json(response).sports.min_by { |s| s.sort_order || 0 }
     end
   end
 end

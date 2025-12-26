@@ -1,5 +1,6 @@
 require "equalizer"
 require "shale"
+require_relative "comparable_by_attribute"
 require_relative "league"
 require_relative "sport"
 
@@ -7,7 +8,14 @@ module MLB
   # Represents a season
   class Season < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer.new(:id)
+
+    # Returns the attribute used for sorting
+    #
+    # @api private
+    # @return [Symbol] the attribute used for comparison
+    def comparable_attribute = :id
 
     attribute :id, Shale::Type::Integer
     attribute :has_wildcard, Shale::Type::Boolean
@@ -61,17 +69,6 @@ module MLB
       map "gameLevelGamedayType", to: :game_level_gameday_type
       map "qualifierPlateAppearances", to: :qualifier_plate_appearances
       map "qualifierOutsPitched", to: :qualifier_outs_pitched
-    end
-
-    # Compares seasons by ID (year)
-    #
-    # @api public
-    # @example
-    #   season1 <=> season2
-    # @param other [Season] the season to compare with
-    # @return [Integer, nil] -1, 0, or 1 for comparison
-    def <=>(other)
-      id <=> other.id
     end
   end
 end

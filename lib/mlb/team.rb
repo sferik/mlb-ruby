@@ -1,6 +1,5 @@
 require "equalizer"
 require "shale"
-require "uri"
 require_relative "division"
 require_relative "league"
 require_relative "sport"
@@ -71,14 +70,12 @@ module MLB
     # @api public
     # @example
     #   team.roster
-    # @param season [Integer] the season year
+    # @param season [Integer, nil] the season year (defaults to current year)
     # @return [Array<RosterEntry>] list of roster entries
-    def roster(season: Time.now.year)
-      params = {season:}
-      query_string = URI.encode_www_form(params)
-      response = CLIENT.get("teams/#{id}/roster?#{query_string}")
-      roster = Roster.from_json(response)
-      roster.roster
+    def roster(season: nil)
+      season ||= Utils.current_season
+      response = CLIENT.get("teams/#{id}/roster?#{Utils.build_query(season:)}")
+      Roster.from_json(response).roster
     end
   end
 end

@@ -22,5 +22,8 @@ module Shale
 
     class String
     end
+
+    class Value
+    end
   end
 end

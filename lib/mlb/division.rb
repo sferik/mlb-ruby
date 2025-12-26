@@ -1,5 +1,6 @@
 require "equalizer"
 require "shale"
+require_relative "comparable_by_attribute"
 require_relative "league"
 require_relative "sport"
 
@@ -7,7 +8,14 @@ module MLB
   # Represents a division (e.g., AL East, NL West)
   class Division < Shale::Mapper
     include Comparable
+    include ComparableByAttribute
     include Equalizer.new(:id)
+
+    # Returns the attribute used for sorting
+    #
+    # @api private
+    # @return [Symbol] the attribute used for comparison
+    def comparable_attribute = :sort_order
 
     attribute :id, Shale::Type::Integer
     attribute :name, Shale::Type::String
@@ -21,21 +29,21 @@ module MLB
     attribute :sort_order, Shale::Type::Integer
     attribute :active, Shale::Type::Boolean
 
-    # Returns whether the division is active
+    # Checks if the division is active
     #
     # @api public
     # @example
-    #   division.active?
-    # @return [Boolean, nil] true if the division is active
-    alias_method :active?, :active
+    #   division.active? #=> true
+    # @return [Boolean] whether the division is active
+    def active? = active
 
-    # Returns whether the division has a wild card
+    # Checks if the division has a wildcard
     #
     # @api public
     # @example
-    #   division.wildcard?
-    # @return [Boolean, nil] true if the division has a wild card
-    alias_method :wildcard?, :has_wildcard
+    #   division.wildcard? #=> true
+    # @return [Boolean] whether the division has a wildcard
+    def wildcard? = has_wildcard
 
     json do
       map "id", to: :id
@@ -49,17 +57,6 @@ module MLB
       map "hasWildcard", to: :has_wildcard
       map "sortOrder", to: :sort_order
       map "active", to: :active
-    end
-
-    # Compares divisions by sort order
-    #
-    # @api public
-    # @example
-    #   division1 <=> division2
-    # @param other [Division] the division to compare with
-    # @return [Integer, nil] -1, 0, or 1 for comparison
-    def <=>(other)
-      sort_order <=> other.sort_order
     end
   end
 end

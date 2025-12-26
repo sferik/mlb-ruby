@@ -1,4 +1,3 @@
-require "json"
 require_relative "error"
 
 module MLB

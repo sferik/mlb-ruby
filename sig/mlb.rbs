@@ -1,0 +1,588 @@
+module MLB
+  VERSION: Gem::Version
+
+  CLIENT: Client
+
+  class Client
+    extend Forwardable
+
+    DEFAULT_BASE_URL: String
+
+    attr_accessor base_url: String
+
+    def open_timeout: () -> Integer
+    def read_timeout: () -> Integer
+    def write_timeout: () -> Integer
+    def proxy_url: () -> String?
+    def debug_output: () -> IO
+
+    def open_timeout=: (Integer) -> Integer
+    def read_timeout=: (Integer) -> Integer
+    def write_timeout=: (Integer) -> Integer
+    def proxy_url=: (String?) -> String?
+    def debug_output=: (IO) -> IO
+
+    def max_redirects: () -> Integer
+    def max_redirects=: (Integer) -> Integer
+
+    def initialize: (
+      ?base_url: String,
+      ?open_timeout: Integer,
+      ?read_timeout: Integer,
+      ?write_timeout: Integer,
+      ?debug_output: IO,
+      ?proxy_url: String?,
+      ?max_redirects: Integer
+    ) -> void
+
+    def get: (String, ?headers: Hash[String, String]) -> String?
+    def post: (String, ?String?, ?headers: Hash[String, String]) -> String?
+    def put: (String, ?String?, ?headers: Hash[String, String]) -> String?
+    def delete: (String, ?headers: Hash[String, String]) -> String?
+
+    private
+
+    @connection: Connection
+    @request_builder: RequestBuilder
+    @redirect_handler: RedirectHandler
+    @error_handler: ErrorHandler
+
+    def execute_request: (Symbol, String, headers: Hash[String, String], ?body: String?) -> String?
+  end
+
+  class Connection
+    extend Forwardable
+
+    DEFAULT_HOST: String
+    DEFAULT_PORT: Integer
+    DEFAULT_OPEN_TIMEOUT: Integer
+    DEFAULT_READ_TIMEOUT: Integer
+    DEFAULT_WRITE_TIMEOUT: Integer
+    DEFAULT_DEBUG_OUTPUT: IO
+    NETWORK_ERRORS: Array[singleton(StandardError)]
+
+    attr_accessor open_timeout: Integer
+    attr_accessor read_timeout: Integer
+    attr_accessor write_timeout: Integer
+    attr_accessor debug_output: IO
+    attr_reader proxy_url: String?
+    attr_reader proxy_uri: URI::HTTP?
+
+    def proxy_host: () -> String?
+    def proxy_port: () -> Integer?
+    def proxy_user: () -> String?
+    def proxy_pass: () -> String?
+
+    def initialize: (
+      ?open_timeout: Integer,
+      ?read_timeout: Integer,
+      ?write_timeout: Integer,
+      ?debug_output: IO,
+      ?proxy_url: String?
+    ) -> void
+
+    def perform: (request: Net::HTTPRequest) -> Net::HTTPResponse
+
+    def proxy_url=: (String) -> void
+
+    private
+
+    @proxy_url: String?
+    @proxy_uri: URI::HTTP?
+
+    def build_http_client: (?String, ?Integer) -> Net::HTTP
+    def configure_http_client: (Net::HTTP) -> Net::HTTP
+  end
+
+  class RequestBuilder
+    DEFAULT_HEADERS: Hash[String, String]
+    HTTP_METHODS: Hash[Symbol, singleton(Net::HTTPRequest)]
+
+    def build: (http_method: Symbol, uri: URI::Generic, ?body: String?, ?headers: Hash[String, String]) -> Net::HTTPRequest
+
+    private
+
+    def create_request: (http_method: Symbol, uri: URI::Generic, body: String?) -> Net::HTTPRequest
+    def add_headers: (request: Net::HTTPRequest, headers: Hash[String, String]) -> void
+    def escape_query_params: (URI::Generic) -> URI::Generic
+  end
+
+  class RedirectHandler
+    DEFAULT_MAX_REDIRECTS: Integer
+
+    attr_accessor max_redirects: Integer
+    attr_reader connection: Connection
+    attr_reader request_builder: RequestBuilder
+
+    def initialize: (
+      ?connection: Connection,
+      ?request_builder: RequestBuilder,
+      ?max_redirects: Integer
+    ) -> void
+
+    def handle: (response: Net::HTTPResponse, request: Net::HTTPRequest, base_url: String, ?redirect_count: Integer) -> Net::HTTPResponse
+
+    private
+
+    def build_new_uri: (Net::HTTPResponse, String) -> URI::Generic
+    def build_request: (Net::HTTPRequest, URI::Generic, Integer) -> Net::HTTPRequest
+  end
+
+  class ErrorHandler
+    ERROR_MAP: Hash[Integer, singleton(HTTPError)]
+
+    def handle: (response: Net::HTTPResponse) -> String?
+
+    private
+
+    def error: (Net::HTTPResponse) -> HTTPError
+    def error_class: (Net::HTTPResponse) -> singleton(HTTPError)
+  end
+
+  # Error classes
+  class Error < StandardError
+  end
+
+  class HTTPError < Error
+    attr_reader response: Net::HTTPResponse
+    attr_reader code: String
+
+    def initialize: (response: Net::HTTPResponse) -> void
+  end
+
+  class ClientError < HTTPError
+  end
+
+  class ServerError < HTTPError
+  end
+
+  class NetworkError < Error
+  end
+
+  class TooManyRedirects < Error
+  end
+
+  class BadRequest < ClientError
+  end
+
+  class Unauthorized < ClientError
+  end
+
+  class Forbidden < ClientError
+  end
+
+  class NotFound < ClientError
+  end
+
+  class NotAcceptable < ClientError
+  end
+
+  class ConnectionException < ClientError
+  end
+
+  class Gone < ClientError
+  end
+
+  class PayloadTooLarge < ClientError
+  end
+
+  class UnprocessableEntity < ClientError
+  end
+
+  class TooManyRequests < ClientError
+  end
+
+  class InternalServerError < ServerError
+  end
+
+  class BadGateway < ServerError
+  end
+
+  class ServiceUnavailable < ServerError
+  end
+
+  class GatewayTimeout < ServerError
+  end
+
+  # Model classes
+  class Handedness < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor description: String?
+  end
+
+  class Position < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor name: String?
+    attr_accessor type: String?
+    attr_accessor abbreviation: String?
+  end
+
+  class Status < Shale::Mapper
+    include Equalizer
+
+    attr_accessor code: String?
+    attr_accessor description: String?
+  end
+
+  class Sport < Shale::Mapper
+    include Comparable
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor code: String?
+    attr_accessor link: String?
+    attr_accessor name: String?
+    attr_accessor abbreviation: String?
+    attr_accessor sort_order: Integer?
+    attr_accessor active: bool?
+
+    def active?: () -> bool?
+
+    def <=>: (Sport) -> Integer?
+  end
+
+  class Venue < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor name: String?
+    attr_accessor link: String?
+    attr_accessor active: bool?
+    attr_accessor season: Integer?
+
+    def active?: () -> bool?
+  end
+
+  class SeasonDateInfo < Shale::Mapper
+    include Equalizer
+
+    attr_accessor season_id: String?
+    attr_accessor pre_season_start_date: Date?
+    attr_accessor pre_season_end_date: Date?
+    attr_accessor season_start_date: Date?
+    attr_accessor spring_start_date: Date?
+    attr_accessor spring_end_date: Date?
+    attr_accessor regular_season_start_date: Date?
+    attr_accessor last_date_1st_half: Date?
+    attr_accessor all_star_date: Date?
+    attr_accessor first_date_2nd_half: Date?
+    attr_accessor regular_season_end_date: Date?
+    attr_accessor post_season_start_date: Date?
+    attr_accessor post_season_end_date: Date?
+    attr_accessor season_end_date: Date?
+    attr_accessor offseason_start_date: Date?
+    attr_accessor off_season_end_date: Date?
+    attr_accessor season_level_gameday_type: String?
+    attr_accessor game_level_gameday_type: String?
+    attr_accessor qualifier_plate_appearances: Float?
+    attr_accessor qualifier_outs_pitched: Float?
+  end
+
+  class League < Shale::Mapper
+    include Comparable
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor name: String?
+    attr_accessor link: String?
+    attr_accessor abbreviation: String?
+    attr_accessor name_short: String?
+    attr_accessor season_state: String?
+    attr_accessor has_wild_card: bool?
+    attr_accessor has_split_season: bool?
+    attr_accessor num_games: Integer?
+    attr_accessor has_playoff_points: bool?
+    attr_accessor num_teams: Integer?
+    attr_accessor num_wildcard_teams: Integer?
+    attr_accessor season_date_info: SeasonDateInfo?
+    attr_accessor season: Integer?
+    attr_accessor org_code: String?
+    attr_accessor conferences_in_use: bool?
+    attr_accessor divisions_in_use: bool?
+    attr_accessor sport: Sport?
+    attr_accessor sort_order: Integer?
+    attr_accessor active: bool?
+
+    def active?: () -> bool?
+    def wild_card?: () -> bool?
+    def has_wildcard: () -> bool?
+    def wildcard?: () -> bool?
+    def split_season?: () -> bool?
+    def playoff_points?: () -> bool?
+    def conferences?: () -> bool?
+    def divisions?: () -> bool?
+
+    def <=>: (League) -> Integer?
+  end
+
+  class Division < Shale::Mapper
+    include Comparable
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor name: String?
+    attr_accessor season: String?
+    attr_accessor name_short: String?
+    attr_accessor link: String?
+    attr_accessor abbreviation: String?
+    attr_accessor league: League?
+    attr_accessor sport: Sport?
+    attr_accessor has_wildcard: bool?
+    attr_accessor sort_order: Integer?
+    attr_accessor active: bool?
+
+    def active?: () -> bool?
+    def wildcard?: () -> bool?
+
+    def <=>: (Division) -> Integer?
+  end
+
+  class Season < Shale::Mapper
+    include Comparable
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor has_wildcard: bool?
+    attr_accessor preseason_start_date: Date?
+    attr_accessor preseason_end_date: Date?
+    attr_accessor season_start_date: Date?
+    attr_accessor spring_start_date: Date?
+    attr_accessor spring_end_date: Date?
+    attr_accessor regular_season_start_date: Date?
+    attr_accessor last_date_first_half: Date?
+    attr_accessor all_star_date: Date?
+    attr_accessor first_date_second_half: Date?
+    attr_accessor regular_season_end_date: Date?
+    attr_accessor postseason_start_date: Date?
+    attr_accessor postseason_end_date: Date?
+    attr_accessor season_end_date: Date?
+    attr_accessor offseason_start_date: Date?
+    attr_accessor offseason_end_date: Date?
+    attr_accessor season_level_gameday_type: String?
+    attr_accessor game_level_gameday_type: String?
+    attr_accessor qualifier_plate_appearances: Float?
+    attr_accessor qualifier_outs_pitched: Float?
+
+    def wildcard?: () -> bool?
+
+    def <=>: (Season) -> Integer?
+  end
+
+  class Conference < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor name: String?
+    attr_accessor link: String?
+    attr_accessor abbreviation: String?
+    attr_accessor has_wildcard: bool?
+    attr_accessor league: League?
+    attr_accessor sport: Sport?
+    attr_accessor name_short: String?
+
+    def wildcard?: () -> bool?
+  end
+
+  class Team < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor spring_league: League?
+    attr_accessor all_star_status: String?
+    attr_accessor name: String?
+    attr_accessor link: String?
+    attr_accessor season: Integer?
+    attr_accessor venue: Venue?
+    attr_accessor spring_venue: Venue?
+    attr_accessor team_code: String?
+    attr_accessor file_code: String?
+    attr_accessor abbreviation: String?
+    attr_accessor team_name: String?
+    attr_accessor location_name: String?
+    attr_accessor first_year_of_play: Integer?
+    attr_accessor league: League?
+    attr_accessor division: Division?
+    attr_accessor sport: Sport?
+    attr_accessor short_name: String?
+    attr_accessor franchise_name: String?
+    attr_accessor club_name: String?
+    attr_accessor active: bool?
+
+    def active?: () -> bool?
+
+    def roster: (?season: Integer) -> Array[RosterEntry]
+  end
+
+  class Player < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor full_name: String?
+    attr_accessor link: String?
+    attr_accessor first_name: String?
+    attr_accessor last_name: String?
+    attr_accessor primary_number: Integer?
+    attr_accessor birth_date: Date?
+    attr_accessor current_age: Integer?
+    attr_accessor birth_city: String?
+    attr_accessor birth_state_province: String?
+    attr_accessor birth_country: String?
+    attr_accessor height: String?
+    attr_accessor weight: Integer?
+    attr_accessor active: bool?
+    attr_accessor current_team: Team?
+    attr_accessor primary_position: Position?
+    attr_accessor use_name: String?
+    attr_accessor middle_name: String?
+    attr_accessor boxscore_name: String?
+    attr_accessor gender: String?
+    attr_accessor is_player: bool?
+    attr_accessor is_verified: bool?
+    attr_accessor draft_year: Integer?
+    attr_accessor mlb_debut_date: Date?
+    attr_accessor bat_side: Handedness?
+    attr_accessor pitch_hand: Handedness?
+
+    def verified?: () -> bool?
+    def player?: () -> bool?
+    def active?: () -> bool?
+  end
+
+  class RosterEntry < Shale::Mapper
+    include Equalizer
+
+    attr_accessor player: Player?
+    attr_accessor jersey_number: Integer?
+    attr_accessor position: Position?
+    attr_accessor status: Status?
+    attr_accessor team_id: Integer?
+  end
+
+  class Transaction < Shale::Mapper
+    include Equalizer
+
+    attr_accessor id: Integer?
+    attr_accessor player: Player?
+    attr_accessor from_team: Team?
+    attr_accessor to_team: Team?
+    attr_accessor date: Date?
+    attr_accessor effective_date: Date?
+    attr_accessor resolution_date: Date?
+    attr_accessor type_code: String?
+    attr_accessor type_desc: String?
+    attr_accessor description: String?
+  end
+
+  class Award < Shale::Mapper
+    include Comparable
+    include Equalizer
+
+    attr_accessor id: String?
+    attr_accessor name: String?
+    attr_accessor notes: String?
+    attr_accessor votes: Integer?
+    attr_accessor date: Date?
+    attr_accessor season: Integer?
+    attr_accessor sport: Sport?
+    attr_accessor player: Player?
+    attr_accessor league: League?
+    attr_accessor sort_order: Integer?
+
+    def <=>: (Award) -> Integer?
+
+    def recipients: (?season: Integer) -> Array[Award]
+  end
+
+  # Collection classes
+  # Using untyped for flexibility with Integer or objects responding to :id
+  class Awards < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor awards: Array[Award]
+
+    def self.all: () -> Array[Award]
+    def self.find: (untyped) -> Award?
+  end
+
+  class Conferences < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor conferences: Array[Conference]
+
+    def self.all: () -> Array[Conference]
+    def self.find: (untyped) -> Conference?
+  end
+
+  class Divisions < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor divisions: Array[Division]
+
+    def self.all: (?sport: untyped) -> Array[Division]
+    def self.find: (untyped, ?sport: untyped) -> Division?
+  end
+
+  class Leagues < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor leagues: Array[League]
+
+    def self.all: (?sport: untyped) -> Array[League]
+    def self.find: (untyped, ?sport: untyped) -> League?
+  end
+
+  class Players < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor players: Array[Player]
+
+    def self.all: (?season: Integer, ?sport: untyped) -> Array[Player]
+    def self.find: (untyped) -> Player?
+    def self.find_all: (*untyped) -> Array[Player]
+  end
+
+  class Roster < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor roster: Array[RosterEntry]
+
+    def self.find: (team: untyped, ?season: Integer, ?sport: untyped) -> Array[RosterEntry]
+  end
+
+  class Seasons < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor seasons: Array[Season]
+
+    def self.all: (?sport: untyped) -> Array[Season]
+    def self.find: (untyped, ?sport: untyped) -> Season?
+  end
+
+  class Sports < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor sports: Array[Sport]
+
+    def self.all: () -> Array[Sport]
+    def self.find: (untyped) -> Sport?
+  end
+
+  class Teams < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor teams: Array[Team]
+
+    def self.all: (?season: Integer, ?sport: untyped) -> Array[Team]
+    def self.find: (untyped, ?season: Integer, ?sport: untyped) -> Team?
+  end
+
+  class Transactions < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor transactions: Array[Transaction]
+
+    def self.between: (?start_date: Date, ?end_date: Date) -> Array[Transaction]
+  end
+
+  class Venues < Shale::Mapper
+    attr_accessor copyright: String?
+    attr_accessor venues: Array[Venue]
+
+    def self.all: (?season: Integer, ?sport: untyped) -> Array[Venue]
+    def self.find: (untyped, ?season: Integer, ?sport: untyped) -> Venue?
+  end
+end

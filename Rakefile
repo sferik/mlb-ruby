@@ -13,6 +13,9 @@ require "rubocop/rake_task"
 
 RuboCop::RakeTask.new
 
+desc "Run linters"
+task lint: %i[rubocop standard]
+
 require "mutant"
 
 desc "Run mutant"
@@ -20,7 +23,8 @@ task :mutant do
   system(*%w[bundle exec mutant run]) or raise "Mutant task failed"
 end
 
-desc "Run linters"
-task lint: %i[rubocop standard]
+require "steep/rake_task"
 
-task default: %i[test lint mutant]
+Steep::RakeTask.new(:steep)
+
+task default: %i[test lint mutant steep]

@@ -5,8 +5,11 @@ require_relative "linescore_teams"
 module MLB
   # Represents a game's linescore
   class Linescore < Shale::Mapper
+    # Inning state for top of inning
     INNING_TOP = "Top".freeze
+    # Inning state for middle of inning
     INNING_MIDDLE = "Middle".freeze
+    # Inning state for bottom of inning
     INNING_BOTTOM = "Bottom".freeze
 
     # @!attribute [rw] current_inning

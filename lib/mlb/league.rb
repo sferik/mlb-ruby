@@ -11,9 +11,13 @@ module MLB
     include ComparableByAttribute
     include Equalizer.new(:id)
 
+    # Season state for preseason (spring training)
     SEASON_PRESEASON = "preseason".freeze
+    # Season state for regular season
     SEASON_INSEASON = "inseason".freeze
+    # Season state for playoffs
     SEASON_POSTSEASON = "postseason".freeze
+    # Season state for offseason
     SEASON_OFFSEASON = "offseason".freeze
 
     # Returns the attribute used for sorting

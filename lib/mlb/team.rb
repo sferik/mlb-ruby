@@ -11,39 +11,70 @@ module MLB
   class Team < Shale::Mapper
     include Equalizer.new(:id)
 
+    # All-Star status indicating player is on All-Star team
     ALL_STAR_YES = "Y".freeze
+    # All-Star status indicating player is not on All-Star team
     ALL_STAR_NO = "N".freeze
 
-    # Team ID constants
+    # Team ID for Arizona Diamondbacks
     AZ = 109
+    # Team ID for Oakland Athletics
     ATH = 133
+    # Team ID for Atlanta Braves
     ATL = 144
+    # Team ID for Baltimore Orioles
     BAL = 110
+    # Team ID for Boston Red Sox
     BOS = 111
+    # Team ID for Chicago Cubs
     CHC = 112
+    # Team ID for Chicago White Sox
     CWS = 145
+    # Team ID for Cincinnati Reds
     CIN = 113
+    # Team ID for Cleveland Guardians
     CLE = 114
+    # Team ID for Colorado Rockies
     COL = 115
+    # Team ID for Detroit Tigers
     DET = 116
+    # Team ID for Houston Astros
     HOU = 117
+    # Team ID for Kansas City Royals
     KC = 118
+    # Team ID for Los Angeles Angels
     LAA = 108
+    # Team ID for Los Angeles Dodgers
     LAD = 119
+    # Team ID for Miami Marlins
     MIA = 146
+    # Team ID for Milwaukee Brewers
     MIL = 158
+    # Team ID for Minnesota Twins
     MIN = 142
+    # Team ID for New York Mets
     NYM = 121
+    # Team ID for New York Yankees
     NYY = 147
+    # Team ID for Philadelphia Phillies
     PHI = 143
+    # Team ID for Pittsburgh Pirates
     PIT = 134
+    # Team ID for San Diego Padres
     SD = 135
+    # Team ID for San Francisco Giants
     SF = 137
+    # Team ID for Seattle Mariners
     SEA = 136
+    # Team ID for St. Louis Cardinals
     STL = 138
+    # Team ID for Tampa Bay Rays
     TB = 139
+    # Team ID for Texas Rangers
     TEX = 140
+    # Team ID for Toronto Blue Jays
     TOR = 141
+    # Team ID for Washington Nationals
     WSH = 120
 
     attribute :id, Shale::Type::Integer

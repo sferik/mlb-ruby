@@ -7,7 +7,9 @@ module MLB
   class PlayerStreak < Shale::Mapper
     include Equalizer.new(:player_id, :streak_type, :current_streak)
 
+    # Streak type for hitting streaks
     STREAK_HITTING = "hittingStreak".freeze
+    # Streak type for on-base streaks
     STREAK_ON_BASE = "onBaseStreak".freeze
 
     # @!attribute [rw] player_id
@@ -86,7 +88,9 @@ module MLB
 
   # Represents a streaks category
   class StreakCategory < Shale::Mapper
+    # Category type for hitting streaks
     CATEGORY_HITTING = "hittingStreak".freeze
+    # Category type for on-base streaks
     CATEGORY_ON_BASE = "onBaseStreak".freeze
 
     # @!attribute [rw] category_type

@@ -6,8 +6,11 @@ module MLB
   class GameStatus < Shale::Mapper
     include Equalizer.new(:status_code)
 
+    # Game state value for completed games
     FINAL = "Final".freeze
+    # Game state value for games in progress
     LIVE = "Live".freeze
+    # Game state value for games not yet started
     PREVIEW = "Preview".freeze
 
     # @!attribute [rw] abstract_game_state

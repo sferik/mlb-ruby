@@ -8,11 +8,17 @@ module MLB
   class Transaction < Shale::Mapper
     include Equalizer.new(:id)
 
+    # Transaction type code for trades
     TYPE_TRADE = "TR".freeze
+    # Transaction type code for free agent signings
     TYPE_FREE_AGENT = "FA".freeze
+    # Transaction type code for assignments
     TYPE_ASSIGNMENT = "ASG".freeze
+    # Transaction type code for signings
     TYPE_SIGNING = "SGN".freeze
+    # Transaction type code for releases
     TYPE_RELEASE = "REL".freeze
+    # Transaction type code for waivers
     TYPE_WAIVER = "WV".freeze
 
     # @!attribute [rw] id

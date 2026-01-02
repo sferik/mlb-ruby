@@ -3,8 +3,11 @@ require_relative "code_description_type"
 module MLB
   # Represents handedness (batting or throwing side)
   class Handedness < CodeDescriptionType
+    # Code for left-handed
     LEFT = "L".freeze
+    # Code for right-handed
     RIGHT = "R".freeze
+    # Code for switch hitter/thrower
     SWITCH = "S".freeze
 
     # Returns whether this is left-handed

@@ -6,9 +6,13 @@ module MLB
   class Position < Shale::Mapper
     include Equalizer.new(:code)
 
+    # Position type for pitchers
     TYPE_PITCHER = "Pitcher".freeze
+    # Position type for catchers
     TYPE_CATCHER = "Catcher".freeze
+    # Position type for infielders
     TYPE_INFIELDER = "Infielder".freeze
+    # Position type for outfielders
     TYPE_OUTFIELDER = "Outfielder".freeze
 
     # @!attribute [rw] code

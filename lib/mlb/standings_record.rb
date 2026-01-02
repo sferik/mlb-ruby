@@ -7,13 +7,21 @@ require_relative "team_record"
 module MLB
   # Represents a standings record for a division
   class StandingsRecord < Shale::Mapper
+    # Standings type for regular season
     STANDINGS_REGULAR_SEASON = "regularSeason".freeze
+    # Standings type for wild card race
     STANDINGS_WILD_CARD = "wildCard".freeze
+    # Standings type for division leaders
     STANDINGS_DIVISION_LEADERS = "divisionLeaders".freeze
+    # Standings type for wild card with division leaders
     STANDINGS_WILD_CARD_WITH_LEADERS = "wildCardWithLeaders".freeze
+    # Standings type for first half of split season
     STANDINGS_FIRST_HALF = "firstHalf".freeze
+    # Standings type for second half of split season
     STANDINGS_SECOND_HALF = "secondHalf".freeze
+    # Standings type for spring training
     STANDINGS_SPRING_TRAINING = "springTraining".freeze
+    # Standings type for postseason
     STANDINGS_POSTSEASON = "postseason".freeze
 
     # @!attribute [rw] standings_type

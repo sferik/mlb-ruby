@@ -48,6 +48,7 @@ module MLB
 
   # Base class for simple collections
   class Collection < Shale::Mapper
+    extend SingleForwardable
 
     self.@endpoint: String
     self.@collection_name: Symbol
@@ -56,6 +57,13 @@ module MLB
     def self.collection_name: () -> Symbol
     def self.collection: (endpoint: String, item_type: Class, collection_name: Symbol) -> void
     def self.all: () -> Array[untyped]
+    def self.empty?: () -> bool
+    def self.any?: () -> bool
+    def self.count: () -> Integer
+    def self.size: () -> Integer
+    def self.first: () -> untyped
+    def self.last: () -> untyped
+    def self.each: () ?{ (untyped) -> void } -> (Array[untyped] | Enumerator[untyped, Array[untyped]])
   end
 
   # Consolidated stat values class

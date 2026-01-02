@@ -64,6 +64,26 @@ module MLB
       assert_empty results
     end
 
+    def test_empty_returns_true_when_no_items
+      stub_request(:get, "https://statsapi.mlb.com/api/v1/dynamic_items")
+        .to_return(body: "[]",
+          headers: {"Content-Type" => "application/json;charset=UTF-8"})
+
+      test_class = create_test_collection
+
+      assert_empty test_class
+    end
+
+    def test_empty_returns_false_when_items_exist
+      stub_request(:get, "https://statsapi.mlb.com/api/v1/dynamic_items")
+        .to_return(body: '["item1","item2"]',
+          headers: {"Content-Type" => "application/json;charset=UTF-8"})
+
+      test_class = create_test_collection
+
+      refute_empty test_class
+    end
+
     private
 
     def create_test_collection

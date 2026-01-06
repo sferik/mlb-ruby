@@ -5,9 +5,10 @@ gemspec
 
 gem "fiddle", ">= 1.1.2"
 gem "irb", ">= 1.15.2"
-gem "minitest", ">= 5.19"
+gem "minitest", ">= 6"
+gem "minitest-mock", ">= 5.27"
 gem "mutant", ">= 0.12"
-gem "mutant-minitest", ">= 0.11.24"
+gem "mutant-minitest", ">= 0.14.1"
 gem "ostruct", ">= 0.6"
 gem "rake", ">= 13.0.6"
 gem "rubocop", ">= 1.21"

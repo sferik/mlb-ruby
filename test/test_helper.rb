@@ -13,6 +13,7 @@ unless $PROGRAM_NAME.end_with?("mutant")
 end
 
 require "minitest/autorun"
+require "minitest/mock"
 require "mutant/minitest/coverage"
 require "webmock/minitest"
 require "mlb"

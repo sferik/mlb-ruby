@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     "allowed_push_host" => "https://rubygems.org",
     "bug_tracker_uri" => "https://github.com/sferik/mlb-ruby/issues",
-    "changelog_uri" => "https://github.com/sferik/mlb-ruby/blob/master/CHANGELOG.md",
+    "changelog_uri" => "https://github.com/sferik/mlb-ruby/blob/main/CHANGELOG.md",
     "documentation_uri" => "https://rubydoc.info/gems/mlb/",
     "funding_uri" => "https://github.com/sponsors/sferik/",
     "homepage_uri" => spec.homepage,

@@ -10,3 +10,6 @@ Gemfile.lock
 
 # ASDF-VM / rbenv
 .tool-versions
+
+# Mutant
+.mutant

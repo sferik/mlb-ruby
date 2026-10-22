@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.2"
   spec.platform = Gem::Platform::RUBY
 
-  spec.add_dependency "equalizer", "~> 0.0.11"
+  spec.add_dependency "equalizer", ">= 0.0.11", "< 1.1.0"
   spec.add_dependency "shale", "~> 1.2"
 
   spec.metadata = {
